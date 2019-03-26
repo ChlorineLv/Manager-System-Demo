@@ -120,7 +120,6 @@ Page({
   },
 
   showToast: function(){
-    console.log("toast");
     wx.showToast({
       title: this.data.msgToast,
       icon: 'loading',

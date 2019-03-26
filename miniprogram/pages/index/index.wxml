@@ -1,32 +1,18 @@
 <!--index.wxml-->
 <view class="container">
 
-<van-cell-group>
-  <van-field
-    value="{{ userinfo }}"
-    required
-    clearable
-    label="用户名"
-    icon="question-o"
-    placeholder="请输入用户名"
-    bind:change="onAccChange"
-    bind:click-icon="onClickIcon"
-  />
+  <van-cell-group>
+    <van-field value="{{ userinfo }}" required clearable label="用户名" icon="question-o" placeholder="请输入用户名" bind:change="onAccChange" bind:click-icon="onClickIcon" />
 
-  <van-field
-    value="{{ userpwd }}"
-    type="password"
-    label="密码"
-    placeholder="请输入密码"
-    bind:change="onPwdChange"
-    required
-    border="{{ false }}"
-  />
-</van-cell-group>
+    <van-field value="{{ userpwd }}" type="password" label="密码" placeholder="请输入密码" bind:change="onPwdChange" required border="{{ false }}" />
+  </van-cell-group>
 
-<van-row>
-<van-button bind:click="onClickSign" type="primary">登陆</van-button>
-<van-button type="default">取消</van-button></van-row>
-<van-button bind:click="showToast"type="default">显示</van-button>
-<van-toast id="van-toast" >toast</van-toast>
+  <van-row>
+    <van-col span='8'>
+      <van-button bind:click="onClickSign" type="primary">登陆</van-button>
+    </van-col>
+    <van-col span='8'>
+      <van-button type="default">取消</van-button>
+    </van-col>
+  </van-row>
 </view>

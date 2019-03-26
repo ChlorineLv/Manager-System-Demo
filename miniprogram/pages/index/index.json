@@ -1,3 +1,7 @@
 {
-  "usingComponents": {}
+  "usingComponents": {
+    "van-toast": "../../miniprogram_npm/vant-weapp/toast/index",
+    "van-row": "../../miniprogram_npm/vant-weapp/row/index",
+    "van-col": "../../miniprogram_npm/vant-weapp/col/index"
+  }
 }
