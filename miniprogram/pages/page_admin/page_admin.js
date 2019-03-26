@@ -1,4 +1,5 @@
 // miniprogram/pages/page_admin/page_admin.js
+import Toast from '../../miniprogram_npm/vant-weapp/toast/index';
 Page({
 
   /**
@@ -62,5 +63,9 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  showToast() {
+    Toast("hello");
   }
 })
