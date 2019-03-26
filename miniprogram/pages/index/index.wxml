@@ -7,11 +7,11 @@
     <van-field value="{{ userpwd }}" type="password" label="密码" placeholder="请输入密码" bind:change="onPwdChange" required border="{{ false }}" />
   </van-cell-group>
 
-  <van-row>
-    <van-col span='8'>
+  <van-row gutter='15'>
+    <van-col>
       <van-button bind:click="onClickSign" type="primary">登陆</van-button>
     </van-col>
-    <van-col span='8'>
+    <van-col>
       <van-button type="default">取消</van-button>
     </van-col>
   </van-row>

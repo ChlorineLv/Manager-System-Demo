@@ -8,8 +8,7 @@ Page({
    */
   data: {
     in_acc: '',
-    in_pwd: '',
-    msgToast: ''
+    in_pwd: ''
   },
 
   /**
@@ -104,14 +103,14 @@ Page({
               })
             }
           } else {
-            console.log("密码错误");
-            this.data.msgToast = "密码错误";
-            this.showToast();
+            let msg = "密码错误"
+            console.log(msg);
+            this.showToast(msg);
           }
         } else {
-          console.log("账号不存在");
-          this.data.msgToast = "账号不存在";
-          this.showToast();
+          let msg = "账号不存在"
+          console.log(msg);
+          this.showToast(msg);
         }
 
       }
@@ -119,11 +118,11 @@ Page({
 
   },
 
-  showToast: function(){
+  showToast: function(msg){
     wx.showToast({
-      title: this.data.msgToast,
+      title: msg,
       icon: 'loading',
-      duration: 2000
+      duration: 1250
     })
   }
 })
