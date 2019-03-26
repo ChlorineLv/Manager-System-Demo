@@ -1,3 +1,4 @@
+import Toast from '../../miniprogram_npm/vant-weapp/toast/index';
 const db = wx.cloud.database();
 
 Page({
@@ -7,7 +8,8 @@ Page({
    */
   data: {
     in_acc: '',
-    in_pwd: ''
+    in_pwd: '',
+    msgToast: ''
   },
 
   /**
@@ -66,33 +68,24 @@ Page({
 
   },
 
-  /**
-   * 用户点击登陆
-   */
-  onClickSign() {
-    // 云函数
-    // wx.cloud.callFunction({
-    //   // 要调用的云函数名称
-    //   name: 'userLogin',
-    //   // 传递给云函数的参数
-    //   data: {
-    //     account: this.data.in_acc,
-    //     password: this.data.in_pwd
-    //   },
-    //   success: res => {
-    //     console.log(res)
-    //   },
-    //   fail: err => {
-    //     console.log(err)
-    //   }
-    // })
+  onAccChange: function(event) {
+    // event.detail 为当前输入的值
+    this.data.in_acc = event.detail;
+  },
 
-    // 登陆判别
+  onPwdChange: function(event) {
+    this.data.in_pwd = event.detail;
+  },
+
+  onClickSign: function() {
+    /**
+     * 用户点击登陆
+     */
     db.collection('tb_user').where({
       user_id: parseInt(this.data.in_acc)
     }).get({
       // 采用箭头函数使this指回Page中
-      success:(res)=>{
+      success: (res) => {
         console.log(res.data[0])
         // 账号是否存在
         if (res.data[0] != undefined) {
@@ -107,14 +100,18 @@ Page({
             } else {
               console.log("学生");
               wx.redirectTo({
-                url: '../page_stu/page_stu',
+                url: '../page_student/page_stu',
               })
             }
           } else {
             console.log("密码错误");
+            this.data.msgToast = "密码错误";
+            this.showToast();
           }
         } else {
           console.log("账号不存在");
+          this.data.msgToast = "账号不存在";
+          this.showToast();
         }
 
       }
@@ -122,12 +119,12 @@ Page({
 
   },
 
-  onInfoChange(event) {
-    // event.detail 为当前输入的值
-    this.data.in_acc = event.detail;
-  },
-
-  onPwdChange(event) {
-    this.data.in_pwd = event.detail;
+  showToast: function(){
+    console.log("toast");
+    wx.showToast({
+      title: this.data.msgToast,
+      icon: 'loading',
+      duration: 2000
+    })
   }
 })
