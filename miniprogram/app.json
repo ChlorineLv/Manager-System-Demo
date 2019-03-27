@@ -17,6 +17,7 @@
     "van-button": "../../miniprogram_npm/vant-weapp/button/index",
     "van-row": "../../miniprogram_npm/vant-weapp/row/index",
     "van-col": "../../miniprogram_npm/vant-weapp/col/index",
-    "van-field": "../../miniprogram_npm/vant-weapp/field/index"
+    "van-field": "../../miniprogram_npm/vant-weapp/field/index",
+    "van-notify": "../../miniprogram_npm/vant-weapp/notify/index"
   }
 }

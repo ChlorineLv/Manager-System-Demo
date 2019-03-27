@@ -1,5 +1,5 @@
 // miniprogram/pages/page_admin/page_admin.js
-import Toast from '../../miniprogram_npm/vant-weapp/toast/index';
+import Notify from '../../miniprogram_npm/vant-weapp/notify/notify';
 Page({
 
   /**
@@ -65,7 +65,7 @@ Page({
 
   },
 
-  showToast() {
-    Toast("hello");
+  showNotify() {
+    Notify("通知内容");
   }
 })

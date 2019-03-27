@@ -1,6 +1,6 @@
 <!--miniprogram/pages/page_admin/page_admin.wxml-->
 <text>教务员页面</text>
 <view>
-  <van-button bind:click="showToast" type="default">显示</van-button>
-  <van-toast id="van-toast" />
+   <van-button bind:click="showNotify" type="default">Notify</van-button>
+  <van-notify id="van-notify" />
 </view>
