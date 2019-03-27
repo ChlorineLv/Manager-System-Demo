@@ -65,7 +65,9 @@ Page({
 
   },
 
-  showNotify() {
-    Notify("通知内容");
+  btn_booking() {
+    wx.redirectTo({
+      url: '../page_admin_book/page_admin_book',
+    })
   }
 })

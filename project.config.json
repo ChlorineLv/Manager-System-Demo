@@ -35,7 +35,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -47,6 +47,13 @@
 					"id": -1,
 					"name": "管理员界面",
 					"pathName": "pages/page_admin/page_admin",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "管理员教材预订",
+					"pathName": "pages/page_admin_book/page_admin_book",
 					"scene": null
 				}
 			]

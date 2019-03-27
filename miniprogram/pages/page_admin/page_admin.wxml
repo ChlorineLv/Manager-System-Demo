@@ -1,6 +1,5 @@
 <!--miniprogram/pages/page_admin/page_admin.wxml-->
 <text>教务员页面</text>
 <view>
-   <van-button bind:click="showNotify" type="default">Notify</van-button>
-  <van-notify id="van-notify" />
+   <van-button bind:click="btn_booking" type="primary">教材预定发布</van-button>
 </view>
