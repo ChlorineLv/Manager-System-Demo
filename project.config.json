@@ -51,9 +51,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 2,
 					"name": "管理员教材预订",
 					"pathName": "pages/page_admin_book/page_admin_book",
+					"query": "",
 					"scene": null
 				}
 			]

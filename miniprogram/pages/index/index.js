@@ -93,12 +93,12 @@ Page({
             console.log("登陆成功");
             if (res.data[0].user_college == '教务处') {
               console.log("教务员");
-              wx.redirectTo({
+              wx.navigateTo({
                 url: '../page_admin/page_admin',
               })
             } else {
               console.log("学生");
-              wx.redirectTo({
+              wx.navigateTo({
                 url: '../page_student/page_stu',
               })
             }

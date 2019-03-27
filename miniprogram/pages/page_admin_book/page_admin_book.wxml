@@ -1,19 +1,21 @@
 <!--miniprogram/pages/page_admin_book/page_admin_book.wxml-->
-<text>教材预定</text>
-<van-cell-group>
-  <van-field value="{{ username }}" required clearable label="用户名" icon="question-o" placeholder="请输入用户名" bind:click-icon="onClickIcon" />
-  <van-field id="order_college" required clearable label="学院/系别名称" placeholder="请输入学院/系别名称" />
-  <van-field id="order_major" required clearable label="专业名称" />
-  <van-field id="order_grade" required clearable label="年级" />
-  <van-field id="order_semester" required clearable label="学期"/>
-  <van-field id="order_course" required clearable label="课程名称"/>
-  <van-field id="order_teacher" clearable label="任课老师名字"/>
-  <van-field id="order_book_name" required clearable label="教材名称"/>
-  <van-field id="order_book_isbn" required clearable label="教材ISBN"/>
-  <van-field id="order_book_writer" clearable label="作者/编著者"/>
-  <van-field id="order_book_writer" clearable label="版次" />
-  <van-field id="order_book_publisher" clearable label="出版社" />
-  <van-field id="order_book_price" required clearable label="单价"/>
-  <van-field id="order_remark" clearable label="备注" placeholder="选填" />
+<van-nav-bar title="教材预定" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 
-</van-cell-group>
+<view class="container">
+  <van-cell-group>
+    <van-field id="order_college" bindchange="onChage_college" required clearable label="学院/系别名称" placeholder="请输入学院/系别名称" />
+    <van-field id="order_major" bindchange="onChage_major" required clearable label="专业名称" />
+    <van-field id="order_grade" bindchange="onChage_grade" required clearable label="年级" />
+    <van-field id="order_semester" bindchange="onChage_semester" required clearable label="学期" />
+    <van-field id="order_course" bindchange="onChage_course" required clearable label="课程名称" />
+    <van-field id="order_teacher" bindchange="onChage_teacher" clearable label="任课老师名字" />
+    <van-field id="order_book_name" bindchange="onChage_book_name" required clearable label="教材名称" />
+    <van-field id="order_book_isbn" bindchange="onChage_book_isbn" required clearable label="教材ISBN" />
+    <van-field id="order_book_writer" bindchange="onChage_book_writer" clearable label="作者/编著者" />
+    <van-field id="order_book_version" bindchange="onChage_book_version" clearable label="版次" />
+    <van-field id="order_book_publisher" bindchange="onChage_book_publisher" clearable label="出版社" />
+    <van-field id="order_book_price" bindchange="onChage_book_price" required clearable label="单价" />
+    <van-field id="order_remark" bindchange="onChage_remark" clearable label="备注" placeholder="选填" />
+  </van-cell-group>
+  <van-button bind:click="btn_release" type="primary">确定发布</van-button>
+</view>

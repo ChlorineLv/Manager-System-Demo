@@ -65,9 +65,21 @@ Page({
 
   },
 
+  /**
+   * 点击教材预订
+   */
   btn_booking() {
-    wx.redirectTo({
+    wx.navigateTo({
       url: '../page_admin_book/page_admin_book',
+    })
+  },
+
+  /**
+   * 点击右边注销
+   */
+  onClickRight() {
+    wx.redirectTo({
+      url: '../index/index'
     })
   }
 })

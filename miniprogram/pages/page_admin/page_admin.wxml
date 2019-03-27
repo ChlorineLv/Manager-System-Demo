@@ -1,5 +1,6 @@
 <!--miniprogram/pages/page_admin/page_admin.wxml-->
-<text>教务员页面</text>
+<van-nav-bar title="教务员页面" right-text="注销" bind:click-right="onClickRight" />
+
 <view>
-   <van-button bind:click="btn_booking" type="primary">教材预定发布</van-button>
+  <van-button bind:click="btn_booking" type="primary">教材预定发布</van-button>
 </view>
