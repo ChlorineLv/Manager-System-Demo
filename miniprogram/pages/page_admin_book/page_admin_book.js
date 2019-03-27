@@ -1,6 +1,6 @@
 // miniprogram/pages/page_admin_book/page_admin_book.js
 const db = wx.cloud.database()
-
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
 
   /**
@@ -112,11 +112,24 @@ Page({
       },
       success(res) {
         // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-        console.log(res)
+        console.log(res);
+        // wx.showToast({
+        //   title: '已成功发布',
+        //   duration:2000,
+        //   icon:'none'
+        // });
+        Dialog.confirm({
+          title: '成功',
+          message: '已成功发布，是否返回上一页'
+        }).then(() => {
+          // on confirm
+          wx.navigateBack({
+            delta:1
+          })
+        }).catch(() => {
+          // on cancel
+        });
       }
     })
-  },
-  formReset: function () {
-    console.log('form发生了reset事件')
   }
 })
