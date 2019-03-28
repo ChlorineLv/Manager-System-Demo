@@ -35,7 +35,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 3,
 			"list": [
 				{
 					"id": -1,
@@ -55,6 +55,12 @@
 					"name": "管理员教材预订",
 					"pathName": "pages/page_admin_book/page_admin_book",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "教务员预定管理",
+					"pathName": "pages/page_admin_book_mgmt/page_admin_book_mgmt",
 					"scene": null
 				}
 			]

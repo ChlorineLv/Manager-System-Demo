@@ -120,8 +120,8 @@ Page({
       // data 字段表示需新增的 JSON 数据
       data: {
         order_create_date: new Date(),
-        order_college: dataInput.order_college,
         order_timeout: false,
+        order_college: dataInput.order_college,
         order_major: dataInput.order_major,
         order_grade: dataInput.order_grade,
         order_semester: dataInput.order_semester,
@@ -133,8 +133,9 @@ Page({
         order_book_version: dataInput.order_book_version,
         order_book_publisher: dataInput.order_book_publisher,
         order_book_price: dataInput.order_book_price,
-        order_book_type: dataInput.order_book_type,
-        order_book_num: 0,
+        order_book_num_sec: 0,
+        order_book_num_first: 0,
+        order_visible: true,
         order_remark: dataInput.order_remark
       },
       success(res) {

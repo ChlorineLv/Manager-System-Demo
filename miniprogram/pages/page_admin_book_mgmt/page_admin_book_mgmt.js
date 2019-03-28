@@ -1,11 +1,13 @@
 // miniprogram/pages/page_admin_book_mgmt/page_admin_book_mgmt.js
+const db = wx.cloud.database();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    activeNames: [],
+    order_list: []
   },
 
   /**
@@ -79,6 +81,34 @@ Page({
     wx.navigateBack({
       delta: 2
     })
-  }
+  },
 
+  /**
+   * 点开Collapse
+   */
+  onChangeCollapse(event) {
+    this.setData({
+      activeNames: event.detail
+    });
+  },
+
+  /**
+   * 用户点击查询
+   */
+  btn_search(options) {
+    db.collection('tb_order').get({
+      success: res => {
+        
+        console.log(res.data);
+        this.setData({
+          order_list: res.data,
+          // book: res.data,
+          // id: options.id
+        });
+      },
+      fail: err => {
+        console.error(err);
+      }
+    })
+  }
 })
