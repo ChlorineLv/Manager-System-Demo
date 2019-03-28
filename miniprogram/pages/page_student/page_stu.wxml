@@ -1,2 +1,2 @@
-<!--miniprogram/pages/page_stu/page_stu.wxml-->
+<!--miniprogram/pages/page_student/page_stu.wxml-->
 <van-nav-bar title="学生界面" right-text="注销" bind:click-right="onClickRight" />
