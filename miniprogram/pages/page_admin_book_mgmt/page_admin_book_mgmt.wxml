@@ -3,7 +3,7 @@
 <view>
   <van-collapse value="{{ activeNames }}" bind:change="onChangeCollapse">
     <van-collapse-item title="筛选" name="1">
-      刷选选项
+      筛选选项
     </van-collapse-item>
   </van-collapse>
   <view class="container">
@@ -11,9 +11,9 @@
   </view>
   <view id="showContain" style='width=80%'>
     <view wx:for="{{order_list}}">
-      <van-panel title="标题" desc="描述信息" status="状态">
-        <view>内容</view>
+      <van-panel title="{{item.order_course}}" desc="《{{item.order_book_name}}》" status="{{item.order_college}} {{item.order_grade}}级{{item.order_major}}">
       </van-panel>
+      <br/>
     </view>
   </view>
 </view>
