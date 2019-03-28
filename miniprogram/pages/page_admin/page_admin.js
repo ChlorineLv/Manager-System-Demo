@@ -87,8 +87,8 @@ Page({
    * 点击右边注销
    */
   onClickRight() {
-    wx.redirectTo({
-      url: '../index/index'
+    wx.navigateBack({
+      delta:1
     })
   }
 })
