@@ -1,4 +1,4 @@
-import Toast from '../../miniprogram_npm/vant-weapp/toast/index';
+import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 const db = wx.cloud.database();
 
 Page({
@@ -103,26 +103,16 @@ Page({
               })
             }
           } else {
-            let msg = "密码错误"
-            console.log(msg);
-            this.showToast(msg);
+            Toast("密码错误");
           }
         } else {
-          let msg = "账号不存在"
-          console.log(msg);
-          this.showToast(msg);
+          Toast("账号不存在");
         }
-
       }
     })
-
   },
 
-  showToast: function(msg){
-    wx.showToast({
-      title: msg,
-      icon: 'loading',
-      duration: 1250
-    })
+  onClickIcon() {
+    Toast("密码为账号本身");
   }
 })

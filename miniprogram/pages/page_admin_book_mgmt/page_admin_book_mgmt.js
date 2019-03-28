@@ -1,5 +1,4 @@
-// miniprogram/pages/page_admin/page_admin.js
-import Notify from '../../miniprogram_npm/vant-weapp/notify/notify';
+// miniprogram/pages/page_admin_book_mgmt/page_admin_book_mgmt.js
 Page({
 
   /**
@@ -64,22 +63,12 @@ Page({
   onShareAppMessage: function () {
 
   },
-
   /**
-   * 点击教材预订发布
+   * 点击左边返回
    */
-  btn_booking() {
-    wx.navigateTo({
-      url: '../page_admin_book/page_admin_book',
-    })
-  },
-
-  /**
-   * 点击教材预订管理
-   */
-  btn_booking_mgmt() {
-    wx.navigateTo({
-      url: '../page_admin_book_mgmt/page_admin_book_mgmt',
+  onClickLeft() {
+    wx.navigateBack({
+      delta: 1
     })
   },
 
@@ -90,5 +79,6 @@ Page({
     wx.redirectTo({
       url: '../index/index'
     })
-  }
+  },
+
 })

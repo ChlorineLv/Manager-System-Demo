@@ -4,7 +4,8 @@
     "pages/index/index",
     "pages/page_student/page_stu",
     "pages/page_admin/page_admin",
-    "pages/page_admin_book/page_admin_book"
+    "pages/page_admin_book/page_admin_book",
+    "pages/page_admin_book_mgmt/page_admin_book_mgmt"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -21,6 +22,7 @@
     "van-field": "../../miniprogram_npm/vant-weapp/field/index",
     "van-notify": "../../miniprogram_npm/vant-weapp/notify/index",
     "van-nav-bar": "../../miniprogram_npm/vant-weapp/nav-bar/index",
-    "van-dialog": "../../miniprogram_npm/vant-weapp/dialog/index"
+    "van-dialog": "../../miniprogram_npm/vant-weapp/dialog/index",
+    "van-picker": "../../miniprogram_npm/vant-weapp/picker/index"
   }
 }

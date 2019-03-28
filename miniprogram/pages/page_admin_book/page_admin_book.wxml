@@ -4,8 +4,9 @@
 <view class="container">
   <form bindsubmit="formSubmit" bindreset="formReset">
     <van-cell-group>
-      <van-field name="order_college" required clearable label="学院名称" placeholder="请输入学院名称" />
+      <van-field name="order_college" required clearable label="学院名称" />
       <van-field name="order_major" required clearable label="专业名称" />
+      <!-- <van-picker columns="{{ columns }}" bind:change="onChange" /> -->
       <van-field name="order_grade" required clearable label="年级" />
       <van-field name="order_semester" required clearable label="学期" />
       <van-field name="order_course" required clearable label="课程名称" />

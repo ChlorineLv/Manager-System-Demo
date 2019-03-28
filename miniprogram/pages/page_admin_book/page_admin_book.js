@@ -1,12 +1,38 @@
 // miniprogram/pages/page_admin_book/page_admin_book.js
 const db = wx.cloud.database()
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
+const citys = {
+  '浙江': ['杭州', '宁波', '温州', '嘉兴', '湖州'],
+  '福建': ['福州', '厦门', '莆田', '三明', '泉州']
+};
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    columns: [{
+        values: Object.keys(citys),
+        className: 'column1'
+      },
+      {
+        values: citys['浙江'],
+        className: 'column2',
+        defaultIndex: 2
+      }
+    ]
+  },
+
+  /**
+   * 学院选择
+   */
+  onChange(event) {
+    const {
+      picker,
+      value,
+      index
+    } = event.detail;
+    picker.setColumnValues(1, citys[value[0]]);
   },
 
   /**
@@ -87,7 +113,7 @@ Page({
   /**
    * 确定发布
    */
-  formSubmit: function (e) {
+  formSubmit: function(e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value);
     let dataInput = e.detail.value;
     db.collection('tb_order').add({
@@ -95,6 +121,7 @@ Page({
       data: {
         order_create_date: new Date(),
         order_college: dataInput.order_college,
+        order_timeout: false,
         order_major: dataInput.order_major,
         order_grade: dataInput.order_grade,
         order_semester: dataInput.order_semester,
@@ -124,7 +151,7 @@ Page({
         }).then(() => {
           // on confirm
           wx.navigateBack({
-            delta:1
+            delta: 1
           })
         }).catch(() => {
           // on cancel
