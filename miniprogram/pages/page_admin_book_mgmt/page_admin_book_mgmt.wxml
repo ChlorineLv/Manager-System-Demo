@@ -13,7 +13,6 @@
     <view wx:for="{{order_list}}">
       <van-panel title="{{item.order_semester}} - {{item.order_course}}" desc="《{{item.order_book_name}}》" status="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}">
       </van-panel>
-      <br/>
     </view>
   </view>
 </view>
