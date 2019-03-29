@@ -1,0 +1,24 @@
+<!--miniprogram/pages/page_admin_book_detail/page_admin_book_detail.wxml-->
+<van-nav-bar title="教材预订管理-详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
+<view class="container">
+  <van-cell-group>
+    <van-switch-cell title="此预订表已截止统计" checked="{{ checked }}" bind:change="onChange" />
+    <van-field disabled name="order_college" left-icon="" label="创建日期" placeholder="{{order_detail.order_create_date}}"/>
+    <van-field disabled name="order_create_date" required left-icon="home-o" label="学院名称" placeholder="{{order_detail.order_college}}"/>
+    <van-field disabled name="order_major" required label="专业名称" placeholder="{{order_detail.order_major}}"/>
+    <van-field disabled name="order_grade" required label="年级" placeholder="{{order_detail.order_grade}}"/>
+    <van-field disabled name="order_semester" required label="学期" placeholder="{{order_detail.order_semester}}"/>
+    <van-field disabled name="order_course" required label="课程名称" placeholder="{{order_detail.order_course}}"/>
+    <van-field disabled name="order_teacher" label="任课老师" placeholder="{{order_detail.order_teacher}}"/>
+    <van-field disabled name="order_book_name" required label="教材名称" placeholder="{{order_detail.order_book_name}}"/>
+    <van-field disabled name="order_book_isbn" required label="教材ISBN" placeholder="{{order_detail.order_book_isbn}}"/>
+    <van-field disabled name="order_book_writer" label="作者/编著者" placeholder="{{order_detail.order_book_writer}}"/>
+    <van-field disabled name="order_book_version" label="版次" placeholder="{{order_detail.order_book_version}}"/>
+    <van-field disabled name="order_book_publisher" label="出版社" placeholder="{{order_detail.order_book_publisher}}"/>
+    <van-field disabled name="order_book_price" required label="单价" placeholder="{{order_detail.order_book_price}}"/>
+    <van-field disabled name="order_book_num_first" required label="一手书预订量" placeholder="{{order_detail.order_book_num_first}}"/>
+    <van-field disabled name="order_book_num_sec" required label="二手书预订量" placeholder="{{order_detail.order_book_num_sec}}"/>
+    <van-field clearable name="order_remark" label="备注" placeholder="选填" border="{{ false }}" placeholder="{{order_detail.order_remark}}"/>
+  </van-cell-group>
+  <van-button type="primary" size="small" form-type="submit">更新</van-button>
+</view>

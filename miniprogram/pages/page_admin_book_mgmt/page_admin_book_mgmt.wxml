@@ -1,18 +1,29 @@
 <!--miniprogram/pages/page_admin_book_mgmt/page_admin_book_mgmt.wxml-->
 <van-nav-bar title="教材预订管理" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 <view>
-  <van-collapse value="{{ activeNames }}" bind:change="onChangeCollapse">
-    <van-collapse-item title="筛选" name="1">
-      筛选选项
-    </van-collapse-item>
-  </van-collapse>
-  <view class="container">
-    <van-button type="primary" bind:click="btn_search">点击查询</van-button>
-  </view>
-  <view id="showContain" style='width=80%'>
+  <van-row>
+    <van-col span="20">
+      <van-collapse value="{{ activeNames }}" bind:change="onChangeCollapse">
+        <van-collapse-item title="筛选" name="1">
+          筛选选项
+        </van-collapse-item>
+      </van-collapse>
+    </van-col>
+    <van-col span="4">
+      <view class="container" >
+        <van-button type="primary" style="margin:10px" size="small" bind:click="btn_search">查询</van-button>
+      </view>
+    </van-col>
+  </van-row>
+  <view id="showContain">
     <view wx:for="{{order_list}}">
-      <van-panel title="{{item.order_semester}} - {{item.order_course}}" desc="《{{item.order_book_name}}》" status="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}">
-      </van-panel>
+      <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="《{{item.order_book_name}}》" bind:click="viewItem">
+        <view slot="tags">{{item.order_semester}}学期 - {{item.order_course}}</view>
+        <view slot="footer">
+          <van-button wx:if="{{item.order_timeout}}" size="mini" type="warning" plain>已逾期</van-button>
+          <van-button id="{{item._id}}" size="mini" bind:click="viewItem">详细</van-button>
+        </view>
+      </van-card>
     </view>
   </view>
 </view>

@@ -110,5 +110,15 @@ Page({
         console.error(err);
       }
     })
+  },
+
+  /**
+   * 点击详情，将ID传过去
+   */
+  viewItem: function(event) {
+    var id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_admin_book_detail/page_admin_book_detail?_id='+id,
+    })
   }
 })
