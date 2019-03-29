@@ -102,7 +102,7 @@ Page({
    */
   onClickLeft() {
     wx.navigateBack({
-      delta: 2
+      delta: 1
     })
   },
 
@@ -111,7 +111,7 @@ Page({
    */
   onClickRight() {
     wx.navigateBack({
-      delta: 3
+      delta: 2
     })
   },
 })
