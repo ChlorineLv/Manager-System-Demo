@@ -68,7 +68,7 @@
 				{
 					"id": 4,
 					"name": "学生界面(stu_id=11)",
-					"pathName": "pages/page_student/page_stu",
+					"pathName": "pages/page_student/page_student",
 					"query": "_id=11",
 					"scene": null
 				}
