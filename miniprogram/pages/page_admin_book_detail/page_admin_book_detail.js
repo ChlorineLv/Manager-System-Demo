@@ -15,6 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    console.log("教务员预定信息详情页面");
     db.collection("tb_order").doc(options._id).get({
       success: res => {
         this.setData({

@@ -1,1 +1,4 @@
 /* miniprogram/pages/page_admin/page_admin.wxss */
+.v-row{
+  margin:5px;
+}

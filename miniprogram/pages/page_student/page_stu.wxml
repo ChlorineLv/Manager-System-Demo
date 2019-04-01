@@ -1,2 +1,35 @@
 <!--miniprogram/pages/page_student/page_stu.wxml-->
 <van-nav-bar title="学生界面" right-text="注销" bind:click-right="onClickRight" />
+
+<view class="container">
+  <view class="v-row">
+    <van-row gutter="20">
+      <van-col>
+        <van-button bind:click="btn_book" type="primary">教材预订登记</van-button>
+      </van-col>
+      <van-col>
+        <van-button bind:click="btn_book_his" type="primary">教材预订历史</van-button>
+      </van-col>
+    </van-row>
+  </view>
+  <view class="v-row">
+    <van-row gutter="20">
+      <van-col>
+        <van-button bind:click="btn_rec" type="primary">教材推荐登记</van-button>
+      </van-col>
+      <van-col>
+        <van-button bind:click="btn_rec_his" type="primary">教材推荐历史</van-button>
+      </van-col>
+    </van-row>
+  </view>
+  <view class="v-row">
+    <van-row gutter="20">
+      <van-col>
+        <van-button bind:click="btn_sec" type="primary">二手教材登记</van-button>
+      </van-col>
+      <van-col>
+        <van-button bind:click="btn_sec_his" type="primary">二手登记历史</van-button>
+      </van-col>
+    </van-row>
+  </view>
+</view>

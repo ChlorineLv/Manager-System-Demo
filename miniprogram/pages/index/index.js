@@ -99,7 +99,7 @@ Page({
             } else {
               console.log("学生");
               wx.navigateTo({
-                url: '../page_student/page_stu',
+                url: '../page_student/page_stu?_id='+this.data.in_acc,
               })
             }
           } else {

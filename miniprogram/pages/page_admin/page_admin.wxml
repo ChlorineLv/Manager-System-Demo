@@ -2,12 +2,34 @@
 <van-nav-bar title="教务员页面" right-text="注销" bind:click-right="onClickRight" />
 
 <view class="container">
-  <van-row gutter="20">
-    <van-col>
-      <van-button bind:click="btn_booking" type="primary">教材预订发布</van-button>
-    </van-col>
-    <van-col>
-      <van-button bind:click="btn_booking_mgmt" type="primary">教材预订管理</van-button>
-    </van-col>
-  </van-row>
+  <view class="v-row">
+    <van-row gutter="20">
+      <van-col span="12">
+        <van-button bind:click="btn_book" type="primary">教材预订发布</van-button>
+      </van-col>
+      <van-col span="12">
+        <van-button bind:click="btn_book_mgmt" type="primary">教材预订管理</van-button>
+      </van-col>
+    </van-row>
+  </view>
+  <view class="v-row">
+    <van-row gutter="20">
+      <van-col span="12">
+        <van-button bind:click="btn_rec" type="primary">教材推荐审核</van-button>
+      </van-col>
+      <van-col span="12">
+        <van-button bind:click="btn_rec_mgmt" type="primary">教材推荐管理</van-button>
+      </van-col>
+    </van-row>
+  </view>
+  <view class="v-row">
+    <van-row gutter="20">
+      <van-col span="12">
+        <van-button bind:click="btn_sec" type="primary">二手教材审核</van-button>
+      </van-col>
+      <van-col span="12">
+        <van-button bind:click="btn_sec_mgmt" type="primary">二手教材管理</van-button>
+      </van-col>
+    </van-row>
+  </view>
 </view>

@@ -35,7 +35,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -63,6 +63,13 @@
 					"name": "教务员教材管理详情",
 					"pathName": "pages/page_admin_book_detail/page_admin_book_detail",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": 4,
+					"name": "学生界面(stu_id=11)",
+					"pathName": "pages/page_student/page_stu",
+					"query": "_id=11",
 					"scene": null
 				}
 			]

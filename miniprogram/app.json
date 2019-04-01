@@ -6,7 +6,9 @@
     "pages/page_admin/page_admin",
     "pages/page_admin_book/page_admin_book",
     "pages/page_admin_book_mgmt/page_admin_book_mgmt",
-    "pages/page_admin_book_detail/page_admin_book_detail"
+    "pages/page_admin_book_detail/page_admin_book_detail",
+    "pages/page_student_book/page_stu_book",
+    "pages/page_student_book_his/page_stu_book_his"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

@@ -5,14 +5,18 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    stu_id: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-
+    console.log("学生页面");
+    this.setData({
+      stu_id: parseInt(options._id)
+    });
+    console.log(this.data.stu_id);
   },
 
   /**
@@ -71,5 +75,25 @@ Page({
     wx.navigateBack({
       delta: 1
     })
-  }
+  },
+
+  /**
+   * 点击教材预订登记
+   */
+  btn_booking() {
+    wx.navigateTo({
+      url: '../page_student_book_his/page_stu_book_his?_id=' + stu_id,
+    })
+  },
+
+  /**
+   * 点击教材预订历史
+   */
+  btn_booking_mgmt() {
+    wx.navigateTo({
+      url: '',
+    })
+  },
+
+
 })
