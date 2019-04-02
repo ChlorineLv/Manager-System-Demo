@@ -35,33 +35,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": -1,
 			"list": [
 				{
 					"id": -1,
 					"name": "管理员界面",
 					"pathName": "pages/page_admin/page_admin",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 2,
-					"name": "管理员教材预订",
-					"pathName": "pages/page_admin_book/page_admin_book",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "教务员预定管理",
-					"pathName": "pages/page_admin_book_mgmt/page_admin_book_mgmt",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 4,
-					"name": "教务员教材管理详情",
-					"pathName": "pages/page_admin_book_detail/page_admin_book_detail",
 					"query": "",
 					"scene": null
 				},

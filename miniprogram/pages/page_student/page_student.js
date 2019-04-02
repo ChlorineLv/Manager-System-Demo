@@ -1,22 +1,37 @@
 // miniprogram/pages/page_student/page_stu.js
+const db = wx.cloud.database();
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-    stu_id: 0
+    stu_id: 0,
+    activeNamesCollapseBook: [],
+    user_info: [],
+    order_list: [],
+    order_his: []
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log("学生页面");
     this.setData({
       stu_id: parseInt(options._id)
     });
-    console.log(this.data.stu_id);
+    console.log("学生界面，stu_id:", this.data.stu_id);
+    db.collection('tb_user').where({
+      user_id: this.data.stu_id // 填入当前用户 openid
+    }).get({
+      success: res => {
+        this.setData({
+          user_info: res.data[0]
+        });
+        console.log("user_info", this.data.user_info);
+
+      }
+    });
+
   },
 
   /**
@@ -78,18 +93,45 @@ Page({
   },
 
   /**
-   * 点击教材预订登记
+   * tab栏
    */
-  btn_booking() {
-    wx.navigateTo({
-      url: '../page_student_book_his/page_stu_book_his?_id=' + stu_id,
-    })
+  onChangeTab(event) {
+    console.log("点击了", event)
   },
 
   /**
-   * 点击教材预订历史
+   * 教材预订Collapse
    */
-  btn_booking_mgmt() {
+  onChangeCollapseBook(event) {
+    this.setData({
+      activeNamesCollapseBook: event.detail
+    });
+    if (this.data.activeNamesCollapseBook.indexOf("1") != -1) {
+      db.collection('tb_order').where({
+        order_timeout: false,
+        order_grade: this.data.user_info.user_grade,
+        order_college: this.data.user_info.user_college,
+        order_major: this.data.user_info.user_major,
+      }).get({
+        success: res => {
+          // console.log(res.data);
+          this.setData({
+            order_list: res.data,
+          });
+          console.log("order_list", this.data.order_list);
+        }
+      })
+    }
+    if (this.data.activeNamesCollapseBook.indexOf("2") != -1) {
+      console.log("打开了历史")
+    }
+  },
+
+  /**
+     * 点击预订教材详情，将ID传过去
+     */
+  viewItem: function (event) {
+    var id = event.currentTarget.id;
     wx.navigateTo({
       url: '',
     })

@@ -1,4 +1,4 @@
 /* miniprogram/pages/page_student/page_stu.wxss */
 .v-row{
-  margin:5px;
+  margin-top:5px;
 }

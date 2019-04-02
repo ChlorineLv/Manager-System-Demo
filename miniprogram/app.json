@@ -5,7 +5,6 @@
     "pages/page_student/page_student",
     "pages/page_admin/page_admin",
     "pages/page_admin_book/page_admin_book",
-    "pages/page_admin_book_mgmt/page_admin_book_mgmt",
     "pages/page_admin_book_detail/page_admin_book_detail",
     "pages/page_student_book/page_student_book",
     "pages/page_student_book_his/page_student_book_his"
@@ -31,6 +30,10 @@
     "van-collapse-item": "../../miniprogram_npm/vant-weapp/collapse-item/index",
     "van-panel": "../../miniprogram_npm/vant-weapp/panel/index",
     "van-card": "../../miniprogram_npm/vant-weapp/card/index",
-    "van-switch-cell": "../../miniprogram_npm/vant-weapp/switch-cell/index"
+    "van-switch-cell": "../../miniprogram_npm/vant-weapp/switch-cell/index",
+    "van-tab": "../../miniprogram_npm/vant-weapp/tab/index",
+    "van-tabs": "../../miniprogram_npm/vant-weapp/tabs/index",
+    "van-cell": "../../miniprogram_npm/vant-weapp/cell/index",
+    "van-cell-group": "../../miniprogram_npm/vant-weapp/cell-group/index"
   }
 }

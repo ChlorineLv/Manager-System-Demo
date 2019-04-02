@@ -1,6 +1,0 @@
-/* miniprogram/pages/page_admin_book_mgmt/page_admin_book_mgmt.wxss */
-
-.van-card__thumb{
-  width:45px !important;
-  height:45px !important;
-}
