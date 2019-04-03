@@ -115,9 +115,10 @@ Page({
    * 用户点击查询
    */
   btn_search(options) {
-    db.collection('tb_order').get({
+    db.collection('tb_order').where({
+      order_visible: true
+    }).get({
       success: res => {
-
         console.log(res.data);
         this.setData({
           order_list: res.data,

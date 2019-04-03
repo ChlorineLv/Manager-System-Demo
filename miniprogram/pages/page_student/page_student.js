@@ -96,7 +96,7 @@ Page({
    * tab栏
    */
   onChangeTab(event) {
-    console.log("点击了", event)
+    // console.log("点击了", event)
   },
 
   /**
@@ -108,6 +108,7 @@ Page({
     });
     if (this.data.activeNamesCollapseBook.indexOf("1") != -1) {
       db.collection('tb_order').where({
+        order_visible: true,
         order_timeout: false,
         order_grade: this.data.user_info.user_grade,
         order_college: this.data.user_info.user_college,
@@ -118,7 +119,7 @@ Page({
           this.setData({
             order_list: res.data,
           });
-          console.log("order_list", this.data.order_list);
+          // console.log("order_list", this.data.order_list);
         }
       })
     }
@@ -133,7 +134,7 @@ Page({
   viewItem: function (event) {
     var id = event.currentTarget.id;
     wx.navigateTo({
-      url: '',
+      url: '../page_student_book/page_student_book?_id='+id,
     })
   },
 

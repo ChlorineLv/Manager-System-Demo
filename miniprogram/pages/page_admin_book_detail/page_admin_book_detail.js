@@ -7,6 +7,7 @@ Page({
    */
   data: {
     checked: false,
+    orderDetailCreateDate: "",
     order_detail: [],
     order_id: ""
   },
@@ -20,7 +21,8 @@ Page({
       success: res => {
         this.setData({
           order_id: options._id,
-          order_detail: res.data
+          order_detail: res.data,
+          orderDetailCreateDate: res.data.order_create_date.toLocaleString()
         });
         if (res.data.order_timeout == true) {
           this.setData({
@@ -82,23 +84,6 @@ Page({
   },
 
   /**
-   * 手动侦听“逾期”选项改变状态
-   */
-  onChange(event) {
-    // 需要手动对 checked 状态进行更新
-    this.setData({
-      checked: event.detail
-    });
-    db.collection("tb_order").doc(this.data.order_id).update({
-      data: {
-        order_timeout: this.data.checked
-      },
-      success: res => {
-        console.log(res)
-      }
-    })
-  },
-  /**
    * 点击左边返回
    */
   onClickLeft() {
@@ -115,4 +100,30 @@ Page({
       delta: 2
     })
   },
+
+  /**
+   * 手动侦听“逾期”选项改变状态
+   */
+  onChange(event) {
+    // 需要手动对 checked 状态进行更新
+    this.setData({
+      checked: event.detail
+    });
+
+  },
+
+  /**
+   * 更新按钮
+   */
+  btn_update(event) {
+    console.log(event);
+    db.collection("tb_order").doc(this.data.order_id).update({
+      data: {
+        order_timeout: this.data.checked
+      },
+      success: res => {
+        console.log(res)
+      }
+    })
+  }
 })
