@@ -1,4 +1,5 @@
 // miniprogram/pages/page_student/page_stu.js
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 const db = wx.cloud.database();
 Page({
   /**
@@ -7,7 +8,7 @@ Page({
   data: {
     stu_id: 0,
     activeNamesCollapseBook: [],
-    user_info: [],
+    user_detail: [],
     order_list: [],
     order_his: []
   },
@@ -25,9 +26,9 @@ Page({
     }).get({
       success: res => {
         this.setData({
-          user_info: res.data[0]
+          user_detail: res.data[0]
         });
-        console.log("user_info", this.data.user_info);
+        console.log("user_detail", this.data.user_detail);
 
       }
     });
@@ -110,9 +111,9 @@ Page({
       db.collection('tb_order').where({
         order_visible: true,
         order_timeout: false,
-        order_grade: this.data.user_info.user_grade,
-        order_college: this.data.user_info.user_college,
-        order_major: this.data.user_info.user_major,
+        order_grade: this.data.user_detail.user_grade,
+        order_college: this.data.user_detail.user_college,
+        order_major: this.data.user_detail.user_major,
       }).get({
         success: res => {
           // console.log(res.data);
@@ -134,7 +135,7 @@ Page({
   viewItem: function (event) {
     var id = event.currentTarget.id;
     wx.navigateTo({
-      url: '../page_student_book/page_student_book?_id='+id,
+      url: '../page_student_book/page_student_book?book_id='+id +"&stu_id="+ this.data.stu_id,
     })
   },
 

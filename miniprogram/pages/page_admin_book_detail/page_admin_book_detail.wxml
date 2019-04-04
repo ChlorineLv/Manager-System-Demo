@@ -3,8 +3,8 @@
 <view class="container">
   <van-cell-group>
     <van-switch-cell title="此预订表已截止统计" checked="{{ checked }}" bind:change="onChange" />
-    <van-field disabled name="order_college" left-icon="" label="创建日期" placeholder="{{orderDetailCreateDate}}"/>
-    <van-field disabled name="order_create_date" required left-icon="home-o" label="学院名称" placeholder="{{order_detail.order_college}}"/>
+    <van-field disabled name="order_create_date" left-icon="" label="创建日期" placeholder="{{orderDetailCreateDate}}"/>
+    <van-field disabled name="order_college" required left-icon="home-o" label="学院名称" placeholder="{{order_detail.order_college}}"/>
     <van-field disabled name="order_major" required label="专业名称" placeholder="{{order_detail.order_major}}"/>
     <van-field disabled name="order_grade" required label="年级" placeholder="{{order_detail.order_grade}}"/>
     <van-field disabled name="order_semester" required label="学期" placeholder="{{order_detail.order_semester}}"/>
