@@ -3,7 +3,7 @@
 
 <view>
   <van-tabs active="{{ active }}" bind:change="onChangeTab">
-  
+
     <van-tab title="教材预订">
       <van-cell title="教材预订发布" value="跳转" is-link url="../page_admin_book/page_admin_book" />
       <van-collapse value="{{ activeNamesBookMgmt }}" bind:change="onChangeCollapseBookMgmt">
@@ -69,6 +69,22 @@
           </van-col>
         </van-row>
       </view>
+    </van-tab>
+
+    <van-tab title="设置">
+      <view class="container v-row">
+        <view id="showUserList">
+          <view wx:for="{{user_list}}" wx:key="user_listID">
+            <van-card desc="{{item.user_college}} {{item.user_grade}}级 - {{item.user_major}}" title="{{item.user_id}}" bind:click="viewUser">
+              <view slot="tags"></view>
+              <view slot="footer">
+                <van-button id="{{item._id}}" size="mini" bind:click="viewUser">详细</van-button>
+              </view>
+            </van-card>
+          </view>
+        </view>
+      </view>
+
     </van-tab>
 
   </van-tabs>

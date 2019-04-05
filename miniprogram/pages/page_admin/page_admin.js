@@ -10,6 +10,7 @@ Page({
     activeNamesBookSelect: [],
     activeNamesBookMgmt:["1"],
     order_list: [],
+    user_list:[],
   },
 
   /**
@@ -92,6 +93,16 @@ Page({
    */
   onChangeTab(event) {
     console.log("点击了", event)
+    if(event.detail.index == 3){
+      db.collection("tb_user").get({
+        success:res=>{
+          this.setData({
+            user_list: res.data
+          })
+          console.log("tb_user",res.data);
+        }
+      })
+    }
   },
 
 /**

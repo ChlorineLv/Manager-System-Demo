@@ -1,4 +1,5 @@
 // miniprogram/pages/page_student_book/page_stu_book.js
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 const db = wx.cloud.database();
 Page({
 
@@ -6,13 +7,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    order_detail: [],
-    user_detail: [],
+    activeNamesBookDetail: ['1'],
     orderDetailCreateDate: '',
-    hisModifyDate:"",
-    activeNamesBookDetail: ['1', "2"],
+    hisUpdateDate: "",
     checkedBook: false,
     checkedBookSec: false,
+    order_detail: [],
+    user_detail: [],
+    his_detail: [],
+    boolHis: false,
+    // update必须用doc，而且不能用his_detail._id
+    id_His:""
   },
 
   /**
@@ -44,7 +49,8 @@ Page({
         })
         console.log("tb_user:", this.data.user_detail)
       }
-    })
+    });
+
   },
 
   /**
@@ -115,12 +121,32 @@ Page({
   },
 
   /**
-   * 登记栏Collapse
+   * 登记栏、详情栏Collapse
    */
   onChangeCollapseBookDetail(event) {
     this.setData({
       activeNamesBookDetail: event.detail
     });
+    if (this.data.activeNamesBookDetail.indexOf("2") != -1) {
+      // 获取曾经是否有his
+      db.collection("tb_his").where({
+        his_stu_id: parseInt(this.data.user_detail.user_id)
+      }).get({
+        success: res => {
+          if (res.data.length != 0) {
+            this.setData({
+              his_detail: res.data[0],
+              checkedBook: res.data[0].his_first,
+              checkedBookSec: res.data[0].his_sec & res.data[0].his_first,
+              hisUpdateDate: res.data[0].his_update_date.toLocaleString(),
+              id_His: res.data[0]._id,
+              boolHis: true
+            })
+          }
+          console.log("tb_his:", this.data.boolHis, this.data.his_detail)
+        }
+      });
+    }
   },
 
   /**
@@ -146,57 +172,79 @@ Page({
    */
   btn_submit() {
     console.log("订书：", this.data.checkedBook, "，二手：", this.data.checkedBookSec);
-    db.collection("tb_his").where({
-      his_stu_id: this.data.user_detail.user_id,
-      his_book_isbn: this.data.order_detail.order_book_isbn
-    }).get({
-      success: res => {
-        console.log("登记时搜索tb_his结果", res.data);
-        // 若tb_his中查不到该生对于该ISBN的信息，则新建一条
-        if (res.data.length==0) {
-          db.collection('tb_his').add({
-            // data 字段表示需新增的 JSON 数据
-            data: {
-              his_stu_id: parseInt(this.data.user_detail.user_id),
-              his_college: this.data.order_detail.order_college,
-              his_major: this.data.order_detail.order_major,
-              his_grade: parseInt(this.data.user_detail.user_grade),
-              his_semester: this.data.order_detail.order_semester,
-              his_course: this.data.order_detail.order_course,
-              his_teacher: this.data.order_detail.order_teacher,
-              his_book_name: this.data.order_detail.order_book_name,
-              his_book_isbn: parseInt(this.data.order_detail.order_book_isbn),
-              his_first: this.data.checkedBook,
-              his_sec: this.data.checkedBookSec,
-              his_modify_date: new Date()
-            },
-            success: resAdd => {
-              console.log("登记成功", resAdd);
-              
-              Dialog.confirm({
-                title: '成功',
-                message: '已成功发布，是否返回上一页'
-              }).then(() => {
-                // on confirm
-                wx.navigateBack({
-                  delta: 1
-                })
-              }).catch(() => {
-                // on cancel
-              });
-            }
-          })
-        } else {
-          // this.setData({
-          //   hisModifyDate: res.data[0].his_modify_date.toLocaleString()
-          // })
+
+    if (this.data.boolHis == true) {
+      db.collection("tb_his").doc(this.data.id_His).update({
+        data: {
+          his_first: this.data.checkedBook,
+          his_sec: this.data.checkedBookSec,
+          his_update_date: new Date()
+        },
+        success: res => {
+          Dialog.confirm({
+            title: '成功',
+            message: '已更新发布，是否返回上一页'
+          }).then(() => {
+            // on confirm
+            wx.navigateBack({
+              delta: 1
+            })
+          }).catch(() => {
+            // on cancel
+          });
         }
-      }
-    })
+      })
+    } else {
+      db.collection('tb_his').add({
+        // data 字段表示需新增的 JSON 数据
+        data: {
+          his_update_date: new Date(),
+          his_stu_id: parseInt(this.data.user_detail.user_id),
+          his_college: this.data.order_detail.order_college,
+          his_major: this.data.order_detail.order_major,
+          his_grade: parseInt(this.data.user_detail.user_grade),
+          his_semester: this.data.order_detail.order_semester,
+          his_course: this.data.order_detail.order_course,
+          his_teacher: this.data.order_detail.order_teacher,
+          his_book_name: this.data.order_detail.order_book_name,
+          his_book_isbn: parseInt(this.data.order_detail.order_book_isbn),
+          his_first: this.data.checkedBook,
+          his_sec: this.data.checkedBookSec,
+          his_modify_date: new Date()
+        },
+        success: resAdd => {
+          console.log("登记成功", resAdd);
+          Dialog.confirm({
+            title: '成功',
+            message: '已成功发布，是否返回上一页'
+          }).then(() => {
+            // on confirm
+            wx.navigateBack({
+              delta: 1
+            })
+          }).catch(() => {
+            // on cancel
+          });
+        }
+      })
+    }
+
+    // db.collection("tb_his").where({
+    //   his_stu_id: this.data.user_detail.user_id,
+    //   his_book_isbn: this.data.order_detail.order_book_isbn
+    // }).get({
+    //   success: res => {
+    //     console.log("登记时搜索tb_his结果", res.data.length);
+    //     // 若tb_his中查不到该生对于该ISBN的信息，则新建一条
+    //     if (res.data.length != 0) {
+
+    //     } else {
 
 
 
-
+    //     }
+    //   }
+    // })
 
   }
 })
