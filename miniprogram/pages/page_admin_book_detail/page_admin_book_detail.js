@@ -9,7 +9,9 @@ Page({
     checked: false,
     orderDetailCreateDate: "",
     order_detail: [],
-    order_id: ""
+    order_id: "",
+    numBookFirst: 0,
+    numBookSec: 0,
   },
 
   /**
@@ -17,6 +19,7 @@ Page({
    */
   onLoad: function(options) {
     console.log("教务员预定信息详情页面");
+    
     db.collection("tb_order").doc(options._id).get({
       success: res => {
         this.setData({
@@ -29,9 +32,34 @@ Page({
             checked: true
           });
         };
-        console.log(this.data.order_detail);
+        console.log("tb_order detail",this.data.order_detail);
+        db.collection("tb_his").where({
+          his_grade: this.data.order_detail.order_grade,
+          his_book_isbn: this.data.order_detail.order_book_isbn
+        }).get({
+          success: resHis => {
+            console.log("tb_his", resHis.data);
+            var countFirst = 0;
+            var countSec = 0;
+            for(let i = 0; i < resHis.data.length; i++) {
+              if(resHis.data[i].his_first){
+                if(resHis.data[i].his_sec) {
+                  countSec ++;
+                } else {
+                  countFirst ++;
+                }
+              }
+            }
+            this.setData({
+              numBookFirst: countFirst,
+              numBookSec: countSec
+            })
+            console.log("numBookFirst:", this.data.numBookFirst, ",numBookSec:", this.data.numBookSec);
+          }
+        })
       }
-    })
+    });
+
   },
 
   /**

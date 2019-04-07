@@ -216,7 +216,7 @@ Page({
           console.log("登记成功", resAdd);
           Dialog.confirm({
             title: '成功',
-            message: '已成功发布，是否返回上一页'
+            message: '已成功登记，是否返回上一页'
           }).then(() => {
             // on confirm
             wx.navigateBack({

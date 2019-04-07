@@ -16,8 +16,8 @@
     <van-field disabled name="order_book_version" label="版次" placeholder="{{order_detail.order_book_version}}"/>
     <van-field disabled name="order_book_publisher" label="出版社" placeholder="{{order_detail.order_book_publisher}}"/>
     <van-field disabled name="order_book_price" required label="单价" placeholder="{{order_detail.order_book_price}}"/>
-    <van-field disabled name="order_book_num_first" required label="一手书预订量" placeholder="{{order_detail.order_book_num_first}}"/>
-    <van-field disabled name="order_book_num_sec" required label="二手书预订量" placeholder="{{order_detail.order_book_num_sec}}"/>
+    <van-field disabled name="order_book_num_first" required label="一手书预订量" placeholder="{{numBookFirst}}"/>
+    <van-field disabled name="order_book_num_sec" required label="二手书预订量" placeholder="{{numBookSec}}"/>
     <van-field clearable name="order_remark" label="备注" placeholder="选填" border="{{ false }}" placeholder="{{order_detail.order_remark}}"/>
   </van-cell-group>
   <van-button type="primary" size="small" form-type="submit" bind:click="btn_update">更新</van-button>
