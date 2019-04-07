@@ -3,7 +3,7 @@
   <view class="input-container">
     <van-cell-group>
       <van-field value="{{ userinfo }}" required clearable label="用户名" icon="question-o" placeholder="请输入用户名" bind:change="onAccChange" bind:click-icon="onClickIcon" />
-      <van-field value="{{ userpwd }}" type="password" label="密码" placeholder="请输入密码" bind:change="onPwdChange" required border="{{ false }}" />
+      <van-field value="{{ userpwd }}" type="password" label="密码" placeholder="请输入密码" bind:change="onPwdChange" required clearable border="{{ false }}" />
     </van-cell-group>
   </view>
 

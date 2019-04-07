@@ -93,13 +93,14 @@ Page({
    */
   onChangeTab(event) {
     console.log("点击了", event)
+    // 点击了设置tab
     if(event.detail.index == 3){
       db.collection("tb_user").get({
         success:res=>{
           this.setData({
             user_list: res.data
           })
-          console.log("tb_user",res.data);
+          // console.log("tb_user",res.data);
         }
       })
     }
@@ -130,11 +131,9 @@ Page({
       order_visible: true
     }).get({
       success: res => {
-        console.log(res.data);
+        // console.log("查询结果",res.data);
         this.setData({
           order_list: res.data,
-          // book: res.data,
-          // id: options.id
         });
       },
       fail: err => {

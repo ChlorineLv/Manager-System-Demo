@@ -157,6 +157,9 @@ Page({
         }).catch(() => {
           // on cancel
         });
+      },
+      fail: err => {
+        console.error(err);
       }
     })
   }

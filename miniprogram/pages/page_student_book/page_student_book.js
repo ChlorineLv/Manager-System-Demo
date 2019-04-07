@@ -17,7 +17,7 @@ Page({
     his_detail: [],
     boolHis: false,
     // update必须用doc，而且不能用his_detail._id
-    id_His:""
+    id_His: ""
   },
 
   /**
@@ -36,7 +36,10 @@ Page({
           order_detail: res.data[0],
           orderDetailCreateDate: res.data[0].order_create_date.toLocaleString()
         });
-        console.log("tb_order:", this.data.order_detail);
+        // console.log("tb_order:", this.data.order_detail);
+      },
+      fail: err => {
+        console.error(err);
       }
     });
     // 获取user的详情
@@ -47,7 +50,10 @@ Page({
         this.setData({
           user_detail: res.data[0]
         })
-        console.log("tb_user:", this.data.user_detail)
+        // console.log("tb_user:", this.data.user_detail)
+      },
+      fail: err => {
+        console.error(err);
       }
     });
 
@@ -143,7 +149,10 @@ Page({
               boolHis: true
             })
           }
-          console.log("tb_his:", this.data.boolHis, this.data.his_detail)
+          // console.log("tb_his:", this.data.boolHis, this.data.his_detail)
+        },
+        fail: err => {
+          console.error(err);
         }
       });
     }
@@ -171,8 +180,7 @@ Page({
    * 点击登记提交按钮
    */
   btn_submit() {
-    console.log("订书：", this.data.checkedBook, "，二手：", this.data.checkedBookSec);
-
+    // console.log("订书：", this.data.checkedBook, "，二手：", this.data.checkedBookSec);
     if (this.data.boolHis == true) {
       db.collection("tb_his").doc(this.data.id_His).update({
         data: {
@@ -183,7 +191,7 @@ Page({
         success: res => {
           Dialog.confirm({
             title: '成功',
-            message: '已更新发布，是否返回上一页'
+            message: '已成功更新，是否返回上一页'
           }).then(() => {
             // on confirm
             wx.navigateBack({
@@ -192,6 +200,9 @@ Page({
           }).catch(() => {
             // on cancel
           });
+        },
+        fail: err => {
+          console.error(err);
         }
       })
     } else {
@@ -225,26 +236,11 @@ Page({
           }).catch(() => {
             // on cancel
           });
+        },
+        fail: err => {
+          console.error(err);
         }
       })
     }
-
-    // db.collection("tb_his").where({
-    //   his_stu_id: this.data.user_detail.user_id,
-    //   his_book_isbn: this.data.order_detail.order_book_isbn
-    // }).get({
-    //   success: res => {
-    //     console.log("登记时搜索tb_his结果", res.data.length);
-    //     // 若tb_his中查不到该生对于该ISBN的信息，则新建一条
-    //     if (res.data.length != 0) {
-
-    //     } else {
-
-
-
-    //     }
-    //   }
-    // })
-
   }
 })

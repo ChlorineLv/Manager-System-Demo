@@ -28,8 +28,11 @@ Page({
         this.setData({
           user_detail: res.data[0]
         });
-        console.log("user_detail", this.data.user_detail);
+        // console.log("user_detail", this.data.user_detail);
 
+      },
+      fail: err => {
+        console.error(err);
       }
     });
 
@@ -121,6 +124,9 @@ Page({
             order_list: res.data,
           });
           // console.log("order_list", this.data.order_list);
+        },
+        fail: err => {
+          console.error(err);
         }
       })
     }

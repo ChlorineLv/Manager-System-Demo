@@ -84,20 +84,20 @@ Page({
       user_id: parseInt(this.data.in_acc)
     }).get({
       // 采用箭头函数使this指回Page中
-      success: (res) => {
+      success: res => {
         console.log(res.data[0])
         // 账号是否存在
         if (res.data[0] != undefined) {
           // 密码是否正确
           if (this.data.in_pwd == res.data[0].user_pwd) {
-            console.log("登陆成功");
+            // console.log("登陆成功");
             if (res.data[0].user_college == '教务处') {
-              console.log("教务员");
+              // console.log("教务员");
               wx.navigateTo({
                 url: '../page_admin/page_admin',
               })
             } else {
-              console.log("学生");
+              // console.log("学生");
               wx.navigateTo({
                 url: '../page_student/page_student?_id='+this.data.in_acc,
               })
@@ -108,6 +108,9 @@ Page({
         } else {
           Toast("账号不存在");
         }
+      },
+      fail: err => {
+        console.error(err);
       }
     })
   },

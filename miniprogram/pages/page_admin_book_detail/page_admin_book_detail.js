@@ -18,8 +18,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log("教务员预定信息详情页面");
-    
+    console.log("教务员预定信息详情页面", options);
+    // 查询该书的相关信息
     db.collection("tb_order").doc(options._id).get({
       success: res => {
         this.setData({
@@ -32,31 +32,37 @@ Page({
             checked: true
           });
         };
-        console.log("tb_order detail",this.data.order_detail);
+        // console.log("tb_order detail", this.data.order_detail);
+        // 查询需要订书的表项
         db.collection("tb_his").where({
           his_grade: this.data.order_detail.order_grade,
-          his_book_isbn: this.data.order_detail.order_book_isbn
+          his_book_isbn: this.data.order_detail.order_book_isbn,
+          his_first: true,
         }).get({
           success: resHis => {
-            console.log("tb_his", resHis.data);
+            // console.log("tb_his", resHis.data);
             var countFirst = 0;
             var countSec = 0;
-            for(let i = 0; i < resHis.data.length; i++) {
-              if(resHis.data[i].his_first){
-                if(resHis.data[i].his_sec) {
-                  countSec ++;
-                } else {
-                  countFirst ++;
-                }
+            for (let i = 0; i < resHis.data.length; i++) {
+              if (resHis.data[i].his_sec) {
+                countSec++;
+              } else {
+                countFirst++;
               }
             }
             this.setData({
               numBookFirst: countFirst,
               numBookSec: countSec
             })
-            console.log("numBookFirst:", this.data.numBookFirst, ",numBookSec:", this.data.numBookSec);
+            // console.log("numBookFirst:", this.data.numBookFirst, ",numBookSec:", this.data.numBookSec);
+          },
+          fail: err => {
+            console.error(err);
           }
         })
+      },
+      fail: err => {
+        console.error(err);
       }
     });
 
@@ -151,6 +157,9 @@ Page({
       },
       success: res => {
         console.log(res)
+      },
+      fail: err => {
+        console.error(err);
       }
     })
   }
