@@ -19,7 +19,7 @@
       <van-field name="order_book_price" required clearable label="单价" />
       <van-field name="order_remark" clearable label="备注" placeholder="选填" />
     </van-cell-group>
-    <button type="primary" size="small" form-type="submit">submit</button>
+    <button type="primary" size="mini" form-type="submit">submit</button>
   </form>
   <van-dialog id="van-dialog" />
 </view>

@@ -131,7 +131,23 @@ Page({
       })
     }
     if (this.data.activeNamesCollapseBook.indexOf("2") != -1) {
-      console.log("打开了历史")
+      db.collection('tb_his').where({
+        his_grade: this.data.user_detail.user_grade,
+        his_college: this.data.user_detail.user_college,
+        his_major: this.data.user_detail.user_major,
+        his_stu_id: this.data.stu_id
+      }).get({
+        success: res => {
+          console.log(res.data);
+          this.setData({
+            his_list: res.data,
+          });
+          // console.log("order_list", this.data.order_list);
+        },
+        fail: err => {
+          console.error(err);
+        }
+      })
     }
   },
 

@@ -20,7 +20,17 @@
           </view>
         </van-collapse-item>
         <van-collapse-item title="教材预订历史" name="2">
-          预订记录
+          <view id="showHisMgmt">
+              <view wx:for="{{his_list}}" wx:key="his_listID">
+                <van-card desc="{{item.his_college}} {{item.his_grade}}级 - {{item.his_major}}" title="《{{item.his_book_name}}》" bind:click="viewItemHis">
+                  <view slot="tags">{{item.his_semester}}学期 - {{item.his_course}}</view>
+                  <view slot="footer">
+                    <van-button wx:if="{{item.his_timeout}}" size="mini" disabled type="warning" plain>已逾期</van-button>
+                    <van-button id="{{item._id}}" size="mini" bind:click="viewItemHis">详细</van-button>
+                  </view>
+                </van-card>
+              </view>
+            </view>
         </van-collapse-item>
       </van-collapse>
     </van-tab>

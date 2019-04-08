@@ -1,4 +1,5 @@
 // miniprogram/pages/page_admin_book_detail/page_admin_book_detail.js
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 const db = wx.cloud.database();
 Page({
 
@@ -9,6 +10,7 @@ Page({
     checked: false,
     orderDetailCreateDate: "",
     order_detail: [],
+    update_detail: [],
     order_id: "",
     numBookFirst: 0,
     numBookSec: 0,
@@ -146,17 +148,109 @@ Page({
 
   },
 
+  onChangeCollege: function(e) {
+    this.setData({
+      "order_detail.order_college": e.detail,
+    })
+  },
+  onChangeMajor: function(e) {
+    this.setData({
+      "order_detail.order_major": e.detail,
+    })
+  },
+  onChangeGrade: function(e) {
+    this.setData({
+      "order_detail.order_grade": e.detail,
+    })
+  },
+  onChangeSemester: function(e) {
+    this.setData({
+      "order_detail.order_semester": e.detail,
+    })
+  },
+  onChangeCourse: function(e) {
+    this.setData({
+      "order_detail.order_course": e.detail,
+    })
+  },
+  onChangeTeacher: function(e) {
+    this.setData({
+      "order_detail.order_teacher": e.detail,
+    })
+  },
+  onChangeBookName: function(e) {
+    this.setData({
+      "order_detail.order_book_name": e.detail,
+    })
+  },
+  onChangeBookISBN: function(e) {
+    this.setData({
+      "order_detail.order_book_isbn": e.detail,
+    })
+  },
+  onChangeBookWriter: function(e) {
+    this.setData({
+      "order_detail.order_book_writer": e.detail,
+    })
+  },
+  onChangeBookVersion: function(e) {
+    this.setData({
+      "order_detail.order_book_version": e.detail,
+    })
+  },
+  onChangeBookPublisher: function(e) {
+    this.setData({
+      "order_detail.order_book_publisher": e.detail,
+    })
+  },
+  onChangeBookPrice: function(e) {
+    this.setData({
+      "order_detail.order_book_price": e.detail,
+    })
+  },
+  onChangeRemark: function(e) {
+    this.setData({
+      "order_detail.order_remark": e.detail,
+    })
+  },
+
   /**
    * 更新按钮
    */
   btn_update(event) {
-    console.log(event);
+    console.log("原文", this.data);
     db.collection("tb_order").doc(this.data.order_id).update({
       data: {
-        order_timeout: this.data.checked
+        order_timeout: this.data.checked,
+        order_book_num_first: this.data.numBookFirst,
+        order_book_num_sec: this.data.numBookSec,
+        order_college: this.data.order_detail.order_college,
+        order_major: this.data.order_detail.order_major,
+        order_grade: this.data.order_detail.order_grade,
+        order_semester: this.data.order_detail.order_semester,
+        order_course: this.data.order_detail.order_course,
+        order_teacher: this.data.order_detail.order_teacher,
+        order_book_name: this.data.order_detail.order_book_name,
+        order_book_isbn: this.data.order_detail.order_book_isbn,
+        order_writer: this.data.order_detail.order_writer,
+        order_version: this.data.order_detail.order_version,
+        order_publisher: this.data.order_detail.order_publisher,
+        order_price: this.data.order_detail.order_price,
+        order_remark: this.data.order_remark,
       },
       success: res => {
-        console.log(res)
+        // console.log(res)
+        Dialog.confirm({
+          title: '成功',
+          message: '已成功更新，是否返回上一页'
+        }).then(() => {
+          // on confirm
+          wx.navigateBack({
+            delta: 1
+          })
+        }).catch(() => {
+          // on cancel
+        });
       },
       fail: err => {
         console.error(err);
