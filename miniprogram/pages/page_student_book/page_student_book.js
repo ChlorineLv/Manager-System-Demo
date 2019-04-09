@@ -24,6 +24,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.setData({
+
+    })
     /* 此时options为 {book_id: "XJuH0t7E7L4w_jTe", stu_id: "11"} */
     console.log("学生教材预订登记页面", options);
     // 获取order里的详情
@@ -136,9 +139,11 @@ Page({
     if (this.data.activeNamesBookDetail.indexOf("2") != -1) {
       // 获取曾经是否有his
       db.collection("tb_his").where({
-        his_stu_id: parseInt(this.data.user_detail.user_id)
+        his_stu_id: parseInt(this.data.user_detail.user_id),
+        his_book_isbn: parseInt(this.data.order_detail.order_book_isbn)
       }).get({
         success: res => {
+          console.log("tb_his",res);
           if (res.data.length != 0) {
             this.setData({
               his_detail: res.data[0],
@@ -219,9 +224,12 @@ Page({
           his_teacher: this.data.order_detail.order_teacher,
           his_book_name: this.data.order_detail.order_book_name,
           his_book_isbn: parseInt(this.data.order_detail.order_book_isbn),
+          his_book_writer: this.data.order_detail.order_book_writer,
+          his_book_version: this.data.order_detail.order_book_version,
+          his_book_publisher: this.data.order_detail.order_book_publisher,
+          his_book_price: this.data.order_detail.order_book_price,
           his_first: this.data.checkedBook,
           his_sec: this.data.checkedBookSec,
-          his_modify_date: new Date()
         },
         success: resAdd => {
           console.log("登记成功", resAdd);

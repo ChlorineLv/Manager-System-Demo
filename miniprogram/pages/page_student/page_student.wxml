@@ -8,10 +8,10 @@
       <van-collapse value="{{ activeNamesCollapseBook }}" bind:change="onChangeCollapseBook">
         <van-collapse-item title="已发布教材预订" name="1">
           <view id="showBookMgmt">
-            <view wx:for="{{order_list}}" wx:key="order_listID">
+            <view wx:for="{{order_list}}" wx:key="order_listID" class="card-container">
               <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="《{{item.order_book_name}}》" bind:click="viewItem">
                 <view slot="tags">{{item.order_semester}}学期 - {{item.order_course}}</view>
-                <view slot="footer">
+                <view slot="footer" class="foot-btn">
                   <van-button wx:if="{{item.order_timeout}}" size="mini" type="warning" plain>已逾期</van-button>
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItem">详细</van-button>
                 </view>
@@ -21,11 +21,10 @@
         </van-collapse-item>
         <van-collapse-item title="个人登记历史" name="2">
           <view id="showHisMgmt">
-              <view wx:for="{{his_list}}" wx:key="his_listID">
+              <view wx:for="{{his_list}}" wx:key="his_listID" class="card-container">
                 <van-card desc="{{item.his_college}} {{item.his_grade}}级 - {{item.his_major}}" title="《{{item.his_book_name}}》" bind:click="viewItemHis">
                   <view slot="tags">{{item.his_semester}}学期 - {{item.his_course}}</view>
-                  <view slot="footer">
-                    <van-button wx:if="{{item.his_timeout}}" size="mini" disabled type="warning" plain>已逾期</van-button>
+                  <view slot="footer" class="foot-btn">
                     <van-button id="{{item._id}}" size="mini" bind:click="viewItemHis">详细</van-button>
                   </view>
                 </van-card>

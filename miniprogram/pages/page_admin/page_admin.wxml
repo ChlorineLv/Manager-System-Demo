@@ -30,10 +30,10 @@
               </van-row>
             </view>
             <view id="showBookMgmt">
-              <view wx:for="{{order_list}}" wx:key="order_listID">
+              <view wx:for="{{order_list}}" wx:key="order_listID" class="card-container">
                 <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="《{{item.order_book_name}}》" bind:click="viewItem">
                   <view slot="tags">{{item.order_semester}}学期 - {{item.order_course}}</view>
-                  <view slot="footer">
+                  <view slot="footer" class="foot-btn">
                     <van-button wx:if="{{item.order_timeout}}" size="mini" disabled type="warning" plain>已逾期</van-button>
                     <van-button id="{{item._id}}" size="mini" bind:click="viewItem">详细</van-button>
                   </view>
