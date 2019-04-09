@@ -1,2 +1,22 @@
-<!--miniprogram/pages/page_student_book_his/page_stu_book_his.wxml-->
-<text>miniprogram/pages/page_student_book_his/page_stu_book_his.wxml</text>
+<!--miniprogram/pages/page_student_book_his/page_student_book_his.wxml-->
+<van-nav-bar title="教材预订登记-详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
+<view id="showHis" class="container">
+  <van-cell-group>
+    <van-field disabled name="his_create_date" required left-icon="home-o" label="学院名称" placeholder="{{his_detail.his_college}}" />
+    <van-field disabled name="his_college" left-icon="" label="登记日期" placeholder="{{hisUpdateDate}}" />
+    <van-field disabled name="his_major" required label="专业名称" placeholder="{{his_detail.his_major}}" />
+    <van-field disabled name="his_grade" required label="年级" placeholder="{{his_detail.his_grade}}" />
+    <van-field disabled name="his_semester" required label="学期" placeholder="{{his_detail.his_semester}}" />
+    <van-field disabled name="his_course" required label="课程名称" placeholder="{{his_detail.his_course}}" />
+    <van-field disabled name="his_teacher" label="任课老师" placeholder="{{his_detail.his_teacher}}" />
+    <van-field disabled name="his_book_name" required label="教材名称" placeholder="{{his_detail.his_book_name}}" />
+    <van-field disabled name="his_book_isbn" required label="教材ISBN" placeholder="{{his_detail.his_book_isbn}}" />
+    <van-field disabled name="his_book_writer" label="作者/编著者" placeholder="{{his_detail.his_book_writer}}" />
+    <van-field disabled name="his_book_version" label="版次" placeholder="{{his_detail.his_book_version}}" />
+    <van-field disabled name="his_book_publisher" label="出版社" placeholder="{{his_detail.his_book_publisher}}" />
+    <van-field disabled name="his_book_price" required label="单价" placeholder="{{his_detail.his_book_price}}" />
+    <van-switch-cell title="预订此教材" checked="{{ checkedBook }}" bind:change="onChangeSwitchBook" />
+    <van-switch-cell title="愿意使用二手教材" checked="{{ checkedBook & checkedBookSec }}" bind:change="onChangeSwitchBookSec" />
+    <van-button type="primary" size="small" form-type="submit" bind:click="btn_submit">登记</van-button>
+  </van-cell-group>
+</view>

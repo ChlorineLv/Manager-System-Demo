@@ -138,7 +138,7 @@ Page({
         his_stu_id: this.data.stu_id
       }).get({
         success: res => {
-          console.log(res.data);
+          // console.log("tb_his",res.data);
           this.setData({
             his_list: res.data,
           });
@@ -152,14 +152,24 @@ Page({
   },
 
   /**
-     * 点击预订教材详情，将ID传过去
-     */
-  viewItem: function (event) {
-    var id = event.currentTarget.id;
+   * 点击预订教材详情，将ID传过去
+   */
+  viewItem: function(event) {
+    let id = event.currentTarget.id;
     wx.navigateTo({
-      url: '../page_student_book/page_student_book?book_id='+id +"&stu_id="+ this.data.stu_id,
+      url: '../page_student_book/page_student_book?book_id=' + id + "&stu_id=" + this.data.stu_id,
     })
   },
+
+  /**
+   * 点击预订历史，将ID传过去
+   */
+  viewItemHis: function(event) {
+    let id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_student_book_his/page_student_book_his?_id=' + id,
+    })
+  }
 
 
 })

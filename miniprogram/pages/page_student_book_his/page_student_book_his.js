@@ -1,18 +1,36 @@
 // miniprogram/pages/page_student_book_his/page_stu_book_his.js
+const db= wx.cloud.database();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    his_detail:[],
+    hisUpdateDate: "",
+    checkedBook: false,
+    checkedBookSec: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log("学生教材预订历史页面");
+    console.log("学生教材预订历史详情页面", options);
+    db.collection("tb_his").doc(options._id).get({
+      success:res=>{
+        // console.log("tb_his",res);
+        this.setData({
+          his_detail: res.data,
+          checkedBook: res.data.his_first,
+          checkedBookSec: res.data.his_sec & res.data.his_first,
+          hisUpdateDate: res.data.his_update_date.toLocaleString(),
+        })
+      },
+      fail:err=>{
+        console.log(err);
+      }
+    })
   },
 
   /**
