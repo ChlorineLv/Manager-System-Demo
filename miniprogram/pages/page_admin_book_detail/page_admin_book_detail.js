@@ -42,7 +42,7 @@ Page({
           his_first: true,
         }).get({
           success: resHis => {
-            // console.log("tb_his", resHis.data);
+            console.log("tb_his", resHis.data);
             var countFirst = 0;
             var countSec = 0;
             for (let i = 0; i < resHis.data.length; i++) {
@@ -218,25 +218,25 @@ Page({
    * 更新按钮
    */
   btn_update(event) {
-    console.log("原文", this.data);
+    console.log("this.data", this.data);
     db.collection("tb_order").doc(this.data.order_id).update({
       data: {
         order_timeout: this.data.checked,
-        order_book_num_first: this.data.numBookFirst,
-        order_book_num_sec: this.data.numBookSec,
+        order_book_num_first: parseInt(this.data.numBookFirst),
+        order_book_num_sec: parseInt(this.data.numBookSec),
         order_college: this.data.order_detail.order_college,
         order_major: this.data.order_detail.order_major,
-        order_grade: this.data.order_detail.order_grade,
+        order_grade: parseInt(this.data.order_detail.order_grade),
         order_semester: this.data.order_detail.order_semester,
         order_course: this.data.order_detail.order_course,
         order_teacher: this.data.order_detail.order_teacher,
         order_book_name: this.data.order_detail.order_book_name,
-        order_book_isbn: this.data.order_detail.order_book_isbn,
+        order_book_isbn: parseInt(this.data.order_detail.order_book_isbn),
         order_writer: this.data.order_detail.order_writer,
-        order_version: this.data.order_detail.order_version,
+        order_version: parseInt(this.data.order_detail.order_version),
         order_publisher: this.data.order_detail.order_publisher,
-        order_price: this.data.order_detail.order_price,
-        order_remark: this.data.order_remark,
+        order_price: parseInt(this.data.order_detail.order_price),
+        order_remark: this.data.order_detail.order_remark,
       },
       success: res => {
         // console.log(res)

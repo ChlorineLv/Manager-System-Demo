@@ -7,7 +7,8 @@
     "pages/page_admin_book/page_admin_book",
     "pages/page_admin_book_detail/page_admin_book_detail",
     "pages/page_student_book/page_student_book",
-    "pages/page_student_book_his/page_student_book_his"
+    "pages/page_student_book_his/page_student_book_his",
+    "pages/page_student_rec/page_student_rec"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

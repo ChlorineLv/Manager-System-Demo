@@ -2,24 +2,26 @@
 <van-nav-bar title="教材预订" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 
 <view class="container">
-  <form bindsubmit="formSubmit" bindreset="formReset">
-    <van-cell-group>
-      <van-field name="order_college" required clearable label="学院名称" />
-      <van-field name="order_major" required clearable label="专业名称" />
-      <!-- <van-picker columns="{{ columns }}" bind:change="onChange" /> -->
-      <van-field name="order_grade" required clearable label="年级" />
-      <van-field name="order_semester" required clearable label="学期" />
-      <van-field name="order_course" required clearable label="课程名称" />
-      <van-field name="order_teacher" clearable label="任课老师" />
-      <van-field name="order_book_name" required clearable label="教材名称" />
-      <van-field name="order_book_isbn" required clearable label="教材ISBN" />
-      <van-field name="order_book_writer" clearable label="作者/编著者" />
-      <van-field name="order_book_version" clearable label="版次" />
-      <van-field name="order_book_publisher" clearable label="出版社" />
-      <van-field name="order_book_price" required clearable label="单价" />
-      <van-field name="order_remark" clearable label="备注" placeholder="选填" />
-    </van-cell-group>
-    <button type="primary" size="mini" form-type="submit">submit</button>
-  </form>
+  <view class="input-container">
+    <form bindsubmit="formSubmit" bindreset="formReset">
+      <van-cell-group>
+        <van-field name="order_college" required clearable label="学院名称" />
+        <van-field name="order_major" required clearable label="专业名称" />
+        <!-- <van-picker columns="{{ columns }}" bind:change="onChange" /> -->
+        <van-field name="order_grade" required clearable label="年级" />
+        <van-field name="order_semester" required clearable label="学期" />
+        <van-field name="order_course" required clearable label="课程名称" />
+        <van-field name="order_teacher" clearable label="任课老师" />
+        <van-field name="order_book_name" required clearable label="教材名称" />
+        <van-field name="order_book_isbn" required clearable label="教材ISBN" />
+        <van-field name="order_book_writer" clearable label="作者/编著者" />
+        <van-field name="order_book_version" clearable label="版次" />
+        <van-field name="order_book_publisher" clearable label="出版社" />
+        <van-field name="order_book_price" required clearable label="单价" />
+        <van-field name="order_remark" clearable label="备注" placeholder="选填" />
+      </van-cell-group>
+      <button type="primary" size="mini" form-type="submit">submit</button>
+    </form>
+  </view>
   <van-dialog id="van-dialog" />
 </view>

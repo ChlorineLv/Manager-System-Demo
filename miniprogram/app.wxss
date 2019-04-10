@@ -6,6 +6,10 @@
   box-sizing: border-box;
 } 
 
+.input-container {
+  width: 80%;
+}
+
 .detail-container{
   margin:10px 0;
 }

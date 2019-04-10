@@ -7,7 +7,8 @@ Page({
    */
   data: {
     stu_id: 0,
-    activeNamesCollapseBook: [],
+    activeNamesBook: [],
+    activeNamesBookRec: [],
     user_detail: [],
     order_list: [],
     order_his: []
@@ -108,9 +109,9 @@ Page({
    */
   onChangeCollapseBook(event) {
     this.setData({
-      activeNamesCollapseBook: event.detail
+      activeNamesBook: event.detail
     });
-    if (this.data.activeNamesCollapseBook.indexOf("1") != -1) {
+    if (this.data.activeNamesBook.indexOf("1") != -1) {
       db.collection('tb_order').where({
         order_visible: true,
         order_timeout: false,
@@ -130,7 +131,7 @@ Page({
         }
       })
     }
-    if (this.data.activeNamesCollapseBook.indexOf("2") != -1) {
+    if (this.data.activeNamesBook.indexOf("2") != -1) {
       db.collection('tb_his').where({
         his_grade: this.data.user_detail.user_grade,
         his_college: this.data.user_detail.user_college,
@@ -169,7 +170,46 @@ Page({
     wx.navigateTo({
       url: '../page_student_book_his/page_student_book_his?_id=' + id,
     })
-  }
+  },
 
+  /**
+   * 点击推荐历史
+   */
+  onChangeCollapseBookRec:function(event){
+    this.setData({
+      activeNamesBookRec: event.detail
+    });
+    if (this.data.activeNamesBookRec.indexOf("1") != -1) {
+      console.log("推荐历史", event);
+      // db.collection("tb_rec").where({
+        
+      // }).get({
+      //   success:res=>{
+      //     console.log("tb_rec",res);
+      //   },
+      //   fail:err=>{
+      //     console.log(err);
+      //   }
+      // })
+      // db.collection('tb_order').where({
+      //   order_visible: true,
+      //   order_timeout: false,
+      //   order_grade: this.data.user_detail.user_grade,
+      //   order_college: this.data.user_detail.user_college,
+      //   order_major: this.data.user_detail.user_major,
+      // }).get({
+      //   success: res => {
+      //     // console.log(res.data);
+      //     this.setData({
+      //       order_list: res.data,
+      //     });
+      //     // console.log("order_list", this.data.order_list);
+      //   },
+      //   fail: err => {
+      //     console.error(err);
+      //   }
+      // })
+    }
+  },
 
 })

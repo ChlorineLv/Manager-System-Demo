@@ -115,7 +115,7 @@ Page({
   },
 
   /**
-   * 点开Collapse
+   * 点开筛选查询Collapse
    */
   onChangeCollapseBookSelect(event) {
     this.setData({

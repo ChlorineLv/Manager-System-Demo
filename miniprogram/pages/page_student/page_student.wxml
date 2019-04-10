@@ -5,7 +5,7 @@
   <van-tabs active="{{ active }}" bind:change="onChangeTab">
 
     <van-tab title="教材预订">
-      <van-collapse value="{{ activeNamesCollapseBook }}" bind:change="onChangeCollapseBook">
+      <van-collapse value="{{ activeNamesBook }}" bind:change="onChangeCollapseBook">
         <van-collapse-item title="已发布教材预订" name="1">
           <view id="showBookMgmt">
             <view wx:for="{{order_list}}" wx:key="order_listID" class="card-container">
@@ -21,30 +21,35 @@
         </van-collapse-item>
         <van-collapse-item title="个人登记历史" name="2">
           <view id="showHisMgmt">
-              <view wx:for="{{his_list}}" wx:key="his_listID" class="card-container">
-                <van-card desc="{{item.his_college}} {{item.his_grade}}级 - {{item.his_major}}" title="《{{item.his_book_name}}》" bind:click="viewItemHis">
-                  <view slot="tags">{{item.his_semester}}学期 - {{item.his_course}}</view>
-                  <view slot="footer" class="foot-btn">
-                    <van-button id="{{item._id}}" size="mini" bind:click="viewItemHis">详细</van-button>
-                  </view>
-                </van-card>
-              </view>
+            <view wx:for="{{his_list}}" wx:key="his_listID" class="card-container">
+              <van-card desc="{{item.his_college}} {{item.his_grade}}级 - {{item.his_major}}" title="《{{item.his_book_name}}》" bind:click="viewItemHis">
+                <view slot="tags">{{item.his_semester}}学期 - {{item.his_course}}</view>
+                <view slot="footer" class="foot-btn">
+                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemHis">详细</van-button>
+                </view>
+              </van-card>
             </view>
+          </view>
         </van-collapse-item>
       </van-collapse>
     </van-tab>
 
     <van-tab title="教材推荐">
-      <view class="container v-row">
-        <van-row gutter="20">
-          <van-col>
-            <van-button bind:click="btn_rec" type="primary">教材推荐登记</van-button>
-          </van-col>
-          <van-col>
-            <van-button bind:click="btn_rec_his" type="primary">教材推荐历史</van-button>
-          </van-col>
-        </van-row>
-      </view>
+      <van-cell title="教材推荐申请" value="跳转" is-link url="../page_student_rec/page_student_rec" />
+      <van-collapse value="{{ activeNamesBookRec }}" bind:change="onChangeCollapseBookRec">
+        <van-collapse-item title="个人推荐历史" name="1">
+          <view id="showRecMgmt">
+            <!-- <view wx:for="{{rec_list}}" wx:key="rec_listID" class="card-container">
+              <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="《{{item.rec_book_name}}》" bind:click="viewItemRec">
+                <view slot="tags">{{item.rec_semester}}学期 - {{item.rec_course}}</view>
+                <view slot="footer" class="foot-btn">
+                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemRec">详细</van-button>
+                </view>
+              </van-card>
+            </view> -->
+          </view>
+        </van-collapse-item>
+      </van-collapse>
     </van-tab>
 
     <van-tab title="回收教材">

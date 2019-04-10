@@ -1,9 +1,5 @@
 /**index.wxss**/
 
-.input-container {
-  width: 80%;
-}
-
 .btn-container {
   margin: 5%;
 }
