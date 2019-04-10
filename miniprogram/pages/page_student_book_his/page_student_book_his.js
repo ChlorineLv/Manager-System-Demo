@@ -1,4 +1,5 @@
 // miniprogram/pages/page_student_book_his/page_stu_book_his.js
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 const db = wx.cloud.database();
 Page({
 
@@ -10,6 +11,7 @@ Page({
     hisUpdateDate: "",
     checkedBook: false,
     checkedBookSec: false,
+    id_His:"",
   },
 
   /**
@@ -17,6 +19,9 @@ Page({
    */
   onLoad: function(options) {
     console.log("学生教材预订历史详情页面", options);
+    this.setData({
+      id_His: options._id
+    });
     db.collection("tb_his").doc(options._id).get({
       success: res => {
         // console.log("tb_his",res);
@@ -99,4 +104,53 @@ Page({
       delta: 2
     })
   },
+
+  /**
+   * 手动侦听“预订”选项改变状态
+   */
+  onChangeSwitchBook(event) {
+    this.setData({
+      checkedBook: event.detail
+    });
+  },
+
+  /**
+   * 手动侦听“二手书”选项改变状态
+   */
+  onChangeSwitchBookSec(event) {
+    this.setData({
+      checkedBookSec: event.detail
+    });
+  },
+
+  /**
+   * 点击登记提交按钮
+   */
+  btn_submit() {
+    // console.log("订书：", this.data.checkedBook, "，二手：", this.data.checkedBookSec);
+    // console.log("提交", this.data);
+    db.collection("tb_his").doc(this.data.id_His).update({
+      data: {
+        his_first: this.data.checkedBook,
+        his_sec: this.data.checkedBookSec,
+        his_update_date: new Date()
+      },
+      success: res => {
+        Dialog.confirm({
+          title: '成功',
+          message: '已成功更新，是否返回上一页'
+        }).then(() => {
+          // on confirm
+          wx.navigateBack({
+            delta: 1
+          })
+        }).catch(() => {
+          // on cancel
+        });
+      },
+      fail: err => {
+        console.error(err);
+      }
+    })
+  }
 })

@@ -1,6 +1,6 @@
 <!--miniprogram/pages/page_admin_book_detail/page_admin_book_detail.wxml-->
 <van-nav-bar title="教材预订管理-详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
-<view class="container detail-container">
+<view class="container">
     <van-cell-group>
       <van-switch-cell title="此预订表已截止统计" checked="{{ checked }}" bind:change="onChange" />
       <van-field disabled name="order_create_date" left-icon="" label="创建日期" value="{{orderDetailCreateDate}}" />
@@ -20,7 +20,7 @@
       <van-field disabled name="order_book_num_sec" required label="二手书预订量" value="{{numBookSec}}" />
       <van-field bind:change="onChangeRemark" name="order_remark" label="备注" value="选填" value="{{order_detail.order_remark}}" />
     </van-cell-group>
-    <view class="container detail-container">
+    <view class="container button-under-container">
       <van-button type="primary" size='small' bind:click="btn_update">更新</van-button>
     </view>
   <van-dialog id="van-dialog"/>

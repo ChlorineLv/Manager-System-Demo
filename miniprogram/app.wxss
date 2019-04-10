@@ -10,7 +10,7 @@
   width: 80%;
 }
 
-.detail-container{
+.button-under-container{
   margin:10px 0;
 }
 

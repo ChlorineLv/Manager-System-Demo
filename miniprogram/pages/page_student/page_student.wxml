@@ -35,18 +35,18 @@
     </van-tab>
 
     <van-tab title="教材推荐">
-      <van-cell title="教材推荐申请" value="跳转" is-link url="../page_student_rec/page_student_rec" />
+      <van-cell title="教材推荐申请" value="跳转" is-link url="{{urlRec}}" />
       <van-collapse value="{{ activeNamesBookRec }}" bind:change="onChangeCollapseBookRec">
         <van-collapse-item title="个人推荐历史" name="1">
           <view id="showRecMgmt">
-            <!-- <view wx:for="{{rec_list}}" wx:key="rec_listID" class="card-container">
+            <view wx:for="{{rec_list}}" wx:key="rec_listID" class="card-container">
               <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="《{{item.rec_book_name}}》" bind:click="viewItemRec">
                 <view slot="tags">{{item.rec_semester}}学期 - {{item.rec_course}}</view>
                 <view slot="footer" class="foot-btn">
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemRec">详细</van-button>
                 </view>
               </van-card>
-            </view> -->
+            </view>
           </view>
         </van-collapse-item>
       </van-collapse>

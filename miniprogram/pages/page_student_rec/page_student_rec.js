@@ -7,14 +7,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    stu_id:0,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    console.log("推荐申请填写页面",options);
+    this.setData({
+      stu_id: parseInt(options._id)
+    })
   },
 
   /**
@@ -90,46 +93,46 @@ Page({
   formSubmit: function (e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value);
     let dataInput = e.detail.value;
-    // db.collection('tb_order').add({
-    //   // data 字段表示需新增的 JSON 数据
-    //   data: {
-    //     order_create_date: new Date(),
-    //     order_timeout: false,
-    //     order_college: dataInput.order_college,
-    //     order_major: dataInput.order_major,
-    //     order_grade: parseInt(dataInput.order_grade),
-    //     order_semester: dataInput.order_semester,
-    //     order_course: dataInput.order_course,
-    //     order_teacher: dataInput.order_teacher,
-    //     order_book_name: dataInput.order_book_name,
-    //     order_book_isbn: parseInt(dataInput.order_book_isbn),
-    //     order_book_writer: dataInput.order_book_writer,
-    //     order_book_version: dataInput.order_book_version,
-    //     order_book_publisher: dataInput.order_book_publisher,
-    //     order_book_price: parseInt(dataInput.order_book_price),
-    //     order_book_num_sec: 0,
-    //     order_book_num_first: 0,
-    //     order_visible: true,
-    //     order_remark: dataInput.order_remark
-    //   },
-    //   success(res) {
-    //     // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
-    //     console.log(res);
-    //     Dialog.confirm({
-    //       title: '成功',
-    //       message: '已成功发布，是否返回上一页'
-    //     }).then(() => {
-    //       // on confirm
-    //       wx.navigateBack({
-    //         delta: 1
-    //       })
-    //     }).catch(() => {
-    //       // on cancel
-    //     });
-    //   },
-    //   fail: err => {
-    //     console.error(err);
-    //   }
-    // })
+    db.collection('tb_rec').add({
+      // data 字段表示需新增的 JSON 数据
+      data: {
+        rec_college: dataInput.rec_college,
+        rec_major: dataInput.rec_major,
+        rec_grade: parseInt(dataInput.rec_grade),
+        rec_semester: dataInput.rec_semester,
+        rec_course: dataInput.rec_course,
+        rec_teacher: dataInput.rec_teacher,
+        rec_book_name: dataInput.rec_book_name,
+        rec_book_isbn: parseInt(dataInput.rec_book_isbn),
+        rec_book_writer: dataInput.rec_book_writer,
+        rec_book_version: dataInput.rec_book_version,
+        rec_book_publisher: dataInput.rec_book_publisher,
+        rec_book_price: parseInt(dataInput.rec_book_price),
+        rec_remark: dataInput.rec_remark,
+        rec_create_date: new Date(),
+        rec_stu_id: this.data.stu_id,
+        rec_opinion: "",
+        //状态：0不可见，1初始，10为通过，11为不通过
+        rec_status: 1,
+      },
+      success(res) {
+        // res 是一个对象，其中有 _id 字段标记刚创建的记录的 id
+        console.log("已创建申请",res);
+        Dialog.confirm({
+          title: '成功',
+          message: '已成功申请，是否返回上一页'
+        }).then(() => {
+          // on confirm
+          wx.navigateBack({
+            delta: 1
+          })
+        }).catch(() => {
+          // on cancel
+        });
+      },
+      fail: err => {
+        console.error(err);
+      }
+    })
   }
 })

@@ -7,11 +7,13 @@ Page({
    */
   data: {
     stu_id: 0,
+    urlRec: "",
     activeNamesBook: [],
     activeNamesBookRec: [],
     user_detail: [],
     order_list: [],
-    order_his: []
+    order_his: [],
+    rec_list: [],
   },
 
   /**
@@ -19,7 +21,8 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      stu_id: parseInt(options._id)
+      stu_id: parseInt(options._id),
+      urlRec: "../page_student_rec/page_student_rec?_id=" + options._id,
     });
     console.log("学生界面，stu_id:", this.data.stu_id);
     db.collection('tb_user').where({
@@ -175,40 +178,26 @@ Page({
   /**
    * 点击推荐历史
    */
-  onChangeCollapseBookRec:function(event){
+  onChangeCollapseBookRec: function(event) {
     this.setData({
       activeNamesBookRec: event.detail
     });
     if (this.data.activeNamesBookRec.indexOf("1") != -1) {
       console.log("推荐历史", event);
-      // db.collection("tb_rec").where({
-        
-      // }).get({
-      //   success:res=>{
-      //     console.log("tb_rec",res);
-      //   },
-      //   fail:err=>{
-      //     console.log(err);
-      //   }
-      // })
-      // db.collection('tb_order').where({
-      //   order_visible: true,
-      //   order_timeout: false,
-      //   order_grade: this.data.user_detail.user_grade,
-      //   order_college: this.data.user_detail.user_college,
-      //   order_major: this.data.user_detail.user_major,
-      // }).get({
-      //   success: res => {
-      //     // console.log(res.data);
-      //     this.setData({
-      //       order_list: res.data,
-      //     });
-      //     // console.log("order_list", this.data.order_list);
-      //   },
-      //   fail: err => {
-      //     console.error(err);
-      //   }
-      // })
+      db.collection("tb_rec").where({
+        rec_stu_id: this.data.stu_id,
+      }).get({
+        success: res => {
+          console.log("tb_rec", res);
+          this.setData({
+            rec_list: res.data
+          })
+        },
+        fail: err => {
+          console.log(err);
+        }
+      })
+
     }
   },
 
