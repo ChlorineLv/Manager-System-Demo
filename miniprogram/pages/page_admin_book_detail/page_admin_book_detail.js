@@ -34,11 +34,13 @@ Page({
             checked: true
           });
         };
-        // console.log("tb_order detail", this.data.order_detail);
+        console.log("tb_order detail", this.data.order_detail);
         // 查询需要订书的表项
         db.collection("tb_his").where({
           his_grade: this.data.order_detail.order_grade,
           his_book_isbn: this.data.order_detail.order_book_isbn,
+          his_college: this.data.order_detail.order_college,
+          his_major: this.data.order_detail.order_major,
           his_first: true,
         }).get({
           success: resHis => {
