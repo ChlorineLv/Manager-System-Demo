@@ -221,7 +221,7 @@ Page({
    */
   btn_update(event) {
     console.log("this.data", this.data);
-    let createDate = Date(this.data.order_detail.order_create_date)
+    let createDate = (this.data.order_detail.order_create_date).toLocaleString()
     this.setData({
       "order_detail.order_create_date": createDate
     })

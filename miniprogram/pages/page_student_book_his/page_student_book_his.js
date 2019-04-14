@@ -133,7 +133,7 @@ Page({
       data: {
         his_first: this.data.checkedBook,
         his_sec: this.data.checkedBookSec,
-        his_update_date: new Date()
+        his_update_date: (new Date()).toLocaleString()
       },
       success: res => {
         Dialog.confirm({

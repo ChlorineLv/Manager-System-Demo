@@ -191,7 +191,7 @@ Page({
         data: {
           his_first: this.data.checkedBook,
           his_sec: this.data.checkedBookSec,
-          his_update_date: new Date()
+          his_update_date: (new Date()).toLocaleString()
         },
         success: res => {
           Dialog.confirm({
@@ -214,7 +214,7 @@ Page({
       db.collection('tb_his').add({
         // data 字段表示需新增的 JSON 数据
         data: {
-          his_update_date: new Date(),
+          his_update_date: (new Date()).toLocaleString(),
           his_stu_id: parseInt(this.data.user_detail.user_id),
           his_college: this.data.order_detail.order_college,
           his_major: this.data.order_detail.order_major,

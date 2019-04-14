@@ -119,7 +119,7 @@ Page({
     db.collection('tb_order').add({
       // data 字段表示需新增的 JSON 数据
       data: {
-        order_create_date: new Date(),
+        order_create_date: (new Date()).toLocaleString(),
         order_timeout: false,
         order_college: dataInput.order_college,
         order_major: dataInput.order_major,

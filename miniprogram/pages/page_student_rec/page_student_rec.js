@@ -109,7 +109,7 @@ Page({
         rec_book_publisher: dataInput.rec_book_publisher,
         rec_book_price: parseInt(dataInput.rec_book_price),
         rec_remark: dataInput.rec_remark,
-        rec_create_date: new Date(),
+        rec_create_date: (new Date()).toLocaleString(),
         rec_stu_id: this.data.stu_id,
         rec_opinion: "",
         //状态：0不可见，1初始，10为通过，11为不通过
