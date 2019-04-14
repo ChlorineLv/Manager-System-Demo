@@ -1,4 +1,6 @@
 <!--index.wxml-->
+<!-- <van-notice-bar text="2018年10月10日后发布新版本的小程序，将无法在线上版本中使用接口直接弹出授权框。" bind:click="clickBar" />
+<button  /> -->
 <view class="container">
   <view class="input-container">
     <van-cell-group>
@@ -10,7 +12,7 @@
   <view class="btn-container">
     <van-row gutter='30'>
       <van-col>
-        <van-button bind:click="onClickSign" type="primary">登陆</van-button>
+        <van-button open-type="getUserInfo" bind:click="onClickSign" type="primary">登陆</van-button>
       </van-col>
       <van-col>
         <van-button type="default" bind:click="onClickCancel">取消</van-button>
@@ -19,4 +21,5 @@
   </view>
 
   <van-toast id="van-toast" />
+
 </view>

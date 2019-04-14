@@ -117,5 +117,6 @@ Page({
 
   onClickIcon() {
     Toast("密码为账号本身");
-  }
+  },
+
 })

@@ -34,7 +34,7 @@ Page({
             checked: true
           });
         };
-        console.log("tb_order detail", this.data.order_detail);
+        // console.log("tb_order detail", this.data.order_detail);
         // 查询需要订书的表项
         db.collection("tb_his").where({
           his_grade: this.data.order_detail.order_grade,
@@ -221,27 +221,17 @@ Page({
    */
   btn_update(event) {
     console.log("this.data", this.data);
-    db.collection("tb_order").doc(this.data.order_id).update({
-      data: {
-        order_timeout: this.data.checked,
-        order_book_num_first: parseInt(this.data.numBookFirst),
-        order_book_num_sec: parseInt(this.data.numBookSec),
-        order_college: this.data.order_detail.order_college,
-        order_major: this.data.order_detail.order_major,
-        order_grade: parseInt(this.data.order_detail.order_grade),
-        order_semester: this.data.order_detail.order_semester,
-        order_course: this.data.order_detail.order_course,
-        order_teacher: this.data.order_detail.order_teacher,
-        order_book_name: this.data.order_detail.order_book_name,
-        order_book_isbn: parseInt(this.data.order_detail.order_book_isbn),
-        order_writer: this.data.order_detail.order_writer,
-        order_version: parseInt(this.data.order_detail.order_version),
-        order_publisher: this.data.order_detail.order_publisher,
-        order_price: parseInt(this.data.order_detail.order_price),
-        order_remark: this.data.order_detail.order_remark,
-      },
-      success: res => {
-        // console.log(res)
+    let createDate = Date(this.data.order_detail.order_create_date)
+    this.setData({
+      "order_detail.order_create_date": createDate
+    })
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'dbUpdateOrder',
+      // 传给云函数的参数
+      data: this.data,
+      success(res) {
+        console.log("callFunction dbUpadteOrder result:", res.result)
         Dialog.confirm({
           title: '成功',
           message: '已成功更新，是否返回上一页'
@@ -255,8 +245,9 @@ Page({
         });
       },
       fail: err => {
-        console.error(err);
+        console.error("callFunction dbUpadteOrder err:", err)
       }
-    })
+    });
+    
   }
 })
