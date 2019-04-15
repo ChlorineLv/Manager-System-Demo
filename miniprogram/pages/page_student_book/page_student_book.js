@@ -37,7 +37,7 @@ Page({
       success: res => {
         this.setData({
           order_detail: res.data[0],
-          orderDetailCreateDate: res.data[0].order_create_date.toLocaleString()
+          orderDetailCreateDate: (new Date(res.data[0].order_create_date)).toLocaleString()
         });
         // console.log("tb_order:", this.data.order_detail);
       },
@@ -143,13 +143,13 @@ Page({
         his_book_isbn: parseInt(this.data.order_detail.order_book_isbn)
       }).get({
         success: res => {
-          console.log("tb_his",res);
+          console.log("tb_his", res);
           if (res.data.length != 0) {
             this.setData({
               his_detail: res.data[0],
               checkedBook: res.data[0].his_first,
               checkedBookSec: res.data[0].his_sec & res.data[0].his_first,
-              hisUpdateDate: res.data[0].his_update_date.toLocaleString(),
+              hisUpdateDate: (new Date(res.data[0].his_update_date)).toLocaleString(),
               id_His: res.data[0]._id,
               boolHis: true
             })
@@ -187,68 +187,79 @@ Page({
   btn_submit() {
     // console.log("订书：", this.data.checkedBook, "，二手：", this.data.checkedBookSec);
     if (this.data.boolHis == true) {
-      db.collection("tb_his").doc(this.data.id_His).update({
+      wx.cloud.callFunction({
+        // 云函数名称
+        name: 'dbUpdateHis',
+        // 传给云函数的参数
         data: {
-          his_first: this.data.checkedBook,
-          his_sec: this.data.checkedBookSec,
-          his_update_date: (new Date()).toLocaleString()
+          id_His: this.data.id_His,
+          checkedBook: this.data.checkedBook,
+          checkedBookSec: this.data.checkedBookSec,
         },
-        success: res => {
-          Dialog.confirm({
-            title: '成功',
-            message: '已成功更新，是否返回上一页'
-          }).then(() => {
-            // on confirm
-            wx.navigateBack({
-              delta: 1
-            })
-          }).catch(() => {
-            // on cancel
-          });
+        success(res) {
+          console.log("callFunction dbUpdateHis result:", res.result)
+          if (res.result.stats.updated == 1) {
+            Dialog.confirm({
+              title: '成功',
+              message: '已成功更新，是否返回上一页'
+            }).then(() => {
+              // on confirm
+              wx.navigateBack({
+                delta: 1
+              })
+            }).catch(() => {
+              // on cancel
+            });
+          } else {
+            Dialog.confirm({
+              title: '异常',
+              message: '异常信息：' + res
+            }).then(() => {
+              // on confirm
+            }).catch(() => {
+              // on cancel
+            });
+          }
         },
         fail: err => {
-          console.error(err);
+          console.error("callFunction dbUpdateHis err:", err)
         }
-      })
+      });
     } else {
-      db.collection('tb_his').add({
-        // data 字段表示需新增的 JSON 数据
-        data: {
-          his_update_date: (new Date()).toLocaleString(),
-          his_stu_id: parseInt(this.data.user_detail.user_id),
-          his_college: this.data.order_detail.order_college,
-          his_major: this.data.order_detail.order_major,
-          his_grade: parseInt(this.data.user_detail.user_grade),
-          his_semester: this.data.order_detail.order_semester,
-          his_course: this.data.order_detail.order_course,
-          his_teacher: this.data.order_detail.order_teacher,
-          his_book_name: this.data.order_detail.order_book_name,
-          his_book_isbn: parseInt(this.data.order_detail.order_book_isbn),
-          his_book_writer: this.data.order_detail.order_book_writer,
-          his_book_version: this.data.order_detail.order_book_version,
-          his_book_publisher: this.data.order_detail.order_book_publisher,
-          his_book_price: this.data.order_detail.order_book_price,
-          his_first: this.data.checkedBook,
-          his_sec: this.data.checkedBookSec,
-        },
-        success: resAdd => {
-          console.log("登记成功", resAdd);
-          Dialog.confirm({
-            title: '成功',
-            message: '已成功登记，是否返回上一页'
-          }).then(() => {
-            // on confirm
-            wx.navigateBack({
-              delta: 1
-            })
-          }).catch(() => {
-            // on cancel
-          });
+      wx.cloud.callFunction({
+        // 云函数名称
+        name: 'dbReleaseHis',
+        // 传给云函数的参数
+        data: this.data,
+        success(res) {
+          console.log("callFunction dbReleaseHis result:", res.result)
+          if (res.result != null) {
+            Dialog.confirm({
+              title: '成功',
+              message: '已成功登记，单号为' + res.result._id + '，是否返回上一页'
+            }).then(() => {
+              // on confirm
+              wx.navigateBack({
+                delta: 1
+              })
+            }).catch(() => {
+              // on cancel
+            });
+          } else {
+            Dialog.confirm({
+              title: '异常',
+              message: '异常信息：' + res
+            }).then(() => {
+              // on confirm
+            }).catch(() => {
+              // on cancel
+            });
+          }
         },
         fail: err => {
-          console.error(err);
+          console.error("callFunction dbReleaseHis err:", err)
         }
-      })
+      });
     }
   }
 })

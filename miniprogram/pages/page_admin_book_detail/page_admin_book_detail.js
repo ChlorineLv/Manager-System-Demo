@@ -24,10 +24,11 @@ Page({
     // 查询该书的相关信息
     db.collection("tb_order").doc(options._id).get({
       success: res => {
+        // console.log("tb_order:", res);
         this.setData({
           order_id: options._id,
           order_detail: res.data,
-          orderDetailCreateDate: res.data.order_create_date.toLocaleString()
+          orderDetailCreateDate: (new Date(res.data.order_create_date)).toLocaleString()
         });
         if (res.data.order_timeout == true) {
           this.setData({
@@ -232,17 +233,28 @@ Page({
       data: this.data,
       success(res) {
         console.log("callFunction dbUpadteOrder result:", res.result)
-        Dialog.confirm({
-          title: '成功',
-          message: '已成功更新，是否返回上一页'
-        }).then(() => {
-          // on confirm
-          wx.navigateBack({
-            delta: 1
-          })
-        }).catch(() => {
-          // on cancel
-        });
+        if (res.result != null) {
+          Dialog.confirm({
+            title: '成功',
+            message: '已成功更新，单号为' + res.result._id + '，是否返回上一页'
+          }).then(() => {
+            // on confirm
+            wx.navigateBack({
+              delta: 1
+            })
+          }).catch(() => {
+            // on cancel
+          });
+        } else {
+          Dialog.confirm({
+            title: '异常',
+            message: '异常信息：' + res
+          }).then(() => {
+            // on confirm
+          }).catch(() => {
+            // on cancel
+          });
+        }
       },
       fail: err => {
         console.error("callFunction dbUpadteOrder err:", err)

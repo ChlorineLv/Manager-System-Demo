@@ -94,7 +94,7 @@ Page({
   /**
    * 点击右边注销
    */
-  onClickRight() {
+  onClickRight: function() {
     wx.navigateBack({
       delta: 1
     })
@@ -103,14 +103,14 @@ Page({
   /**
    * tab栏
    */
-  onChangeTab(event) {
+  onChangeTab: function(event) {
     // console.log("点击了", event)
   },
 
   /**
-   * 教材预订Collapse
+   * 点击教材预订Collapse栏目
    */
-  onChangeCollapseBook(event) {
+  onChangeCollapseBook: function(event) {
     this.setData({
       activeNamesBook: event.detail
     });
@@ -176,19 +176,19 @@ Page({
   },
 
   /**
-   * 点击推荐历史
+   * 点击推荐历史栏目
    */
   onChangeCollapseBookRec: function(event) {
     this.setData({
       activeNamesBookRec: event.detail
     });
     if (this.data.activeNamesBookRec.indexOf("1") != -1) {
-      console.log("推荐历史", event);
+      // console.log("推荐历史", event);
       db.collection("tb_rec").where({
         rec_stu_id: this.data.stu_id,
       }).get({
         success: res => {
-          console.log("tb_rec", res);
+          // console.log("tb_rec", res);
           this.setData({
             rec_list: res.data
           })
@@ -197,8 +197,17 @@ Page({
           console.log(err);
         }
       })
-
     }
   },
 
+
+  /**
+   * 点击推荐历史的详情
+   */
+  viewItemRec: function(event) {
+    let id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_student_rec_detail/page_student_rec_detail?_id=' + id,
+    })
+  }
 })

@@ -1,4 +1,4 @@
-// miniprogram/pages/page_student_book_his/page_stu_book_his.js
+// miniprogram/pages/page_student_book_his/page_student_book_his.js
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 const db = wx.cloud.database();
 Page({
@@ -11,7 +11,7 @@ Page({
     hisUpdateDate: "",
     checkedBook: false,
     checkedBookSec: false,
-    id_His:"",
+    id_His: "",
   },
 
   /**
@@ -27,9 +27,9 @@ Page({
         // console.log("tb_his",res);
         this.setData({
           his_detail: res.data,
-          checkedBook: res.data.his_first,
+          checkedBook: 0 || res.data.his_first,
           checkedBookSec: res.data.his_sec & res.data.his_first,
-          hisUpdateDate: res.data.his_update_date.toLocaleString(),
+          hisUpdateDate: (new Date(res.data.his_update_date)).toLocaleString(),
         })
       },
       fail: err => {
@@ -90,7 +90,7 @@ Page({
   /**
    * 点击左边返回
    */
-  onClickLeft() {
+  onClickLeft: function() {
     wx.navigateBack({
       delta: 1
     })
@@ -99,7 +99,7 @@ Page({
   /**
    * 点击右边注销
    */
-  onClickRight() {
+  onClickRight: function() {
     wx.navigateBack({
       delta: 2
     })
@@ -129,28 +129,43 @@ Page({
   btn_submit() {
     // console.log("订书：", this.data.checkedBook, "，二手：", this.data.checkedBookSec);
     // console.log("提交", this.data);
-    db.collection("tb_his").doc(this.data.id_His).update({
+    wx.cloud.callFunction({
+      // 云函数名称
+      name: 'dbUpdateHis',
+      // 传给云函数的参数
       data: {
-        his_first: this.data.checkedBook,
-        his_sec: this.data.checkedBookSec,
-        his_update_date: (new Date()).toLocaleString()
+        id_His: this.data.id_His,
+        checkedBook: this.data.checkedBook,
+        checkedBookSec: this.data.checkedBookSec,
       },
-      success: res => {
-        Dialog.confirm({
-          title: '成功',
-          message: '已成功更新，是否返回上一页'
-        }).then(() => {
-          // on confirm
-          wx.navigateBack({
-            delta: 1
-          })
-        }).catch(() => {
-          // on cancel
-        });
+      success(res) {
+        console.log("callFunction dbUpdateHis result:", res.result)
+        if (res.result.stats.updated == 1) {
+          Dialog.confirm({
+            title: '成功',
+            message: '已成功更新，是否返回上一页'
+          }).then(() => {
+            // on confirm
+            wx.navigateBack({
+              delta: 1
+            })
+          }).catch(() => {
+            // on cancel
+          });
+        } else {
+          Dialog.confirm({
+            title: '异常',
+            message: '异常信息：' + res
+          }).then(() => {
+            // on confirm
+          }).catch(() => {
+            // on cancel
+          });
+        }
       },
       fail: err => {
-        console.error(err);
+        console.error("callFunction dbUpdateHis err:", err)
       }
-    })
+    });
   }
 })

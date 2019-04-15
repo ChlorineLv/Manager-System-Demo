@@ -27,3 +27,7 @@
 .van-card__content{
   margin-top: 10px;
 }
+
+.van-dialog__message{
+  word-break:break-all;
+}

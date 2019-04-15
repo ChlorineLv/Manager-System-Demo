@@ -35,7 +35,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -49,6 +49,13 @@
 					"name": "学生界面(stu_id=11)",
 					"pathName": "pages/page_student/page_student",
 					"query": "_id=11",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "管理员审核界面",
+					"pathName": "pages/page_admin_rec_detail/page_admin_rec_detail",
+					"query": "_id=3fc2c9075cada0c5037ec8df05a02655",
 					"scene": null
 				}
 			]

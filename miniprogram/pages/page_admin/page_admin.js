@@ -8,9 +8,11 @@ Page({
    */
   data: {
     activeNamesBookSelect: [],
-    activeNamesBookMgmt:["1"],
+    activeNamesBookMgmt: ["1"],
+    activeNamesRec: [],
     order_list: [],
-    user_list:[],
+    user_list: [],
+    recCheck_list:[],
   },
 
   /**
@@ -80,23 +82,14 @@ Page({
   },
 
   /**
-   * 点击教材预订发布
-   */
-  btn_book() {
-    wx.navigateTo({
-      url: '../page_admin_book/page_admin_book',
-    })
-  },
-
-  /**
    * tab栏
    */
   onChangeTab(event) {
     console.log("点击了", event)
     // 点击了设置tab
-    if(event.detail.index == 3){
+    if (event.detail.index == 3) {
       db.collection("tb_user").get({
-        success:res=>{
+        success: res => {
           this.setData({
             user_list: res.data
           })
@@ -106,9 +99,19 @@ Page({
     }
   },
 
-/**
- * 教材预订历史collapse
- */onChangeCollapseBookMgmt(event) {
+  /**
+   * 点击教材预订发布
+   */
+  btn_book() {
+    wx.navigateTo({
+      url: '../page_admin_book/page_admin_book',
+    })
+  },
+
+  /**
+   * 教材预订历史collapse
+   */
+  onChangeCollapseBookMgmt(event) {
     this.setData({
       activeNamesBookMgmt: event.detail
     });
@@ -124,7 +127,7 @@ Page({
   },
 
   /**
-   * 用户点击查询
+   * 预订查询
    */
   btn_search(options) {
     db.collection('tb_order').where({
@@ -143,12 +146,44 @@ Page({
   },
 
   /**
-   * 点击详情，将ID传过去
+   * 点击预订详情，将ID传过去
    */
-  viewItem: function (event) {
+  viewItem: function(event) {
     var id = event.currentTarget.id;
     wx.navigateTo({
       url: '../page_admin_book_detail/page_admin_book_detail?_id=' + id,
     })
   },
+
+  /**推荐栏Collapse */
+  onChangeCollapseRec: function(event) {
+    this.setData({
+      activeNamesRec: event.detail
+    });
+    if (this.data.activeNamesRec.indexOf("1") != -1) {
+      db.collection("tb_rec").where({
+        rec_status:1
+      }).get({
+        success:res=>{
+          // console.log(res)
+          this.setData({
+            recCheck_list: res.data
+          })
+        },
+        fail:err=>{
+          console.log("tb_rec",err);
+        }
+      })
+    }
+  },
+
+  /**
+   * 推荐审核传ID
+   */
+  viewItemRecCheck: function(event) {
+    var id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_admin_rec_detail/page_admin_rec_detail?_id=' + id,
+    })
+  }
 })

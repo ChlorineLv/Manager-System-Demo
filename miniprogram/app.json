@@ -8,7 +8,9 @@
     "pages/page_admin_book_detail/page_admin_book_detail",
     "pages/page_student_book/page_student_book",
     "pages/page_student_book_his/page_student_book_his",
-    "pages/page_student_rec/page_student_rec"
+    "pages/page_student_rec/page_student_rec",
+    "pages/page_student_rec_detail/page_student_rec_detail",
+    "pages/page_admin_rec_detail/page_admin_rec_detail"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -36,6 +38,8 @@
     "van-tabs": "../../miniprogram_npm/vant-weapp/tabs/index",
     "van-cell": "../../miniprogram_npm/vant-weapp/cell/index",
     "van-cell-group": "../../miniprogram_npm/vant-weapp/cell-group/index",
-    "van-notice-bar": "../../miniprogram_npm/vant-weapp/notice-bar/index"
+    "van-notice-bar": "../../miniprogram_npm/vant-weapp/notice-bar/index",
+    "van-radio": "../../miniprogram_npm/vant-weapp/radio/index",
+    "van-radio-group": "../../miniprogram_npm/vant-weapp/radio-group/index"
   }
 }
