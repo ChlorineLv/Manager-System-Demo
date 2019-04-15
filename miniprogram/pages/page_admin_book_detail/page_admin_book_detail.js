@@ -233,10 +233,10 @@ Page({
       data: this.data,
       success(res) {
         console.log("callFunction dbUpadteOrder result:", res.result)
-        if (res.result != null) {
+        if (res.result.stats.updated == 1) {
           Dialog.confirm({
             title: '成功',
-            message: '已成功更新，单号为' + res.result._id + '，是否返回上一页'
+            message: '已成功更新，是否返回上一页'
           }).then(() => {
             // on confirm
             wx.navigateBack({
