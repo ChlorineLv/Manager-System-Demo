@@ -8,6 +8,7 @@ Page({
   data: {
     rec_detail: [],
     recUpdateDate: '',
+    recCheckDate: "",
     recStatus: '',
   },
 
@@ -53,6 +54,11 @@ Page({
           recUpdateDate: (new Date(res.data.rec_create_date)).toLocaleString(),
           recStatus: tmp_status
         })
+        if (res.data.rec_check_date != null) {
+          this.setData({
+            recCheckDate: (new Date(res.data.rec_check_date)).toLocaleString(),
+          })
+        }
       },
       fail: err => {
         console.log("tb_rec", err);

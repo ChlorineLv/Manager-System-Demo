@@ -4,6 +4,7 @@
     <van-cell-group>
       <van-switch-cell title="此预订表已截止统计" checked="{{ checked }}" bind:change="onChange" />
       <van-field disabled name="order_create_date" left-icon="" label="创建日期" value="{{orderDetailCreateDate}}" />
+      <van-field disabled name="order_update_date" left-icon="" label="更新日期" value="{{orderDetailUpdateDate}}" />
       <van-field bind:change="onChangeCollege" name="order_college" required left-icon="home-o" label="学院名称" value="{{order_detail.order_college}}" />
       <van-field bind:change="onChangeMajor" name="order_major" required label="专业名称" value="{{order_detail.order_major}}" />
       <van-field bind:change="onChangeGrade" name="order_grade" required label="年级" value="{{order_detail.order_grade}}" />

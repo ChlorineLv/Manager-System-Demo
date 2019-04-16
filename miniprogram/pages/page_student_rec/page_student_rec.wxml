@@ -5,6 +5,8 @@
   <view class="input-container">
     <form bindsubmit="formSubmit" bindreset="formReset">
       <van-cell-group>
+        <van-field name="rec_add" required clearable label="宿舍号" />
+        <van-field name="rec_phone" required clearable label="手机号" />
         <van-field name="rec_college" required clearable label="学院名称" />
         <van-field name="rec_major" required clearable label="专业名称" />
         <!-- <van-picker columns="{{ columns }}" bind:change="onChange" /> -->

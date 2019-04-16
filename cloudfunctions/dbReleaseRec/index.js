@@ -11,6 +11,8 @@ exports.main = async(event, context) => {
     db.collection('tb_rec').add({
       // data 字段表示需新增的 JSON 数据
       data: {
+        rec_phone: parseInt(event.dataInput.rec_phone),
+        rec_add: event.dataInput.rec_add,
         rec_college: event.dataInput.rec_college,
         rec_major: event.dataInput.rec_major,
         rec_grade: parseInt(event.dataInput.rec_grade),
@@ -37,6 +39,9 @@ exports.main = async(event, context) => {
           console.log("dbReleaseRec db.collection('tb_rec') err:", err);
         }
     })
+    // return{
+    //   event,
+    // }
   } catch (e) {
     console.log("dbReleaseRec function e", e);
   }

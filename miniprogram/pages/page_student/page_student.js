@@ -53,7 +53,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    this.setData({
+      activeNamesBook: [],
+      activeNamesBookRec: [],
+    })
   },
 
   /**
@@ -105,6 +108,10 @@ Page({
    */
   onChangeTab: function(event) {
     // console.log("点击了", event)
+    this.setData({
+      activeNamesBook: [],
+      activeNamesBookRec: [],
+    })
   },
 
   /**

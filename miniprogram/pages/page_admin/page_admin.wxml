@@ -60,13 +60,13 @@
             </view>
           </view>
         </van-collapse-item>
-        <van-collapse-item title="个人登记历史" name="2">
+        <van-collapse-item title="审核历史" name="2">
           <view id="showRecMgmt">
-            <view wx:for="{{Rec_list}}" wx:key="Rec_listID" class="card-container">
-              <van-card desc="{{item.Rec_college}} {{item.Rec_grade}}级 - {{item.Rec_major}}" title="《{{item.Rec_book_name}}》" bind:click="viewItemRec">
-                <view slot="tags">{{item.Rec_semester}}学期 - {{item.Rec_course}}</view>
+            <view wx:for="{{rec_list}}" wx:key="rec_listID" class="card-container">
+              <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="{{item.rec_semester}}学期 - {{item.rec_course}}" bind:click="viewItemRec">
+                <view slot="tags">《{{item.rec_book_name}}》</view>
                 <view slot="footer" class="foot-btn">
-                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemRec">详细</van-button>
+                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemRecCheck">详细</van-button>
                 </view>
               </van-card>
             </view>

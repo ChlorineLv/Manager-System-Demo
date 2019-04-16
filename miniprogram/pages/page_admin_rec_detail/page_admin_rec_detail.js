@@ -8,8 +8,10 @@ Page({
    */
   data: {
     radioRecCheck: true,
+    recID:"",
     rec_detail: [],
     recUpdateDate: "",
+    recCheckDate: "",
     recCheckOpinion: "",
   },
 
@@ -22,8 +24,10 @@ Page({
       success: res => {
         this.setData({
           rec_detail: res.data,
+          recID: options._id,
           recUpdateDate: (new Date(res.data.rec_create_date)).toLocaleString(),
-          radioRecCheck: (res.data.rec_status).toString()
+          radioRecCheck: (res.data.rec_status).toString(),
+          recCheckDate: (new Date(res.data.rec_check_date)).toLocaleString(),
         })
       },
       fail: err => {
@@ -104,7 +108,8 @@ Page({
    */
   onChangeRadioRecCheck(event) {
     this.setData({
-      radioRecCheck: event.detail
+      radioRecCheck: event.detail,
+      "rec_detail.rec_status": parseInt(event.detail),
     });
     // console.log(this.data.radioRecCheck)
   },
@@ -114,7 +119,7 @@ Page({
    */
   onChangeOpinion: function(event) {
     this.setData({
-      recCheckOpinion: event.detail
+      "rec_detail.rec_opinion": event.detail,
     })
   },
 
@@ -122,30 +127,53 @@ Page({
    * 提交审核结果
    */
   btn_submit: function(event) {
-    // console.log(this.data);
+    console.log(this.data);
     wx.cloud.callFunction({
       // 云函数名称
       name: 'dbCheckRec',
       // 传给云函数的参数
       data: {
         recID: this.data.rec_detail._id,
-        radioCheckOpinion: this.data.radioCheckOpinion,
-        radioRecCheck: parseInt(this.data.radioRecCheck)
+        recCheckOpinion: this.data.rec_detail.rec_opinion,
+        radioRecCheck: this.data.rec_detail.rec_status
       },
-      success(res) {
+      success:res=> {
         console.log("callFunction dbCheckRec result:", res.result)
-        if (res.result.stats.updated == 1) {
-          Dialog.confirm({
-            title: '成功',
-            message: '已成功审核，是否返回上一页'
-          }).then(() => {
-            // on confirm
-            wx.navigateBack({
-              delta: 1
-            })
-          }).catch(() => {
-            // on cancel
-          });
+        if (res.result.stats != undefined) {
+          if (res.result.stats.updated == 1) {
+            Dialog.confirm({
+              title: '成功',
+              message: '已成功审核，是否返回上一页'
+            }).then(() => {
+              // on confirm
+              wx.navigateBack({
+                delta: 1
+              })
+            }).catch(() => {
+              db.collection("tb_rec").doc(this.data.recID).get({
+                success: res => {
+                  this.setData({
+                    rec_detail: res.data,
+                    recUpdateDate: (new Date(res.data.rec_create_date)).toLocaleString(),
+                    radioRecCheck: (res.data.rec_status).toString(),
+                    recCheckDate: (new Date(res.data.rec_check_date)).toLocaleString(),
+                  })
+                },
+                fail: err => {
+                  console.log("tb_rec:", err);
+                }
+              })
+            });
+          } else if (res.result.stats.updated == 0) {
+            Dialog.confirm({
+              title: '成功',
+              message: '审核信息未发生更改。'
+            }).then(() => {
+              // on confirm
+            }).catch(() => {
+              // on cancel
+            });
+          }
         } else {
           Dialog.confirm({
             title: '异常',

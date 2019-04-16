@@ -12,7 +12,8 @@ Page({
     activeNamesRec: [],
     order_list: [],
     user_list: [],
-    recCheck_list:[],
+    recCheck_list: [],
+    rec_list: [],
   },
 
   /**
@@ -20,7 +21,6 @@ Page({
    */
   onLoad: function(options) {
     console.log("教务员界面", options);
-
   },
 
   /**
@@ -35,7 +35,10 @@ Page({
    */
   onShow: function() {
     this.setData({
-      order_list:[]
+      order_list: [],
+      rec_list: [],
+      recCheck_list: [],
+      activeNamesRec: [],
     })
   },
 
@@ -87,7 +90,13 @@ Page({
    * tab栏
    */
   onChangeTab(event) {
-    console.log("点击了", event)
+    // console.log("点击了", event)
+    this.setData({
+      activeNamesBookSelect: [],
+      activeNamesBookMgmt: ["1"],
+      activeNamesRec: [],
+      order_list:[],
+    })
     // 点击了设置tab
     if (event.detail.index == 3) {
       db.collection("tb_user").get({
@@ -164,19 +173,34 @@ Page({
     });
     if (this.data.activeNamesRec.indexOf("1") != -1) {
       db.collection("tb_rec").where({
-        rec_status:1
+        rec_status: 1
       }).get({
-        success:res=>{
+        success: res => {
           // console.log(res)
           this.setData({
             recCheck_list: res.data
           })
         },
-        fail:err=>{
-          console.log("tb_rec",err);
+        fail: err => {
+          console.log("tb_rec", err);
         }
       })
-    }
+    };
+    if (this.data.activeNamesRec.indexOf("2") != -1) {
+      db.collection("tb_rec").where({
+        rec_status: db.command.neq(1)
+      }).get({
+        success: res => {
+          console.log(res)
+          this.setData({
+            rec_list: res.data
+          })
+        },
+        fail: err => {
+          console.log("tb_rec", err);
+        }
+      })
+    };
   },
 
   /**

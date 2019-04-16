@@ -9,11 +9,12 @@ Page({
   data: {
     checked: false,
     orderDetailCreateDate: "",
+    orderDetailUpdateDate: "",
     order_detail: [],
     update_detail: [],
     order_id: "",
-    numBookFirst: 0,
-    numBookSec: 0,
+    numBookFirst: null,
+    numBookSec: null,
   },
 
   /**
@@ -28,7 +29,8 @@ Page({
         this.setData({
           order_id: options._id,
           order_detail: res.data,
-          orderDetailCreateDate: (new Date(res.data.order_create_date)).toLocaleString()
+          orderDetailCreateDate: (new Date(res.data.order_create_date)).toLocaleString(),
+          orderDetailUpdateDate: (new Date(res.data.order_update_date)).toLocaleString(),
         });
         if (res.data.order_timeout == true) {
           this.setData({
@@ -231,7 +233,7 @@ Page({
       name: 'dbUpdateOrder',
       // 传给云函数的参数
       data: this.data,
-      success(res) {
+      success: res => {
         console.log("callFunction dbUpadteOrder result:", res.result)
         if (res.result.stats.updated == 1) {
           Dialog.confirm({
@@ -244,6 +246,54 @@ Page({
             })
           }).catch(() => {
             // on cancel
+            db.collection("tb_order").doc(this.data.order_id).get({
+              success: res => {
+                // console.log("tb_order:", res);
+                this.setData({
+                  order_detail: res.data,
+                  orderDetailCreateDate: (new Date(res.data.order_create_date)).toLocaleString(),
+                  orderDetailUpdateDate: (new Date(res.data.order_update_date)).toLocaleString(),
+                });
+                if (res.data.order_timeout == true) {
+                  this.setData({
+                    checked: true
+                  });
+                };
+                // console.log("tb_order detail", this.data.order_detail);
+                // 查询需要订书的表项
+                db.collection("tb_his").where({
+                  his_grade: this.data.order_detail.order_grade,
+                  his_book_isbn: this.data.order_detail.order_book_isbn,
+                  his_college: this.data.order_detail.order_college,
+                  his_major: this.data.order_detail.order_major,
+                  his_first: true,
+                }).get({
+                  success: resHis => {
+                    console.log("tb_his", resHis.data);
+                    var countFirst = 0;
+                    var countSec = 0;
+                    for (let i = 0; i < resHis.data.length; i++) {
+                      if (resHis.data[i].his_sec) {
+                        countSec++;
+                      } else {
+                        countFirst++;
+                      }
+                    }
+                    this.setData({
+                      numBookFirst: countFirst,
+                      numBookSec: countSec
+                    })
+                    // console.log("numBookFirst:", this.data.numBookFirst, ",numBookSec:", this.data.numBookSec);
+                  },
+                  fail: err => {
+                    console.error(err);
+                  }
+                })
+              },
+              fail: err => {
+                console.error(err);
+              }
+            });
           });
         } else {
           Dialog.confirm({
@@ -260,6 +310,6 @@ Page({
         console.error("callFunction dbUpadteOrder err:", err)
       }
     });
-    
+
   }
 })
