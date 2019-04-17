@@ -99,7 +99,7 @@ Page({
   },
 
   /**
-   * 点击右边注销
+   * 右边注销
    */
   onClickRight: function() {
     wx.navigateBack({
@@ -119,7 +119,7 @@ Page({
   },
 
   /**
-   * 点击教材预订Collapse栏目
+   * 教材预订Collapse栏目
    */
   onChangeCollapseBook: function(event) {
     this.setData({
@@ -167,7 +167,7 @@ Page({
   },
 
   /**
-   * 点击预订教材详情，将ID传过去
+   * 预订教材详情，将ID传过去
    */
   viewItem: function(event) {
     let id = event.currentTarget.id;
@@ -177,7 +177,7 @@ Page({
   },
 
   /**
-   * 点击预订历史，将ID传过去
+   * 预订历史，将ID传过去
    */
   viewItemHis: function(event) {
     let id = event.currentTarget.id;
@@ -187,7 +187,7 @@ Page({
   },
 
   /**
-   * 点击推荐历史栏目
+   * 推荐历史栏目
    */
   onChangeCollapseBookRec: function(event) {
     this.setData({
@@ -213,12 +213,37 @@ Page({
 
 
   /**
-   * 点击推荐历史的详情
+   * 推荐历史的详情
    */
   viewItemRec: function(event) {
     let id = event.currentTarget.id;
     wx.navigateTo({
       url: '../page_student_rec_detail/page_student_rec_detail?_id=' + id,
     })
-  }
+  },
+
+  /**
+   * 二手申请历史栏目
+   */
+  onChangeCollapseBookSec: function (event) {
+    this.setData({
+      activeNamesBookSec: event.detail
+    });
+    if (this.data.activeNamesBookSec.indexOf("1") != -1) {
+      // console.log("推荐历史", event);
+      db.collection("tb_sec").where({
+        sec_stu_id: this.data.stu_id,
+      }).get({
+        success: res => {
+          // console.log("tb_sec", res);
+          this.setData({
+            sec_list: res.data
+          })
+        },
+        fail: err => {
+          console.log(err);
+        }
+      })
+    }
+  },
 })
