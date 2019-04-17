@@ -8,12 +8,15 @@ Page({
   data: {
     stu_id: 0,
     urlRec: "",
+    urlSec: "",
     activeNamesBook: [],
     activeNamesBookRec: [],
+    activeNamesBookSec: [],
     user_detail: [],
     order_list: [],
     order_his: [],
     rec_list: [],
+    sec_list: [],
   },
 
   /**
@@ -23,6 +26,7 @@ Page({
     this.setData({
       stu_id: parseInt(options._id),
       urlRec: "../page_student_rec/page_student_rec?_id=" + options._id,
+      urlSec: "../page_student_sec/page_student_sec?_id=" + options._id,
     });
     console.log("学生界面，stu_id:", this.data.stu_id);
     db.collection('tb_user').where({

@@ -10,7 +10,9 @@
     "pages/page_student_book_his/page_student_book_his",
     "pages/page_student_rec/page_student_rec",
     "pages/page_student_rec_detail/page_student_rec_detail",
-    "pages/page_admin_rec_detail/page_admin_rec_detail"
+    "pages/page_admin_rec_detail/page_admin_rec_detail",
+    "pages/page_student_sec/page_student_sec",
+    "pages/page_student_sec_detail/page_student_sec_detail"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

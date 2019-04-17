@@ -45,6 +45,19 @@
       </van-collapse>
     </van-tab>
 
+    <van-tab title="二手教材">
+      <view class="container v-row">
+        <van-row gutter="20">
+          <van-col>
+            <van-button bind:click="btn_sec" type="primary">二手教材审核</van-button>
+          </van-col>
+          <van-col>
+            <van-button bind:click="btn_sec_mgmt" type="primary">二手教材管理</van-button>
+          </van-col>
+        </van-row>
+      </view>
+    </van-tab>
+
     <van-tab title="教材推荐">
       <van-collapse value="{{ activeNamesRec }}" bind:change="onChangeCollapseRec">
         <van-collapse-item title="待审核" name="1">
@@ -73,19 +86,6 @@
           </view>
         </van-collapse-item>
       </van-collapse>
-    </van-tab>
-
-    <van-tab title="教材回收">
-      <view class="container v-row">
-        <van-row gutter="20">
-          <van-col>
-            <van-button bind:click="btn_sec" type="primary">二手教材审核</van-button>
-          </van-col>
-          <van-col>
-            <van-button bind:click="btn_sec_mgmt" type="primary">二手教材管理</van-button>
-          </van-col>
-        </van-row>
-      </view>
     </van-tab>
 
     <van-tab title="设置">
