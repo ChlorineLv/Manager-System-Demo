@@ -81,7 +81,40 @@ Page({
   },
 
   /**
-   * 点击右边注销
+   * sec_create_date日期处理
+   */
+  changeSecCreateDate: function(arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let date = new Date(arr[i].sec_create_date);
+      arr[i].sec_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+    }
+    return arr;
+  },
+
+  /**
+   * rec_create_date日期处理
+   */
+  changeRecCreateDate: function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let date = new Date(arr[i].rec_create_date);
+      arr[i].rec_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+    }
+    return arr;
+  },
+
+  /**
+   * order_create_date日期处理
+   */
+  changeOrderCreateDate: function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let date = new Date(arr[i].order_create_date);
+      arr[i].order_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+    }
+    return arr;
+  },
+
+  /**
+   * 右边注销
    */
   onClickRight() {
     wx.navigateBack({
@@ -144,7 +177,7 @@ Page({
       success: res => {
         // console.log("查询结果",res.data);
         this.setData({
-          order_list: res.data,
+          order_list: this.changeOrderCreateDate(res.data),
         });
       },
       fail: err => {
@@ -174,26 +207,26 @@ Page({
       db.collection("tb_sec").where({
         sec_status: 1
       }).get({
-        success:res => {
+        success: res => {
           this.setData({
-            secCheck_list: res.data
+            secCheck_list: this.changeSecCreateDate(res.data)
           })
         },
-        fail:err=>{
+        fail: err => {
           console.log(err)
         }
       })
     };
-    if(this.data.activeNamesSec.indexOf("2") != -1) {
+    if (this.data.activeNamesSec.indexOf("2") != -1) {
       db.collection("tb_sec").where({
         sec_status: db.command.neq(1)
       }).get({
-        success:res=>{
+        success: res => {
           this.setData({
-            sec_list: res.data
+            sec_list: this.changeSecCreateDate(res.data)
           })
         },
-        fail:err=>{
+        fail: err => {
           console.log(err)
         }
       })
@@ -203,7 +236,7 @@ Page({
   /**
    * button二手详情
    */
-  viewItemsecCheck:function(event){
+  viewItemsecCheck: function(event) {
     var id = event.currentTarget.id;
     wx.navigateTo({
       url: '../page_admin_sec_detail/page_admin_sec_detail?_id=' + id,
@@ -213,8 +246,11 @@ Page({
   /**
    * button审核历史详情
    */
-  viewItemSecCheck:function(event){
-
+  viewItemSecCheck: function(event) {
+    var id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_admin_sec_detail/page_admin_sec_detail?_id=' + id,
+    })
   },
 
   /**
@@ -231,7 +267,7 @@ Page({
         success: res => {
           // console.log(res)
           this.setData({
-            recCheck_list: res.data
+            recCheck_list: this.changeRecCreateDate(res.data),
           })
         },
         fail: err => {
@@ -246,7 +282,7 @@ Page({
         success: res => {
           console.log(res)
           this.setData({
-            rec_list: res.data
+            rec_list: this.changeRecCreateDate(res.data)
           })
         },
         fail: err => {

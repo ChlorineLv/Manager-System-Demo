@@ -1,5 +1,6 @@
 /* miniprogram/pages/page_student/page_stu.wxss */
-.v-row{
-  margin-top:5px;
-  margin-bottom:10px;
+
+.van-tab__title {
+  width: auto;
+  display: inline-block !important;
 }

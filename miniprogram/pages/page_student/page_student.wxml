@@ -2,7 +2,7 @@
 <van-nav-bar title="学生界面" right-text="注销" bind:click-right="onClickRight" />
 
 <view>
-  <van-tabs active="{{ active }}" bind:change="onChangeTab">
+  <van-tabs active="{{ active }}" bind:change="onChangeTab" swipe-threshold="3">
 
     <van-tab title="教材预订">
       <van-collapse value="{{ activeNamesBook }}" bind:change="onChangeCollapseBook">
@@ -10,7 +10,10 @@
           <view id="showBookMgmt">
             <view wx:for="{{order_list}}" wx:key="order_listID" class="card-container">
               <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="《{{item.order_book_name}}》" bind:click="viewItemOrder">
-                <view slot="tags">{{item.order_semester}}学期 - {{item.order_course}}</view>
+                <view slot="tags">学期：{{item.order_semester}}</view>
+                <view slot="tags">课程：{{item.order_course}}</view>
+                <view slot="tags">单号：{{item._id}}</view>
+                <view slot="tags">创建：{{item.order_create_date}}</view>
                 <view slot="footer" class="foot-btn">
                   <!-- <van-button wx:if="{{item.order_timeout}}" size="mini" type="warning" plain>已逾期</van-button> -->
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemOrder">详细</van-button>
@@ -23,7 +26,10 @@
           <view id="showHisMgmt">
             <view wx:for="{{his_list}}" wx:key="his_listID" class="card-container">
               <van-card desc="{{item.his_college}} {{item.his_grade}}级 - {{item.his_major}}" title="《{{item.his_book_name}}》" bind:click="viewItemHis">
-                <view slot="tags">{{item.his_semester}}学期 - {{item.his_course}}</view>
+                <view slot="tags">学期：{{item.his_semester}}</view>
+                <view slot="tags">课程：{{item.his_course}}</view>
+                <view slot="tags">单号：{{item._id}}</view>
+                <view slot="tags">创建：{{item.his_update_date}}</view>
                 <view slot="footer" class="foot-btn">
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemHis">详细</van-button>
                 </view>
@@ -34,15 +40,22 @@
       </van-collapse>
     </van-tab>
 
-     <van-tab title="二手教材">
+    <van-tab title="二手教材回收">
       <van-cell title="二手教材申请" value="跳转" is-link url="{{urlSec}}" />
       <van-collapse value="{{ activeNamesBookSec }}" bind:change="onChangeCollapseBookSec">
         <van-collapse-item title="个人申请历史" name="1">
           <view id="showSecMgmt">
             <view wx:for="{{sec_list}}" wx:key="sec_listID" class="card-container">
               <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="《{{item.sec_book_name}}》" bind:click="viewItemSec">
-                <view slot="tags">{{item.sec_semester}}学期 - {{item.sec_course}}</view>
+                <view slot="tags">学期：{{item.sec_semester}}</view>
+                <view slot="tags">课程：{{item.sec_course}}</view>
+                <view slot="tags">单号：{{item._id}}</view>
+                <view slot="tags">创建：{{item.sec_create_date}}</view>
                 <view slot="footer" class="foot-btn">
+                  <!-- //状态：0不可见，1初始，10为通过，11为不通过 -->
+                  <van-button wx:if="{{item.sec_status==1}}" size="mini" type="info" plain>待审核</van-button>
+                  <van-button wx:if="{{item.sec_status==11}}" size="mini" type="warning" plain>不通过</van-button>
+                  <van-button wx:if="{{item.sec_status==10}}" size="mini" type="primary" plain>通过</van-button>
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemSec">详细</van-button>
                 </view>
               </van-card>
@@ -52,15 +65,24 @@
       </van-collapse>
     </van-tab>
 
-    <van-tab title="教材推荐">
+    <van-tab title="专业教材查询">内容 4</van-tab>
+
+    <van-tab title="辅助教材推荐">
       <van-cell title="教材推荐申请" value="跳转" is-link url="{{urlRec}}" />
       <van-collapse value="{{ activeNamesBookRec }}" bind:change="onChangeCollapseBookRec">
         <van-collapse-item title="个人推荐历史" name="1">
           <view id="showRecMgmt">
             <view wx:for="{{rec_list}}" wx:key="rec_listID" class="card-container">
-              <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="{{item.rec_semester}}学期 - {{item.rec_course}}">
-                <view slot="tags">《{{item.rec_book_name}}》</view>
+              <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="{{item.rec_semester}}学期 - {{item.rec_course}} - 《{{item.rec_book_name}}》">
+                <view slot="tags">学期：{{item.rec_semester}}</view>
+                <view slot="tags">课程：{{item.rec_course}}</view>
+                <view slot="tags">单号：{{item._id}}</view>
+                <view slot="tags">创建：{{item.rec_create_date}}</view>
                 <view slot="footer" class="foot-btn">
+                  <!-- //状态：0不可见，1初始，10为通过，11为不通过 -->
+                  <van-button wx:if="{{item.rec_status==1}}" size="mini" type="info" plain>待审核</van-button>
+                  <van-button wx:if="{{item.rec_status==11}}" size="mini" type="warning" plain>不通过</van-button>
+                  <van-button wx:if="{{item.rec_status==10}}" size="mini" type="primary" plain>通过</van-button>
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemRec">详细</van-button>
                 </view>
               </van-card>
@@ -70,7 +92,6 @@
       </van-collapse>
     </van-tab>
 
-   <van-tab title="教材查询">内容 4</van-tab>
 
   </van-tabs>
 </view>

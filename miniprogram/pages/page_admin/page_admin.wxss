@@ -1,8 +1,4 @@
 /* miniprogram/pages/page_admin/page_admin.wxss */
-.v-row{
-  margin-top:5px;
-  margin-bottom:10px;
-}
 
 .van-card__thumb{
   width:45px !important;

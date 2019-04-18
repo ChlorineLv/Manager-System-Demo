@@ -100,6 +100,50 @@ Page({
   },
 
   /**
+   * sec_create_date日期处理
+   */
+  changeSecCreateDate: function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let date = new Date(arr[i].sec_create_date);
+      arr[i].sec_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+    }
+    return arr;
+  },
+
+  /**
+     * his_create_date日期处理
+     */
+  changeHisUpdateDate: function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let date = new Date(arr[i].his_update_date);
+      arr[i].his_update_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+    }
+    return arr;
+  },
+
+  /**
+   * rec_create_date日期处理
+   */
+  changeRecCreateDate: function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let date = new Date(arr[i].rec_create_date);
+      arr[i].rec_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+    }
+    return arr;
+  },
+
+  /**
+   * order_create_date日期处理
+   */
+  changeOrderCreateDate: function (arr) {
+    for (let i = 0; i < arr.length; i++) {
+      let date = new Date(arr[i].order_create_date);
+      arr[i].order_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+    }
+    return arr;
+  },
+
+  /**
    * 右边注销
    */
   onClickRight: function() {
@@ -138,7 +182,7 @@ Page({
         success: res => {
           // console.log(res.data);
           this.setData({
-            order_list: res.data,
+            order_list: this.changeOrderCreateDate(res.data),
           });
           // console.log("order_list", this.data.order_list);
         },
@@ -157,7 +201,7 @@ Page({
         success: res => {
           // console.log("tb_his",res.data);
           this.setData({
-            his_list: res.data,
+            his_list: this.changeHisUpdateDate(res.data),
           });
           // console.log("order_list", this.data.order_list);
         },
@@ -203,7 +247,7 @@ Page({
         success: res => {
           // console.log("tb_rec", res);
           this.setData({
-            rec_list: res.data
+            rec_list: this.changeRecCreateDate(res.data)
           })
         },
         fail: err => {
@@ -239,7 +283,7 @@ Page({
         success: res => {
           // console.log("tb_sec", res);
           this.setData({
-            sec_list: res.data
+            sec_list: this.changeSecCreateDate(res.data)
           })
         },
         fail: err => {
