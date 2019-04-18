@@ -1,4 +1,4 @@
-// miniprogram/pages/page_admin_rec_detail/page_admin_rec_detail.js
+// miniprogram/pages/page_admin_sec_detail/page_admin_sec_detail.js
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 const db = wx.cloud.database();
 Page({
@@ -7,35 +7,35 @@ Page({
    * 页面的初始数据
    */
   data: {
-    radioRecCheck: true,
-    recID:"",
-    rec_detail: [],
-    recUpdateDate: "",
-    recCheckDate: "",
-    recCheckOpinion: "",
+    radioSecCheck: true,
+    secID: "",
+    sec_detail: [],
+    secUpdateDate: "",
+    secCheckDate: "",
+    secCheckOpinion: "",
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    console.log("教务员教材推荐审核详情页面", options);
-    db.collection("tb_rec").doc(options._id).get({
+  onLoad: function (options) {
+    console.log("教务员二手教材审核详情页面", options);
+    db.collection("tb_sec").doc(options._id).get({
       success: res => {
         this.setData({
-          rec_detail: res.data,
-          recID: options._id,
-          recUpdateDate: (new Date(res.data.rec_create_date)).toLocaleString(),
-          radioRecCheck: (res.data.rec_status).toString(),
+          sec_detail: res.data,
+          secID: options._id,
+          secUpdateDate: (new Date(res.data.sec_create_date)).toLocaleString(),
+          radioSecCheck: (res.data.sec_status).toString(),
         })
-        if (res.data.rec_check_date != null) {
+        if (res.data.sec_check_date != null) {
           this.setData({
-            recCheckDate: (new Date(res.data.rec_check_date)).toLocaleString(),
+            secCheckDate: (new Date(res.data.sec_check_date)).toLocaleString(),
           })
         }
       },
       fail: err => {
-        console.log("tb_rec:", err);
+        console.log("tb_sec:", err);
       }
     })
   },
@@ -43,56 +43,56 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
 
   /**
    * 点击左边返回
    */
-  onClickLeft: function() {
+  onClickLeft: function () {
     wx.navigateBack({
       delta: 1
     })
@@ -101,7 +101,7 @@ Page({
   /**
    * 点击右边注销
    */
-  onClickRight: function() {
+  onClickRight: function () {
     wx.navigateBack({
       delta: 2
     })
@@ -110,39 +110,39 @@ Page({
   /**
    * 推荐审核选择
    */
-  onChangeRadioRecCheck(event) {
+  onChangeRadioSecCheck(event) {
     this.setData({
-      radioRecCheck: event.detail,
-      "rec_detail.rec_status": parseInt(event.detail),
+      radioSecCheck: event.detail,
+      "sec_detail.sec_status": parseInt(event.detail),
     });
-    // console.log(this.data.radioRecCheck)
+    // console.log(this.data.radioSecCheck)
   },
 
   /**
    * 审核留言
    */
-  onChangeOpinion: function(event) {
+  onChangeOpinion: function (event) {
     this.setData({
-      "rec_detail.rec_opinion": event.detail,
+      "sec_detail.sec_opinion": event.detail,
     })
   },
 
   /**
    * 提交审核结果
    */
-  btn_submit: function(event) {
+  btn_submit: function (event) {
     console.log(this.data);
     wx.cloud.callFunction({
       // 云函数名称
-      name: 'dbCheckRec',
+      name: 'dbCheckSec',
       // 传给云函数的参数
       data: {
-        recID: this.data.rec_detail._id,
-        recCheckOpinion: this.data.rec_detail.rec_opinion,
-        radioRecCheck: this.data.rec_detail.rec_status
+        secID: this.data.sec_detail._id,
+        secCheckOpinion: this.data.sec_detail.sec_opinion,
+        radioSecCheck: this.data.sec_detail.sec_status
       },
-      success:res=> {
-        console.log("callFunction dbCheckRec result:", res.result)
+      success: res => {
+        console.log("callFunction dbCheckSec result:", res.result)
         if (res.result.stats != undefined) {
           if (res.result.stats.updated == 1) {
             Dialog.confirm({
@@ -154,17 +154,17 @@ Page({
                 delta: 1
               })
             }).catch(() => {
-              db.collection("tb_rec").doc(this.data.recID).get({
+              db.collection("tb_sec").doc(this.data.secID).get({
                 success: res => {
                   this.setData({
-                    rec_detail: res.data,
-                    recUpdateDate: (new Date(res.data.rec_create_date)).toLocaleString(),
-                    radioRecCheck: (res.data.rec_status).toString(),
-                    recCheckDate: (new Date(res.data.rec_check_date)).toLocaleString(),
+                    sec_detail: res.data,
+                    secUpdateDate: (new Date(res.data.sec_create_date)).toLocaleString(),
+                    radioSecCheck: (res.data.sec_status).toString(),
+                    secCheckDate: (new Date(res.data.sec_check_date)).toLocaleString(),
                   })
                 },
                 fail: err => {
-                  console.log("tb_rec:", err);
+                  console.log("tb_sec:", err);
                 }
               })
             });
@@ -190,7 +190,7 @@ Page({
         }
       },
       fail: err => {
-        console.error("callFunction dbCheckRec err:", err)
+        console.error("callFunction dbCheckSec err:", err)
       }
     });
   }

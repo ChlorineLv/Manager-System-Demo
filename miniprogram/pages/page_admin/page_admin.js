@@ -9,9 +9,12 @@ Page({
   data: {
     activeNamesBookSelect: [],
     activeNamesBookMgmt: ["1"],
+    activeNamesSec: [],
     activeNamesRec: [],
     order_list: [],
     user_list: [],
+    secCheck_list: [],
+    sec_list: [],
     recCheck_list: [],
     rec_list: [],
   },
@@ -36,9 +39,9 @@ Page({
   onShow: function() {
     this.setData({
       order_list: [],
-      rec_list: [],
       recCheck_list: [],
       activeNamesRec: [],
+      activeNamesSec: [],
     })
   },
 
@@ -87,17 +90,10 @@ Page({
   },
 
   /**
-   * tab栏
+   * tab栏切换
    */
   onChangeTab(event) {
     // console.log("点击了", event)
-    // 切换tabbar时全部缩回去
-    // this.setData({
-    //   activeNamesBookSelect: [],
-    //   activeNamesBookMgmt: ["1"],
-    //   activeNamesRec: [],
-    //   order_list:[],
-    // })
     // 点击了设置tab
     if (event.detail.index == 3) {
       db.collection("tb_user").get({
@@ -112,7 +108,7 @@ Page({
   },
 
   /**
-   * 点击教材预订发布
+   * button教材预订发布
    */
   btn_book() {
     wx.navigateTo({
@@ -121,7 +117,7 @@ Page({
   },
 
   /**
-   * 教材预订历史collapse
+   * collapse教材预订历史
    */
   onChangeCollapseBookMgmt(event) {
     this.setData({
@@ -130,7 +126,7 @@ Page({
   },
 
   /**
-   * 点开筛选查询Collapse
+   * collapse点开筛选查询
    */
   onChangeCollapseBookSelect(event) {
     this.setData({
@@ -139,7 +135,7 @@ Page({
   },
 
   /**
-   * 预订查询
+   * button预订查询
    */
   btn_search(options) {
     db.collection('tb_order').where({
@@ -158,7 +154,7 @@ Page({
   },
 
   /**
-   * 点击预订详情，将ID传过去
+   * button预订详情，将ID传过去
    */
   viewItem: function(event) {
     var id = event.currentTarget.id;
@@ -167,7 +163,56 @@ Page({
     })
   },
 
-  /**推荐栏Collapse */
+  /**
+   * Collapse二手教材
+   */
+  onChangeCollapseSec: function(event) {
+    this.setData({
+      activeNamesSec: event.detail
+    });
+    if (this.data.activeNamesSec.indexOf("1") != -1) {
+      db.collection("tb_sec").where({
+        sec_status: 1
+      }).get({
+        success:res => {
+          this.setData({
+            secCheck_list: res.data
+          })
+        },
+        fail:err=>{
+          console.log(err)
+        }
+      })
+    };
+    if(this.data.activeNamesSec.indexOf("2") != -1) {
+      db.collection("tb_sec").where({
+        sec_status: db.command.neq(1)
+      }).get({
+        success:res=>{
+          this.setData({
+            sec_list: res.data
+          })
+        },
+        fail:err=>{
+          console.log(err)
+        }
+      })
+    }
+  },
+
+  /**
+   * button二手详情
+   */
+  viewItemsecCheck:function(event){
+    var id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_admin_sec_detail/page_admin_sec_detail?_id=' + id,
+    })
+  },
+
+  /**
+   * Collapse推荐栏
+   */
   onChangeCollapseRec: function(event) {
     this.setData({
       activeNamesRec: event.detail
@@ -205,7 +250,7 @@ Page({
   },
 
   /**
-   * 推荐审核传ID
+   * button推荐审核传ID
    */
   viewItemRecCheck: function(event) {
     var id = event.currentTarget.id;

@@ -46,27 +46,43 @@
     </van-tab>
 
     <van-tab title="二手教材">
-      <view class="container v-row">
-        <van-row gutter="20">
-          <van-col>
-            <van-button bind:click="btn_sec" type="primary">二手教材审核</van-button>
-          </van-col>
-          <van-col>
-            <van-button bind:click="btn_sec_mgmt" type="primary">二手教材管理</van-button>
-          </van-col>
-        </van-row>
-      </view>
+       <van-collapse value="{{ activeNamesSec }}" bind:change="onChangeCollapseSec">
+        <van-collapse-item title="待审核二手申请" name="1">
+          <view id="showSecCheck">
+            <view wx:for="{{secCheck_list}}" wx:key="recCheck_listID" class="card-container">
+              <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="{{item.sec_semester}}学期 - {{item.sec_course}}" bind:click="viewItemSecCheck">
+                <view slot="tags">《{{item.sec_book_name}}》</view>
+                <view slot="footer" class="foot-btn">
+                  <!-- <van-button wx:if="{{!item.sec_status}}" size="mini" type="warning" plain>已删除</van-button> -->
+                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemsecCheck">详细</van-button>
+                </view>
+              </van-card>
+            </view>
+          </view>
+        </van-collapse-item>
+        <van-collapse-item title="审核历史" name="2">
+          <view id="showSecMgmt">
+            <view wx:for="{{sec_list}}" wx:key="sec_listID" class="card-container">
+              <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="{{item.sec_semester}}学期 - {{item.sec_course}}" bind:click="viewItemSec">
+                <view slot="tags">《{{item.sec_book_name}}》</view>
+                <view slot="footer" class="foot-btn">
+                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemSecCheck">详细</van-button>
+                </view>
+              </van-card>
+            </view>
+          </view>
+        </van-collapse-item>
+      </van-collapse>
     </van-tab>
 
     <van-tab title="教材推荐">
       <van-collapse value="{{ activeNamesRec }}" bind:change="onChangeCollapseRec">
-        <van-collapse-item title="待审核" name="1">
+        <van-collapse-item title="待审核推荐" name="1">
           <view id="showRecCheck">
             <view wx:for="{{recCheck_list}}" wx:key="recCheck_listID" class="card-container">
               <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="{{item.rec_semester}}学期 - {{item.rec_course}}" bind:click="viewItemRecCheck">
                 <view slot="tags">《{{item.rec_book_name}}》</view>
                 <view slot="footer" class="foot-btn">
-                  <!-- <van-button wx:if="{{!item.rec_status}}" size="mini" type="warning" plain>已删除</van-button> -->
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemRecCheck">详细</van-button>
                 </view>
               </van-card>
