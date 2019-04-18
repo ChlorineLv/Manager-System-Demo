@@ -211,6 +211,13 @@ Page({
   },
 
   /**
+   * button审核历史详情
+   */
+  viewItemSecCheck:function(event){
+
+  },
+
+  /**
    * Collapse推荐栏
    */
   onChangeCollapseRec: function(event) {
