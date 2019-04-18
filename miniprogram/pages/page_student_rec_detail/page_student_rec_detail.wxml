@@ -2,9 +2,6 @@
 <van-nav-bar title="教材推荐详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 <view id="showRec" class="container">
   <van-cell-group>
-    <van-field disabled name="rec_stu_id" left-icon="" label="申请人" placeholder="{{rec_detail.rec_stu_id}}" />
-    <van-field disabled name="rec_add" left-icon="" label="联系宿舍" placeholder="{{rec_detail.rec_add}}" />
-    <van-field disabled name="rec_phone" left-icon="" label="联系方式" placeholder="{{rec_detail.rec_phone}}" />
     <van-field disabled name="rec_create_date" left-icon="" label="申请日期" placeholder="{{recUpdateDate}}" />
     <van-field disabled name="rec_status" label="审核状态" placeholder="{{recStatus}}" />
     <van-field disabled name="rec_opinion" required label="审核留言" placeholder="{{rec_detail.rec_opinion}}" />

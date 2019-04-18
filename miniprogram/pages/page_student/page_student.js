@@ -60,6 +60,7 @@ Page({
     this.setData({
       activeNamesBook: [],
       activeNamesBookRec: [],
+      activeNamesBookSec: [],
     })
   },
 
@@ -112,10 +113,11 @@ Page({
    */
   onChangeTab: function(event) {
     // console.log("点击了", event)
-    this.setData({
-      activeNamesBook: [],
-      activeNamesBookRec: [],
-    })
+    // this.setData({
+    //   activeNamesBook: [],
+    //   activeNamesBookRec: [],
+    //   activeNamesBookSec: [],
+    // })
   },
 
   /**
@@ -169,7 +171,7 @@ Page({
   /**
    * 预订教材详情，将ID传过去
    */
-  viewItem: function(event) {
+  viewItemOrder: function(event) {
     let id = event.currentTarget.id;
     wx.navigateTo({
       url: '../page_student_book/page_student_book?book_id=' + id + "&stu_id=" + this.data.stu_id,
@@ -245,5 +247,15 @@ Page({
         }
       })
     }
+  },
+
+  /**
+   * 二手申请的详情
+   */
+  viewItemSec: function (event) {
+    let id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_student_sec_detail/page_student_sec_detail?_id=' + id,
+    })
   },
 })

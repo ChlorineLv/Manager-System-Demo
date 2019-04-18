@@ -4,30 +4,30 @@
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
-} 
+}
 
 .input-container {
   width: 80%;
 }
 
-.button-under-container{
-  margin:10px 0;
+.button-under-container {
+  margin: 10px 0;
 }
 
-.foot-btn{
-  margin-top:-5%;
+.foot-btn {
+  margin-top: -5%;
   margin-bottom: 1%;
 }
 
-.card-container{
-  padding-top:1% !important;
+.card-container {
+  padding-top: 1% !important;
   /* padding-bottom:1% !important; */
 }
 
-.van-card__content{
+.van-card__content {
   margin-top: 10px;
 }
 
-.van-dialog__message{
-  word-break:break-all;
+.van-dialog__message {
+  word-break: break-all;
 }

@@ -91,12 +91,13 @@ Page({
    */
   onChangeTab(event) {
     // console.log("点击了", event)
-    this.setData({
-      activeNamesBookSelect: [],
-      activeNamesBookMgmt: ["1"],
-      activeNamesRec: [],
-      order_list:[],
-    })
+    // 切换tabbar时全部缩回去
+    // this.setData({
+    //   activeNamesBookSelect: [],
+    //   activeNamesBookMgmt: ["1"],
+    //   activeNamesRec: [],
+    //   order_list:[],
+    // })
     // 点击了设置tab
     if (event.detail.index == 3) {
       db.collection("tb_user").get({
