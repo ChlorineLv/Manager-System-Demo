@@ -171,6 +171,16 @@ Page({
       activeNamesBook: event.detail
     });
     if (this.data.activeNamesBook.indexOf("1") != -1) {
+      wx.cloud.callFunction({
+        name:"dbRead",
+        data:{
+          dbName:"tb_order",
+          pageIndex:1,
+          pageSize:5
+        }
+      }).then(res=>{
+        console.log("dbRead callFunction:",res)
+      })
       db.collection('tb_order').where({
         order_visible: true,
         order_timeout: false,
@@ -202,7 +212,7 @@ Page({
           for (let i = 0; i < res.data.length; i++) {
             db.collection("tb_order").doc(res.data[i].his_order_id).get({
               success: resOrder => {
-                console.log(res.data)
+                // console.log(res.data)
                 res.data[i].his_order_timeout = resOrder.data.order_timeout;
                 let date = (new Date(res.data[i].his_update_date)).toLocaleString();
                 res.data[i].his_update_date = date;

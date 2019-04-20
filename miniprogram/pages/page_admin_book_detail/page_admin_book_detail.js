@@ -145,7 +145,7 @@ Page({
   /**
    * 手动侦听“逾期”选项改变状态
    */
-  onChange(event) {
+  onChangeTime(event) {
     // 需要手动对 checked 状态进行更新
     this.setData({
       checked: event.detail

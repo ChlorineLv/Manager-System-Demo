@@ -2,7 +2,7 @@
 <van-nav-bar title="教材预订管理-详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 <view class="container">
     <van-cell-group>
-      <van-switch-cell title="此预订表已截止统计" checked="{{ checked }}" bind:change="onChange" />
+      <van-switch-cell title="此预订表已截止统计" checked="{{ checked }}" bind:change="onChangeTime" />
       <van-field disabled name="order_create_date" left-icon="" label="创建日期" value="{{orderDetailCreateDate}}" />
       <van-field disabled name="order_update_date" left-icon="" label="更新日期" value="{{orderDetailUpdateDate}}" />
       <van-field bind:change="onChangeCollege" name="order_college" required left-icon="home-o" label="学院名称" value="{{order_detail.order_college}}" />

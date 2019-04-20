@@ -5,19 +5,24 @@
   <view class="input-container">
     <form bindsubmit="formSubmit" bindreset="formReset">
       <van-cell-group>
-        <van-field name="order_college" required clearable label="学院名称" />
-        <van-field name="order_major" required clearable label="专业名称" />
-        <!-- <van-picker columns="{{ columns }}" bind:change="onChange" /> -->
-        <van-field name="order_grade" required clearable label="年级" />
-        <van-field name="order_semester" required clearable label="学期" />
+        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+          <van-field name="order_college" required readonly label="学院名称" value="{{inputCollege}}" />
+          <van-field name="order_Major" required readonly label="专业名称" value="{{inputMajor}}" />
+        </picker>
+        <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startGrade}}" bindchange="bindDateChange">
+          <van-field name="order_grade" required readonly label="年级" value="{{inputGrade}}" />
+        </picker>
+        <picker bindchange="bindPickerChange" value="{{indexSemester}}" range="{{arraySemester}}">
+          <van-field name="order_semester" required readonly label="学期" value="{{inputSemester}}" />
+        </picker>
         <van-field name="order_course" required clearable label="课程名称" />
         <van-field name="order_teacher" clearable label="任课老师" />
         <van-field name="order_book_name" required clearable label="教材名称" />
-        <van-field name="order_book_isbn" required clearable label="教材ISBN" />
+        <van-field name="order_book_isbn" required clearable label="教材ISBN" type="number" />
         <van-field name="order_book_writer" clearable label="作者/编著者" />
         <van-field name="order_book_version" clearable label="版次" />
         <van-field name="order_book_publisher" clearable label="出版社" />
-        <van-field name="order_book_price" required clearable label="单价" />
+        <van-field name="order_book_price" required clearable label="单价" type="digit" />
         <van-field name="order_remark" clearable label="备注" placeholder="选填" />
       </van-cell-group>
       <view class="button-under-container">
