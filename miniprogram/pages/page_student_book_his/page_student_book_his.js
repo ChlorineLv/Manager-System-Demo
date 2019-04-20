@@ -12,6 +12,7 @@ Page({
     checkedBook: false,
     checkedBookSec: false,
     id_His: "",
+    boolOrderTimeout: true,
   },
 
   /**
@@ -30,10 +31,18 @@ Page({
           checkedBook: 0 || res.data.his_first,
           checkedBookSec: res.data.his_sec & res.data.his_first,
           hisUpdateDate: (new Date(res.data.his_update_date)).toLocaleString(),
+          hisOrderID: res.data.his_order_id
         })
       },
       fail: err => {
         console.log(err);
+      }
+    });
+    db.collection("tb_order").doc(this.data.hisOrderID).get({
+      success: res => {
+        this.setData({
+          boolOrderTimeout: res.data.order_timeout
+        })
       }
     })
   },
@@ -109,18 +118,36 @@ Page({
    * 手动侦听“预订”选项改变状态
    */
   onChangeSwitchBook(event) {
-    this.setData({
-      checkedBook: event.detail
-    });
+    if (!this.data.boolOrderTimeout) {
+      this.setData({
+        checkedBook: event.detail
+      });
+    } else {
+      Dialog.alert({
+        title: '提示',
+        message: '预订已截止，不再更新。'
+      }).then(() => {
+        // on close
+      });
+    }
   },
 
   /**
    * 手动侦听“二手书”选项改变状态
    */
   onChangeSwitchBookSec(event) {
-    this.setData({
-      checkedBookSec: event.detail
-    });
+    if (!this.data.boolOrderTimeout) {
+      this.setData({
+        checkedBookSec: event.detail
+      });
+    } else {
+      Dialog.alert({
+        title: '提示',
+        message: '预订已截止，不再更新。'
+      }).then(() => {
+        // on close
+      });
+    }
   },
 
   /**
@@ -129,43 +156,50 @@ Page({
   btn_submit() {
     // console.log("订书：", this.data.checkedBook, "，二手：", this.data.checkedBookSec);
     // console.log("提交", this.data);
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'dbUpdateHis',
-      // 传给云函数的参数
-      data: {
-        id_His: this.data.id_His,
-        checkedBook: this.data.checkedBook,
-        checkedBookSec: this.data.checkedBookSec,
-      },
-      success(res) {
-        console.log("callFunction dbUpdateHis result:", res.result)
-        if (res.result.stats.updated == 1) {
-          Dialog.confirm({
-            title: '成功',
-            message: '已成功更新，是否返回上一页'
-          }).then(() => {
-            // on confirm
-            wx.navigateBack({
-              delta: 1
-            })
-          }).catch(() => {
-            // on cancel
-          });
-        } else {
-          Dialog.confirm({
-            title: '异常',
-            message: '异常信息：' + res
-          }).then(() => {
-            // on confirm
-          }).catch(() => {
-            // on cancel
-          });
+    if (!this.data.boolOrderTimeout) {
+      wx.cloud.callFunction({
+        name: 'dbUpdateHis',
+        data: {
+          id_His: this.data.id_His,
+          checkedBook: this.data.checkedBook,
+          checkedBookSec: this.data.checkedBookSec,
+        },
+        success(res) {
+          console.log("callFunction dbUpdateHis result:", res.result)
+          if (res.result.stats.updated == 1) {
+            Dialog.confirm({
+              title: '成功',
+              message: '已成功更新，是否返回上一页'
+            }).then(() => {
+              // on confirm
+              wx.navigateBack({
+                delta: 1
+              })
+            }).catch(() => {
+              // on cancel
+            });
+          } else {
+            Dialog.confirm({
+              title: '异常',
+              message: '异常信息：' + res
+            }).then(() => {
+              // on confirm
+            }).catch(() => {
+              // on cancel
+            });
+          }
+        },
+        fail: err => {
+          console.error("callFunction dbUpdateHis err:", err)
         }
-      },
-      fail: err => {
-        console.error("callFunction dbUpdateHis err:", err)
-      }
-    });
+      });
+    } else {
+      Dialog.alert({
+        title: '提示',
+        message: '预订已截止，不再更新。'
+      }).then(() => {
+        // on close
+      });
+    }
   }
 })

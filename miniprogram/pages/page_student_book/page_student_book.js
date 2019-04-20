@@ -16,6 +16,7 @@ Page({
     user_detail: [],
     his_detail: [],
     boolHis: false,
+    boolSearchDone: false,
     // update必须用doc，而且不能用his_detail._id
     id_His: ""
   },
@@ -143,7 +144,7 @@ Page({
         his_book_isbn: parseInt(this.data.order_detail.order_book_isbn)
       }).get({
         success: res => {
-          console.log("tb_his", res);
+          // console.log("tb_his", res);
           if (res.data.length != 0) {
             this.setData({
               his_detail: res.data[0],
@@ -153,7 +154,10 @@ Page({
               id_His: res.data[0]._id,
               boolHis: true
             })
-          }
+          };
+          this.setData({
+            boolSearchDone: true,
+          })
           // console.log("tb_his:", this.data.boolHis, this.data.his_detail)
         },
         fail: err => {
@@ -187,10 +191,9 @@ Page({
   btn_submit() {
     // console.log("订书：", this.data.checkedBook, "，二手：", this.data.checkedBookSec);
     if (this.data.boolHis == true) {
+      // 如果存在预订历史
       wx.cloud.callFunction({
-        // 云函数名称
         name: 'dbUpdateHis',
-        // 传给云函数的参数
         data: {
           id_His: this.data.id_His,
           checkedBook: this.data.checkedBook,
@@ -227,9 +230,7 @@ Page({
       });
     } else {
       wx.cloud.callFunction({
-        // 云函数名称
         name: 'dbReleaseHis',
-        // 传给云函数的参数
         data: this.data,
         success(res) {
           console.log("callFunction dbReleaseHis result:", res.result)

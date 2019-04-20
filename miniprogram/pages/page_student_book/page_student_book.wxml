@@ -23,11 +23,14 @@
     </van-collapse-item>
 
     <van-collapse-item title="登记信息" name="2">
-      <van-field disabled name="order_college" left-icon="" label="登记日期" placeholder="{{hisUpdateDate}}" />
-      <van-switch-cell title="预订此教材" checked="{{ checkedBook }}" bind:change="onChangeSwitchBook" />
-      <van-switch-cell title="愿意使用二手教材" checked="{{ checkedBook & checkedBookSec }}" bind:change="onChangeSwitchBookSec" />
-      <view class="container">
-        <van-button type="primary" size="small" form-type="submit" bind:click="btn_submit">登记</van-button>
+      <view wx:if="{{boolSearchDone}}">
+        <van-field wx:if="{{boolHis}}" disabled name="order_college" left-icon="" label="登记日期" placeholder="{{hisUpdateDate}}" />
+        <van-field wx:if="{{!boolHis}}" disabled name="order_college" left-icon="" label="登记日期" placeholder="暂无" />
+        <van-switch-cell title="预订此教材" checked="{{ checkedBook }}" bind:change="onChangeSwitchBook" />
+        <van-switch-cell title="愿意使用二手教材" checked="{{ checkedBook & checkedBookSec }}" bind:change="onChangeSwitchBookSec" />
+        <view class="container">
+          <van-button type="primary" size="small" form-type="submit" bind:click="btn_submit">登记</van-button>
+        </view>
       </view>
     </van-collapse-item>
 

@@ -15,7 +15,6 @@
                 <view slot="tags">单号：{{item._id}}</view>
                 <view slot="tags">创建：{{item.order_create_date}}</view>
                 <view slot="footer" class="foot-btn">
-                  <!-- <van-button wx:if="{{item.order_timeout}}" size="mini" type="warning" plain>已逾期</van-button> -->
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemOrder">详细</van-button>
                 </view>
               </van-card>
@@ -31,6 +30,7 @@
                 <view slot="tags">单号：{{item._id}}</view>
                 <view slot="tags">创建：{{item.his_update_date}}</view>
                 <view slot="footer" class="foot-btn">
+                  <van-button wx:if="{{item.his_order_timeout}}" size="mini" disabled type="warning" plain>已截止</van-button>
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemHis">详细</van-button>
                 </view>
               </van-card>

@@ -11,6 +11,7 @@ exports.main = async(event, context) => {
       db.collection('tb_his').add({
         // data 字段表示需新增的 JSON 数据
         data: {
+          his_order_id: event.order_detail._id,
           his_update_date: Date.parse(new Date()),
           his_stu_id: parseInt(event.user_detail.user_id),
           his_college: event.order_detail.order_college,

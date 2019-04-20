@@ -14,7 +14,6 @@ Page({
     activeNamesBookSec: [],
     user_detail: [],
     order_list: [],
-    order_his: [],
     rec_list: [],
     sec_list: [],
   },
@@ -102,21 +101,21 @@ Page({
   /**
    * sec_create_date日期处理
    */
-  changeSecCreateDate: function (arr) {
+  changeSecCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].sec_create_date);
-      arr[i].sec_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+      arr[i].sec_create_date = date.toLocaleString();
     }
     return arr;
   },
 
   /**
-     * his_create_date日期处理
-     */
-  changeHisUpdateDate: function (arr) {
+   * his_create_date日期处理
+   */
+  changeHisUpdateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].his_update_date);
-      arr[i].his_update_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+      arr[i].his_update_date = date.toLocaleString();
     }
     return arr;
   },
@@ -124,10 +123,10 @@ Page({
   /**
    * rec_create_date日期处理
    */
-  changeRecCreateDate: function (arr) {
+  changeRecCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].rec_create_date);
-      arr[i].rec_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+      arr[i].rec_create_date = date.toLocaleString();
     }
     return arr;
   },
@@ -135,10 +134,10 @@ Page({
   /**
    * order_create_date日期处理
    */
-  changeOrderCreateDate: function (arr) {
+  changeOrderCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].order_create_date);
-      arr[i].order_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+      arr[i].order_create_date = date.toLocaleString();
     }
     return arr;
   },
@@ -189,7 +188,7 @@ Page({
         fail: err => {
           console.error(err);
         }
-      })
+      });
     }
     if (this.data.activeNamesBook.indexOf("2") != -1) {
       db.collection('tb_his').where({
@@ -200,10 +199,23 @@ Page({
       }).get({
         success: res => {
           // console.log("tb_his",res.data);
-          this.setData({
-            his_list: this.changeHisUpdateDate(res.data),
-          });
-          // console.log("order_list", this.data.order_list);
+          for (let i = 0; i < res.data.length; i++) {
+            db.collection("tb_order").doc(res.data[i].his_order_id).get({
+              success: resOrder => {
+                console.log(res.data)
+                res.data[i].his_order_timeout = resOrder.data.order_timeout;
+                let date = (new Date(res.data[i].his_update_date)).toLocaleString();
+                res.data[i].his_update_date = date;
+                // 必须在db成功后再setData否则同步流导致内容没有变化
+                this.setData({
+                  his_list: res.data,
+                });
+              },
+              fail: errOrder => {
+                console.log(errOrder)
+              }
+            })
+          };
         },
         fail: err => {
           console.error(err);
@@ -227,6 +239,7 @@ Page({
    */
   viewItemHis: function(event) {
     let id = event.currentTarget.id;
+    console.log(event);
     wx.navigateTo({
       url: '../page_student_book_his/page_student_book_his?_id=' + id,
     })
@@ -271,7 +284,7 @@ Page({
   /**
    * 二手申请历史栏目
    */
-  onChangeCollapseBookSec: function (event) {
+  onChangeCollapseBookSec: function(event) {
     this.setData({
       activeNamesBookSec: event.detail
     });
@@ -296,7 +309,7 @@ Page({
   /**
    * 二手申请的详情
    */
-  viewItemSec: function (event) {
+  viewItemSec: function(event) {
     let id = event.currentTarget.id;
     wx.navigateTo({
       url: '../page_student_sec_detail/page_student_sec_detail?_id=' + id,

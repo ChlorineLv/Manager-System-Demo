@@ -86,7 +86,7 @@ Page({
   changeSecCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].sec_create_date);
-      arr[i].sec_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+      arr[i].sec_create_date = date.toLocaleString();
     }
     return arr;
   },
@@ -97,7 +97,7 @@ Page({
   changeRecCreateDate: function (arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].rec_create_date);
-      arr[i].rec_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+      arr[i].rec_create_date = date.toLocaleString();
     }
     return arr;
   },
@@ -108,7 +108,7 @@ Page({
   changeOrderCreateDate: function (arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].order_create_date);
-      arr[i].order_create_date = date.getFullYear() + "年" + date.getMonth() + "月" + date.getDay() + "日" + date.getHours() + "时" + date.getMinutes() + "分" + date.getSeconds() + "秒";
+      arr[i].order_create_date = date.toLocaleString();
     }
     return arr;
   },
@@ -280,7 +280,7 @@ Page({
         rec_status: db.command.neq(1)
       }).get({
         success: res => {
-          console.log(res)
+          // console.log(res)
           this.setData({
             rec_list: this.changeRecCreateDate(res.data)
           })
