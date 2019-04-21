@@ -15,6 +15,14 @@ Page({
     order_id: "",
     numBookFirst: null,
     numBookSec: null,
+    // 第一行为学院名，第二行为初始学院的所有专业
+    multiArray: [
+      ["计算机科学与工程学院", "机械工程", "自动化"],
+      ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ]
+    ],
+    multiIndex: [0, 0],
+    arraySemester: ["大一 - 上", "大一 - 下", "大二 - 上", "大二 - 下", "大三 - 上", "大三 - 下", "大四 - 上", "大四 - 下"],
+    startGrade: (new Date().getFullYear()).toString(),
   },
 
   /**
@@ -30,8 +38,12 @@ Page({
           order_id: options._id,
           order_detail: res.data,
           orderDetailCreateDate: (new Date(res.data.order_create_date)).toLocaleString(),
-          orderDetailUpdateDate: (new Date(res.data.order_update_date)).toLocaleString(),
         });
+        if (res.data.order_update_date != null) {
+          this.setData({
+            orderDetailUpdateDate: (new Date(res.data.order_update_date)).toLocaleString(),
+          })
+        }
         if (res.data.order_timeout == true) {
           this.setData({
             checked: true
@@ -153,26 +165,64 @@ Page({
 
   },
 
-  onChangeCollege: function(e) {
+  /**
+   * Picker选择年级Grade
+   */
+  bindMultiPickerChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      "order_detail.order_college": e.detail,
+      multiIndex: e.detail.value,
+      "order_detail.order_college": this.data.multiArray[0][e.detail.value[0]],
+      "order_detail.order_major": this.data.multiArray[1][e.detail.value[1]]
     })
   },
-  onChangeMajor: function(e) {
+
+  /**
+   * Picker改变第一列后的变化
+   */
+  bindMultiPickerColumnChange: function(e) {
+    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    };
+    data.multiIndex[e.detail.column] = e.detail.value;
+    // 第一列的变化导致第二列内容的变化：各学院的各专业
+    switch (data.multiIndex[0]) {
+      case 0:
+        data.multiArray[1] = ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ];
+        break;
+      case 1:
+        data.multiArray[1] = ["机械工程"];
+        break;
+      case 2:
+        data.multiArray[1] = ["自动化"];
+        break;
+    }
+    this.setData(data);
+  },
+
+  /**
+   * Field填写年级
+   */
+  bindDateChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      "order_detail.order_major": e.detail,
+      "order_detail.order_grade": e.detail.value
     })
   },
-  onChangeGrade: function(e) {
+
+  /**
+   * Field填写学期
+   */
+  bindPickerChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
-      "order_detail.order_grade": e.detail,
+      indexSemester: e.detail.value,
+      "order_detail.order_semester": this.data.arraySemester[e.detail.value]
     })
   },
-  onChangeSemester: function(e) {
-    this.setData({
-      "order_detail.order_semester": e.detail,
-    })
-  },
+
   onChangeCourse: function(e) {
     this.setData({
       "order_detail.order_course": e.detail,
@@ -224,92 +274,100 @@ Page({
    */
   btn_update(event) {
     console.log("this.data", this.data);
-    let createDate = (this.data.order_detail.order_create_date).toLocaleString()
-    this.setData({
-      "order_detail.order_create_date": createDate
-    })
-    wx.cloud.callFunction({
-      // 云函数名称
-      name: 'dbUpdateOrder',
-      // 传给云函数的参数
-      data: this.data,
-      success: res => {
-        console.log("callFunction dbUpadteOrder result:", res.result)
-        if (res.result.stats.updated == 1) {
-          Dialog.confirm({
-            title: '成功',
-            message: '已成功更新，是否返回上一页'
-          }).then(() => {
-            // on confirm
-            wx.navigateBack({
-              delta: 1
-            })
-          }).catch(() => {
-            // on cancel
-            db.collection("tb_order").doc(this.data.order_id).get({
-              success: res => {
-                // console.log("tb_order:", res);
-                this.setData({
-                  order_detail: res.data,
-                  orderDetailCreateDate: (new Date(res.data.order_create_date)).toLocaleString(),
-                  orderDetailUpdateDate: (new Date(res.data.order_update_date)).toLocaleString(),
-                });
-                if (res.data.order_timeout == true) {
+    // let createDate = (this.data.order_detail.order_create_date).toLocaleString()
+    // this.setData({
+    //   "order_detail.order_create_date": createDate
+    // })
+    if (this.data.order_detail.order_major == "" || this.data.order_detail.order_book_name == "" || this.data.order_detail.order_book_isbn == "" || this.data.order_detail.order_book_price == "" || this.data.order_detail.order_college == "" || this.data.order_detail.order_course == "" || this.data.order_detail.order_semester == "") {
+      Dialog.alert({
+        title: '提示',
+        message: '星号为必填项'
+      }).then(() => {
+        // on close
+      });
+    } else {
+      wx.cloud.callFunction({
+        // 云函数名称
+        name: 'dbUpdateOrder',
+        // 传给云函数的参数
+        data: this.data,
+        success: res => {
+          console.log("callFunction dbUpadteOrder result:", res.result)
+          if (res.result.stats.updated == 1) {
+            Dialog.confirm({
+              title: '成功',
+              message: '已成功更新，是否返回上一页'
+            }).then(() => {
+              // on confirm
+              wx.navigateBack({
+                delta: 1
+              })
+            }).catch(() => {
+              // on cancel
+              db.collection("tb_order").doc(this.data.order_id).get({
+                success: res => {
+                  // console.log("tb_order:", res);
                   this.setData({
-                    checked: true
+                    order_detail: res.data,
+                    orderDetailCreateDate: (new Date(res.data.order_create_date)).toLocaleString(),
+                    orderDetailUpdateDate: (new Date(res.data.order_update_date)).toLocaleString(),
                   });
-                };
-                // console.log("tb_order detail", this.data.order_detail);
-                // 查询需要订书的表项
-                db.collection("tb_his").where({
-                  his_grade: this.data.order_detail.order_grade,
-                  his_book_isbn: this.data.order_detail.order_book_isbn,
-                  his_college: this.data.order_detail.order_college,
-                  his_major: this.data.order_detail.order_major,
-                  his_first: true,
-                }).get({
-                  success: resHis => {
-                    console.log("tb_his", resHis.data);
-                    var countFirst = 0;
-                    var countSec = 0;
-                    for (let i = 0; i < resHis.data.length; i++) {
-                      if (resHis.data[i].his_sec) {
-                        countSec++;
-                      } else {
-                        countFirst++;
-                      }
-                    }
+                  if (res.data.order_timeout == true) {
                     this.setData({
-                      numBookFirst: countFirst,
-                      numBookSec: countSec
-                    })
-                    // console.log("numBookFirst:", this.data.numBookFirst, ",numBookSec:", this.data.numBookSec);
-                  },
-                  fail: err => {
-                    console.error(err);
-                  }
-                })
-              },
-              fail: err => {
-                console.error(err);
-              }
+                      checked: true
+                    });
+                  };
+                  // console.log("tb_order detail", this.data.order_detail);
+                  // 查询需要订书的表项
+                  db.collection("tb_his").where({
+                    his_grade: this.data.order_detail.order_grade,
+                    his_book_isbn: this.data.order_detail.order_book_isbn,
+                    his_college: this.data.order_detail.order_college,
+                    his_major: this.data.order_detail.order_major,
+                    his_first: true,
+                  }).get({
+                    success: resHis => {
+                      console.log("tb_his", resHis.data);
+                      var countFirst = 0;
+                      var countSec = 0;
+                      for (let i = 0; i < resHis.data.length; i++) {
+                        if (resHis.data[i].his_sec) {
+                          countSec++;
+                        } else {
+                          countFirst++;
+                        }
+                      }
+                      this.setData({
+                        numBookFirst: countFirst,
+                        numBookSec: countSec
+                      })
+                      // console.log("numBookFirst:", this.data.numBookFirst, ",numBookSec:", this.data.numBookSec);
+                    },
+                    fail: err => {
+                      console.error(err);
+                    }
+                  })
+                },
+                fail: err => {
+                  console.error(err);
+                }
+              });
             });
-          });
-        } else {
-          Dialog.confirm({
-            title: '异常',
-            message: '异常信息：' + res
-          }).then(() => {
-            // on confirm
-          }).catch(() => {
-            // on cancel
-          });
+          } else {
+            Dialog.confirm({
+              title: '异常',
+              message: '异常信息：' + res
+            }).then(() => {
+              // on confirm
+            }).catch(() => {
+              // on cancel
+            });
+          }
+        },
+        fail: err => {
+          console.error("callFunction dbUpadteOrder err:", err)
         }
-      },
-      fail: err => {
-        console.error("callFunction dbUpadteOrder err:", err)
-      }
-    });
-
+      });
+    }
   }
 })

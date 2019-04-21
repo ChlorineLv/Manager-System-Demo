@@ -1,28 +1,34 @@
 <!--miniprogram/pages/page_admin_book_detail/page_admin_book_detail.wxml-->
 <van-nav-bar title="教材预订管理-详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 <view class="container">
-    <van-cell-group>
-      <van-switch-cell title="此预订表已截止统计" checked="{{ checked }}" bind:change="onChangeTime" />
-      <van-field disabled name="order_create_date" left-icon="" label="创建日期" value="{{orderDetailCreateDate}}" />
-      <van-field disabled name="order_update_date" left-icon="" label="更新日期" value="{{orderDetailUpdateDate}}" />
-      <van-field bind:change="onChangeCollege" name="order_college" required left-icon="home-o" label="学院名称" value="{{order_detail.order_college}}" />
-      <van-field bind:change="onChangeMajor" name="order_major" required label="专业名称" value="{{order_detail.order_major}}" />
-      <van-field bind:change="onChangeGrade" name="order_grade" required label="年级" value="{{order_detail.order_grade}}" />
-      <van-field bind:change="onChangeSemester" name="order_semester" required label="学期" value="{{order_detail.order_semester}}" />
-      <van-field bind:change="onChangeCourse" name="order_course" required label="课程名称" value="{{order_detail.order_course}}" />
-      <van-field bind:change="onChangeTeacher" name="order_teacher" label="任课老师" value="{{order_detail.order_teacher}}" />
-      <van-field bind:change="onChangeBookName" name="order_book_name" required label="教材名称" value="{{order_detail.order_book_name}}" />
-      <van-field bind:change="onChangeBookISBN" name="order_book_isbn" required label="教材ISBN" value="{{order_detail.order_book_isbn}}" />
-      <van-field bind:change="onChangeBookWriter" name="order_book_writer" label="作者/编著者" value="{{order_detail.order_book_writer}}" />
-      <van-field bind:change="onChangeBookVersion" name="order_book_version" label="版次" value="{{order_detail.order_book_version}}" />
-      <van-field bind:change="onChangeBookPublisher" name="order_book_publisher" label="出版社" value="{{order_detail.order_book_publisher}}" />
-      <van-field bind:change="onChangeBookPrice" name="order_book_price" required label="单价" value="{{order_detail.order_book_price}}" />
-      <van-field disabled name="order_book_num_first" required label="一手书预订量" value="{{numBookFirst}}" />
-      <van-field disabled name="order_book_num_sec" required label="二手书预订量" value="{{numBookSec}}" />
-      <van-field bind:change="onChangeRemark" name="order_remark" label="备注" value="选填" value="{{order_detail.order_remark}}" />
-    </van-cell-group>
-    <view class="container button-under-container">
-      <van-button type="primary" size='small' bind:click="btn_update">更新</van-button>
-    </view>
-  <van-dialog id="van-dialog"/>
+  <van-cell-group class="wid-eight">
+    <van-switch-cell title="此表已截止统计" checked="{{ checked }}" bind:change="onChangeTime" />
+    <van-field disabled name="order_create_date" left-icon="" label="创建日期" value="{{orderDetailCreateDate}}" />
+    <van-field disabled name="order_update_date" left-icon="" label="更新日期" value="{{orderDetailUpdateDate}}" />
+    <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+      <van-field name="order_college" required readonly label="学院名称" value="{{order_detail.order_college}}" />
+      <van-field name="order_Major" required readonly label="专业名称" value="{{order_detail.order_major}}" />
+    </picker>
+    <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startGrade}}" bindchange="bindDateChange">
+      <van-field name="order_grade" required readonly label="年级" value="{{order_detail.order_grade}}" />
+    </picker>
+    <picker bindchange="bindPickerChange" value="{{indexSemester}}" range="{{arraySemester}}">
+      <van-field name="order_semester" required readonly label="学期" value="{{order_detail.order_semester}}" />
+    </picker>
+    <van-field bind:change="onChangeCourse" name="order_course" required label="课程名称" value="{{order_detail.order_course}}" />
+    <van-field bind:change="onChangeTeacher" name="order_teacher" label="任课老师" value="{{order_detail.order_teacher}}" />
+    <van-field bind:change="onChangeBookName" name="order_book_name" required label="教材名称" value="{{order_detail.order_book_name}}" />
+    <van-field bind:change="onChangeBookISBN" name="order_book_isbn" required label="教材ISBN" value="{{order_detail.order_book_isbn}}" />
+    <van-field bind:change="onChangeBookWriter" name="order_book_writer" label="作者/编著者" value="{{order_detail.order_book_writer}}" />
+    <van-field bind:change="onChangeBookVersion" name="order_book_version" label="版次" value="{{order_detail.order_book_version}}" />
+    <van-field bind:change="onChangeBookPublisher" name="order_book_publisher" label="出版社" value="{{order_detail.order_book_publisher}}" />
+    <van-field bind:change="onChangeBookPrice" name="order_book_price" required label="单价" value="{{order_detail.order_book_price}}" />
+    <van-field disabled name="order_book_num_first" required label="一手书预订量" value="{{numBookFirst}}" />
+    <van-field disabled name="order_book_num_sec" required label="二手书预订量" value="{{numBookSec}}" />
+    <van-field bind:change="onChangeRemark" name="order_remark" label="备注" value="选填" value="{{order_detail.order_remark}}" />
+  </van-cell-group>
+  <view class="container button-under-container">
+    <van-button type="primary" size='small' bind:click="btn_update">更新</van-button>
+  </view>
+  <van-dialog id="van-dialog" />
 </view>

@@ -3,8 +3,7 @@
 
 <view class="container">
   <view class="input-container">
-    <form bindsubmit="formSubmit" bindreset="formReset">
-      <van-cell-group>
+      <van-cell-group class="wid-eight">
         <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
           <van-field name="order_college" required readonly label="学院名称" value="{{inputCollege}}" />
           <van-field name="order_Major" required readonly label="专业名称" value="{{inputMajor}}" />
@@ -15,20 +14,19 @@
         <picker bindchange="bindPickerChange" value="{{indexSemester}}" range="{{arraySemester}}">
           <van-field name="order_semester" required readonly label="学期" value="{{inputSemester}}" />
         </picker>
-        <van-field name="order_course" required clearable label="课程名称" />
-        <van-field name="order_teacher" clearable label="任课老师" />
-        <van-field name="order_book_name" required clearable label="教材名称" />
-        <van-field name="order_book_isbn" required clearable label="教材ISBN" type="number" />
-        <van-field name="order_book_writer" clearable label="作者/编著者" />
-        <van-field name="order_book_version" clearable label="版次" />
-        <van-field name="order_book_publisher" clearable label="出版社" />
-        <van-field name="order_book_price" required clearable label="单价" type="digit" />
-        <van-field name="order_remark" clearable label="备注" placeholder="选填" />
+        <van-field name="order_course" required clearable label="课程名称" bind:change="onChangeCourse"/>
+        <van-field name="order_teacher" clearable label="任课老师" bind:change="onChangeTeacher"/>
+        <van-field name="order_book_name" required clearable label="教材名称" bind:change="onChangeBookName"/>
+        <van-field name="order_book_isbn" required clearable label="教材ISBN" type="number" bind:change="onChangeBookISBN"/>
+        <van-field name="order_book_writer" clearable label="作者/编著者" bind:change="onChangeBookWriter"/>
+        <van-field name="order_book_version" clearable label="版次" bind:change="onChangeBookVersion"/>
+        <van-field name="order_book_publisher" clearable label="出版社" bind:change="onChangeBookPublisher"/>
+        <van-field name="order_book_price" required clearable label="单价" type="digit" bind:change="onChangeBookPrice"/>
+        <van-field name="order_remark" clearable label="备注" placeholder="选填" bind:change="onChangeBRemark"/>
       </van-cell-group>
-      <view class="button-under-container">
-        <button type="primary" size="mini" form-type="submit">提交</button>
+      <view class="container button-under-container">
+        <van-button type="primary" size="mini" bind:click="submit">提交</van-button>
       </view>
-    </form>
   </view>
   <van-dialog id="van-dialog" />
 </view>
