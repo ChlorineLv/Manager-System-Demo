@@ -11,12 +11,23 @@
           <view id="selectShow">
             <view id="selectTag">
               <van-row>
-                <van-col span="20" offset="2">
+                <van-col span="24" offset="">
                   <van-row>
                     <van-col span="20">
                       <van-collapse value="{{ activeNamesBookSelect }}" bind:change="onChangeCollapseBookSelect">
                         <van-collapse-item title="筛选" name="1">
-                          筛选选项
+                          <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+                            <view>学院：{{filterCollege}}</view><view>专业：{{filterMajor}}</view>
+                          </picker>
+                          <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startGrade}}" bindchange="bindDateChange">
+                            <view>年级：{{filterGrade}}</view>
+                          </picker>
+                          <picker bindchange="bindPickerChange" value="{{indexSemester}}" range="{{arraySemester}}">
+                            <view>学期：{{filterSemester}}</view>
+                          </picker>
+                          <picker bindchange="bindStatusChange" value="{{indexStatus}}" range="{{arrayStatus}}">
+                            <view>状态：{{filterStatus}}</view>
+                          </picker>
                         </van-collapse-item>
                       </van-collapse>
                     </van-col>

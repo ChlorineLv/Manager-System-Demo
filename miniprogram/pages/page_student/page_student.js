@@ -171,16 +171,6 @@ Page({
       activeNamesBook: event.detail
     });
     if (this.data.activeNamesBook.indexOf("1") != -1) {
-      wx.cloud.callFunction({
-        name:"dbRead",
-        data:{
-          dbName:"tb_order",
-          pageIndex:1,
-          pageSize:5
-        }
-      }).then(res=>{
-        console.log("dbRead callFunction:",res)
-      })
       db.collection('tb_order').where({
         order_visible: true,
         order_timeout: false,
