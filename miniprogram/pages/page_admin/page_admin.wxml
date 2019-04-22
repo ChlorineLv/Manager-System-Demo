@@ -87,7 +87,7 @@
       </van-collapse>
     </van-tab>
 
-    <van-tab title="教材推荐管理">
+    <van-tab title="书目推荐管理">
       <van-collapse value="{{ activeNamesRec }}" bind:change="onChangeCollapseRec">
         <van-collapse-item title="待审核推荐" name="1">
           <view id="showRecCheck">

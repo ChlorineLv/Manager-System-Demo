@@ -27,7 +27,7 @@ Page({
     inputBookPublisher: "",
     inputBookVersion: "",
     inputBookISBN: "",
-    inputBOokWriter: "",
+    inputBookWriter: "",
     inputRemark: "",
   },
 
@@ -185,7 +185,7 @@ Page({
   },
   onChangeBookWriter: function(e) {
     this.setData({
-      inputBOokWriter: e.detail,
+      inputBookWriter: e.detail,
     })
   },
   onChangeBookVersion: function(e) {
@@ -237,7 +237,7 @@ Page({
           inputBookPublisher: this.data.inputBookPublisher,
           inputBookVersion: this.data.inputBookVersion,
           inputBookISBN: this.data.inputBookISBN,
-          inputBOokWriter: this.data.inputBOokWriter,
+          inputBookWriter: this.data.inputBookWriter,
           inputRemark: this.data.inputRemark,
         },
         success(res) {

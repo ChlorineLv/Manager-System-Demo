@@ -67,8 +67,8 @@
 
     <van-tab title="专业教材查询">内容 4</van-tab>
 
-    <van-tab title="辅助教材推荐">
-      <van-cell title="教材推荐申请" value="跳转" is-link url="{{urlRec}}" />
+    <van-tab title="辅助书目推荐">
+      <van-cell title="书目推荐申请" value="跳转" is-link url="{{urlRec}}" />
       <van-collapse value="{{ activeNamesBookRec }}" bind:change="onChangeCollapseBookRec">
         <van-collapse-item title="个人推荐历史" name="1">
           <view id="showRecMgmt">
