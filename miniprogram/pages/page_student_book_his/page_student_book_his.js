@@ -25,26 +25,29 @@ Page({
     });
     db.collection("tb_his").doc(options._id).get({
       success: res => {
-        // console.log("tb_his",res);
+        console.log("tb_his", res);
         this.setData({
           his_detail: res.data,
           checkedBook: 0 || res.data.his_first,
           checkedBookSec: res.data.his_sec & res.data.his_first,
           hisUpdateDate: (new Date(res.data.his_update_date)).toLocaleString(),
           hisOrderID: res.data.his_order_id
+        });
+        db.collection("tb_order").where({
+          _id: this.data.hisOrderID
+        }).get({
+          success: res => {
+            console.log(res.data);
+            this.setData({
+              boolOrderTimeout: res.data[0].order_timeout
+            })
+          }
         })
       },
       fail: err => {
         console.log(err);
       }
     });
-    db.collection("tb_order").doc(this.data.hisOrderID).get({
-      success: res => {
-        this.setData({
-          boolOrderTimeout: res.data.order_timeout
-        })
-      }
-    })
   },
 
   /**
@@ -154,8 +157,8 @@ Page({
    * 点击登记提交按钮
    */
   btn_submit() {
-    // console.log("订书：", this.data.checkedBook, "，二手：", this.data.checkedBookSec);
     // console.log("提交", this.data);
+    // console.log(this.data.boolOrderTimeout)
     if (!this.data.boolOrderTimeout) {
       wx.cloud.callFunction({
         name: 'dbUpdateHis',

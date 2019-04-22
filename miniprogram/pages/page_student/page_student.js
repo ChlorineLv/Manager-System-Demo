@@ -249,7 +249,7 @@ Page({
    */
   viewItemHis: function(event) {
     let id = event.currentTarget.id;
-    console.log(event);
+    // console.log(event);
     wx.navigateTo({
       url: '../page_student_book_his/page_student_book_his?_id=' + id,
     })
