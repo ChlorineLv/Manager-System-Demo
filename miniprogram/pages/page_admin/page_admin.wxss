@@ -1,6 +1,10 @@
 /* miniprogram/pages/page_admin/page_admin.wxss */
 
-.van-card__thumb{
-  width:45px !important;
-  height:45px !important;
+.van-card__thumb {
+  width: 45px !important;
+  height: 45px !important;
+}
+
+.text-center {
+  text-align: center;
 }

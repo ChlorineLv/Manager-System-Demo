@@ -1,5 +1,6 @@
 // miniprogram/pages/page_admin/page_admin.js
 import Notify from '../../miniprogram_npm/vant-weapp/notify/notify';
+import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 const db = wx.cloud.database();
 Page({
 
@@ -8,12 +9,12 @@ Page({
    */
   data: {
     multiArray: [
-      ["无","计算机科学与工程学院", "机械与汽车工程学院", "自动化"],
+      ["无", "计算机科学与工程学院", "机械与汽车工程学院", "自动化"],
       ["无", ]
     ],
     multiIndex: [0, 0],
-    arraySemester: ["无","大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
-    arrayStatus: ["无", "已截止","未截止"],
+    arraySemester: ["无", "大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
+    arrayStatus: ["无", "已截止", "未截止"],
     startGrade: (new Date().getFullYear()).toString(),
     indexSemester: 0,
     indexStatus: 0,
@@ -22,10 +23,20 @@ Page({
     filterGrade: "无",
     filterSemester: "无",
     filterStatus: "无",
+    arrayPageIndex: ["1"],
+    indexPageIndex: 0,
+    arrayPageSize: [3,5,10,15],
+    indexPageSize: 1,
     activeNamesBookSelect: [],
     activeNamesBookMgmt: ["1"],
     activeNamesSec: [],
     activeNamesRec: [],
+    boolHaveSearch: false,
+    pageIndex: 1,
+    pageSize: 10,
+    orderListLength: 0,
+    orderListTotalPage: 0,
+    orderListHasMore: false,
     order_list: [],
     user_list: [],
     secCheck_list: [],
@@ -57,7 +68,8 @@ Page({
       recCheck_list: [],
       activeNamesRec: [],
       activeNamesSec: [],
-    })
+    });
+    Toast.clear();
   },
 
   /**
@@ -247,7 +259,7 @@ Page({
   /**
    * picker填写是否截止
    */
-  bindStatusChange: function (e) {
+  bindStatusChange: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       indexStatus: e.detail.value,
@@ -259,10 +271,72 @@ Page({
    * button预订查询
    */
   btn_search(options) {
+    this.setData({
+      pageIndex: 1,
+      pageSize: 5
+    })
+    this.filterSearch();
+  },
+
+  /**
+   * picker选择页码
+   */
+  bindPageIndexPickerChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexPageIndex: e.detail.value,
+      pageIndex: this.data.arrayPageIndex[e.detail.value]
+    })
+    this.filterSearch();
+  },
+
+  /**
+   * picker选择页面大小
+   */
+  bindPageSizePickerChange: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexPageSize: e.detail.value,
+      pageSize: this.data.arrayPageSize[e.detail.value]
+    })
+    this.filterSearch();
+  },
+
+  /**
+   * pagination下一页 
+   */
+  paginationNextPage: function(e) {
+    let i = this.data.pageIndex;
+    this.setData({
+      pageIndex: i + 1
+    });
+    this.filterSearch();
+  },
+
+  /**
+   * pagination上一页
+   */
+  paginationPreviousPage: function(e) {
+    let i = this.data.pageIndex;
+    this.setData({
+      pageIndex: i - 1
+    });
+    this.filterSearch();
+  },
+
+  /**
+   * filter-search筛选函数
+   */
+  filterSearch: function() {
+    Toast.loading({
+      duration: 0,
+      mask: true,
+      message: '加载中...'
+    });
     let filterStatus = false;
-    if (this.data.filterStatus =="已截止") {
+    if (this.data.filterStatus == "已截止") {
       filterStatus = true;
-    } else if(this.data.filterStatus == "未截止"){
+    } else if (this.data.filterStatus == "未截止") {
       filterStatus = false;
     } else {
       filterStatus = null;
@@ -271,8 +345,8 @@ Page({
       name: "dbRead",
       data: {
         dbName: "tb_order",
-        // pageIndex: 1,
-        pageSize: 100,
+        pageIndex: this.data.pageIndex,
+        pageSize: this.data.pageSize,
         filter: {
           order_college: (this.data.filterCollege == "无" ? null : this.data.filterCollege),
           order_major: (this.data.filterMajor == "无" ? null : this.data.filterMajor),
@@ -282,25 +356,23 @@ Page({
         }
       }
     }).then(res => {
-      console.log("dbRead callFunction:", res.result.data);
+      console.log("dbRead callFunction:", res.result);
       this.setData({
         order_list: this.changeOrderCreateDate(res.result.data),
+        boolHaveSearch: true,
+        orderListTotalPage: res.result.totalPage,
+        orderListLength: res.result.total,
+        orderListHasMore: res.result.hasMore,
       });
+      let tempArr = [];
+      for (let i = 0; i < res.result.totalPage; i++) {
+        tempArr[i] = i + 1;
+      };
+      this.setData({
+        arrayPageIndex: tempArr,
+      });
+      Toast.clear();
     })
-
-    // db.collection('tb_order').where({
-    //   order_visible: true
-    // }).get({
-    //   success: res => {
-    //     // console.log("查询结果",res.data);
-    //     this.setData({
-    //       order_list: this.changeOrderCreateDate(res.data),
-    //     });
-    //   },
-    //   fail: err => {
-    //     console.error(err);
-    //   }
-    // })
   },
 
   /**

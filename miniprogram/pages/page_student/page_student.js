@@ -12,10 +12,38 @@ Page({
     activeNamesBook: [],
     activeNamesBookRec: [],
     activeNamesBookSec: [],
+    activeNamesBookSearchSelect: [],
+    activeNamesBookSearchResult: [],
     user_detail: [],
     order_list: [],
     rec_list: [],
     sec_list: [],
+    multiArray: [
+      ["计算机科学与工程学院", "机械与汽车工程学院", "自动化"],
+      ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全",]
+    ],
+    multiIndex: [0, 0],
+    arrayBookSearchSemester: ["大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
+    startBookSearchGrade: (new Date().getFullYear()).toString(),
+    indexBookSearchSemester: 0,
+    indexBookSearchStatus: 0,
+    filterBookSearchCollege: "计算机科学与工程学院",
+    filterBookSearchMajor: "网络工程",
+    filterBookSearchGrade: "2015",
+    filterBookSearchSemester: "大一上",
+    arrayPageIndex: ["1"],
+    indexPageIndex: 0,
+    arrayPageSize: [3, 5, 10, 15],
+    indexPageSize: 1,
+    boolHaveSearch: true,
+    orderBookSearch_list: [],
+    orderBookSearchListTotalPage: [],
+    orderBookSearchListLength: [],
+    orderBookSearchListHasMore: [],
+    recBookSearch_list: [],
+    recBookSearchListTotalPage: [],
+    recBookSearchListLength: [],
+    recBookSearchListHasMore: [],
   },
 
   /**
@@ -246,6 +274,253 @@ Page({
   },
 
   /**
+   * 二手申请历史栏目
+   */
+  onChangeCollapseBookSec: function(event) {
+    this.setData({
+      activeNamesBookSec: event.detail
+    });
+    if (this.data.activeNamesBookSec.indexOf("1") != -1) {
+      // console.log("推荐历史", event);
+      db.collection("tb_sec").where({
+        sec_stu_id: this.data.stu_id,
+      }).get({
+        success: res => {
+          // console.log("tb_sec", res);
+          this.setData({
+            sec_list: this.changeSecCreateDate(res.data)
+          })
+        },
+        fail: err => {
+          console.log(err);
+        }
+      })
+    }
+  },
+
+  /**
+   * 二手申请的详情
+   */
+  viewItemSec: function(event) {
+    let id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_student_sec_detail/page_student_sec_detail?_id=' + id,
+    })
+  },
+
+  /**
+   * collapse点开筛选查询
+   */
+  onChangeCollapseBookSearchSelect(event) {
+    this.setData({
+      activeNamesBookSearchSelect: event.detail
+    });
+  },
+
+
+  /**
+   * 专业查询Collapse栏目
+   */
+  onChangeCollapseBookSearchResult: function(event) {
+    this.setData({
+      activeNamesBookSearchResult: event.detail
+    });
+    if (this.data.activeNamesBookSearchResult.indexOf("1") != -1) {
+      console.log(this.data);
+      wx.cloud.callFunction({
+        name: "dbRead",
+        data: {
+          dbName: "tb_order",
+          pageIndex: this.data.pageIndex,
+          pageSize: this.data.pageSize,
+          filter: {
+            order_college: this.data.filterBookSearchCollege,
+            order_major: this.data.filterBookSearchMajor,
+            order_grade: parseInt(this.data.filterBookSearchGrade),
+            order_semester: this.data.filterBookSearchSemester,
+          }
+        }
+      }).then(res => {
+        console.log("dbRead callFunction:", res.result);
+        this.setData({
+          orderBookSearch_list: this.changeOrderCreateDate(res.result.data),
+          boolHaveSearch: true,
+          orderBookSearchListTotalPage: res.result.totalPage,
+          orderBookSearchListLength: res.result.total,
+          orderBookSearchListHasMore: res.result.hasMore,
+        });
+        // let tempArr = [];
+        // for (let i = 0; i < res.result.totalPage; i++) {
+        //   tempArr[i] = i + 1;
+        // };
+        // this.setData({
+        //   arrayPageIndex: tempArr,
+        // });
+        // Toast.clear();
+      })
+    }
+    if (this.data.activeNamesBookSearchResult.indexOf("2") != -1) {}
+  },
+
+
+  /**
+   * picker选择年级Grade
+   */
+  bindMultiPickerChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndex: e.detail.value,
+      filterCollege: this.data.multiArray[0][e.detail.value[0]],
+      filterMajor: this.data.multiArray[1][e.detail.value[1]]
+    })
+  },
+
+  /**
+   * picker改变第一列后的变化
+   */
+  bindMultiPickerColumnChange: function(e) {
+    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    var data = {
+      multiArray: this.data.multiArray,
+      multiIndex: this.data.multiIndex
+    };
+    data.multiIndex[e.detail.column] = e.detail.value;
+    // 第一列的变化导致第二列内容的变化：各学院的各专业
+    switch (data.multiIndex[0]) {
+      case 0:
+        data.multiArray[1] = ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ];
+        break;
+      case 1:
+        data.multiArray[1] = ["机械工程"];
+        break;
+      case 2:
+        data.multiArray[1] = ["自动化"];
+        break;
+    }
+    this.setData(data);
+  },
+
+  /**
+   * picker填写年级
+   */
+  bindDateChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      filterGrade: e.detail.value
+    })
+  },
+
+  /**
+   * picker填写学期
+   */
+  bindPickerChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexSemester: e.detail.value,
+      filterSemester: this.data.arraySemester[e.detail.value]
+    })
+  },
+
+  /**
+   * button预订查询
+   */
+  btn_search(options) {
+    this.setData({
+      pageIndex: 1,
+      pageSize: 5
+    })
+    this.filterSearch();
+  },
+
+  /**
+   * picker选择页码
+   */
+  bindPageIndexPickerChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexPageIndex: e.detail.value,
+      pageIndex: this.data.arrayPageIndex[e.detail.value]
+    })
+    this.filterSearch();
+  },
+
+  /**
+   * picker选择页面大小
+   */
+  bindPageSizePickerChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexPageSize: e.detail.value,
+      pageSize: this.data.arrayPageSize[e.detail.value]
+    })
+    this.filterSearch();
+  },
+
+  /**
+   * pagination下一页 
+   */
+  paginationNextPage: function(e) {
+    let i = this.data.pageIndex;
+    this.setData({
+      pageIndex: i + 1
+    });
+    this.filterSearch();
+  },
+
+  /**
+   * pagination上一页
+   */
+  paginationPreviousPage: function(e) {
+    let i = this.data.pageIndex;
+    this.setData({
+      pageIndex: i - 1
+    });
+    this.filterSearch();
+  },
+
+  // /**
+  //  * filter-search筛选函数
+  //  */
+  // filterSearch: function() {
+  //   Toast.loading({
+  //     duration: 0,
+  //     mask: true,
+  //     message: '加载中...'
+  //   });
+  //   wx.cloud.callFunction({
+  //     name: "dbRead",
+  //     data: {
+  //       dbName: "tb_order",
+  //       pageIndex: this.data.pageIndex,
+  //       pageSize: this.data.pageSize,
+  //       filter: {
+  //         order_college: (this.data.filterCollege == "无" ? null : this.data.filterCollege),
+  //         order_major: (this.data.filterMajor == "无" ? null : this.data.filterMajor),
+  //         order_grade: (this.data.filterGrade == "无" ? null : parseInt(this.data.filterGrade)),
+  //         order_semester: (this.data.filterSemester == "无" ? null : this.data.filterSemester),
+  //       }
+  //     }
+  //   }).then(res => {
+  //     console.log("dbRead callFunction:", res.result);
+  //     this.setData({
+  //       orderBookSearch_list: this.changeOrderCreateDate(res.result.data),
+  //       boolHaveSearch: true,
+  //       orderBookSearchListTotalPage: res.result.totalPage,
+  //       orderBookSearchListLength: res.result.total,
+  //       orderBookSearchListHasMore: res.result.hasMore,
+  //     });
+  //     let tempArr = [];
+  //     for (let i = 0; i < res.result.totalPage; i++) {
+  //       tempArr[i] = i + 1;
+  //     };
+  //     this.setData({
+  //       arrayPageIndex: tempArr,
+  //     });
+  //     Toast.clear();
+  //   })
+  // },
+
+  /**
    * 推荐历史栏目
    */
   onChangeCollapseBookRec: function(event) {
@@ -278,41 +553,6 @@ Page({
     let id = event.currentTarget.id;
     wx.navigateTo({
       url: '../page_student_rec_detail/page_student_rec_detail?_id=' + id,
-    })
-  },
-
-  /**
-   * 二手申请历史栏目
-   */
-  onChangeCollapseBookSec: function(event) {
-    this.setData({
-      activeNamesBookSec: event.detail
-    });
-    if (this.data.activeNamesBookSec.indexOf("1") != -1) {
-      // console.log("推荐历史", event);
-      db.collection("tb_sec").where({
-        sec_stu_id: this.data.stu_id,
-      }).get({
-        success: res => {
-          // console.log("tb_sec", res);
-          this.setData({
-            sec_list: this.changeSecCreateDate(res.data)
-          })
-        },
-        fail: err => {
-          console.log(err);
-        }
-      })
-    }
-  },
-
-  /**
-   * 二手申请的详情
-   */
-  viewItemSec: function(event) {
-    let id = event.currentTarget.id;
-    wx.navigateTo({
-      url: '../page_student_sec_detail/page_student_sec_detail?_id=' + id,
     })
   },
 })

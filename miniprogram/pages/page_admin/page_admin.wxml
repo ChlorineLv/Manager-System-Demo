@@ -1,6 +1,5 @@
 <!--miniprogram/pages/page_admin/page_admin.wxml-->
 <van-nav-bar title="教务员页面" right-text="注销" bind:click-right="onClickRight" />
-
 <view>
   <van-tabs active="{{ active }}" bind:change="onChangeTab" swipe-threshold="3">
 
@@ -17,7 +16,8 @@
                       <van-collapse value="{{ activeNamesBookSelect }}" bind:change="onChangeCollapseBookSelect">
                         <van-collapse-item title="筛选" name="1">
                           <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-                            <view>学院：{{filterCollege}}</view><view>专业：{{filterMajor}}</view>
+                            <view>学院：{{filterCollege}}</view>
+                            <view>专业：{{filterMajor}}</view>
                           </picker>
                           <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startGrade}}" bindchange="bindDateChange">
                             <view>年级：{{filterGrade}}</view>
@@ -41,6 +41,9 @@
               </van-row>
             </view>
             <view id="showBookMgmt">
+              <view id="showBookMgmtListNumber" wx:if="{{boolHaveSearch}}">
+                共{{orderListLength}}条
+              </view>
               <view wx:for="{{order_list}}" wx:key="order_listID" class="card-container">
                 <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="《{{item.order_book_name}}》" bind:click="viewItem">
                   <view slot="tags">学期：{{item.order_semester}}</view>
@@ -53,6 +56,34 @@
                   </view>
                 </van-card>
               </view>
+
+              <view id="showBookMgmtPagination" wx:if="{{order_list.length}}">
+                <van-row>
+                  <picker bindchange="bindPageSizePickerChange" value="{{indexPageSize}}" range="{{arrayPageSize}}">
+                    <van-col span="12">
+                      共{{orderListTotalPage}}页，每页 {{pageSize}} 条
+                    </van-col>
+                  </picker>
+                  <van-col span="12" class="text-center">
+                    <van-row>
+                      <van-col span="8">
+                        <view wx:if="{{pageIndex - 1}}" bindtap="paginationPreviousPage">上一页</view>
+                        <view wx:if="{{pageIndex == 1}}">已首页</view>
+                      </van-col>
+                      <van-col span="8">
+                        <picker bindchange="bindPageIndexPickerChange" value="{{indexPageIndex}}" range="{{arrayPageIndex}}">
+                          第{{pageIndex}}页
+                        </picker>
+                      </van-col>
+                      <van-col span="8">
+                        <view wx:if="{{!(pageIndex == orderListTotalPage)}}" bindtap="paginationNextPage">下一页</view>
+                        <view wx:if="{{pageIndex == orderListTotalPage}}">已尾页</view>
+                      </van-col>
+                    </van-row>
+                  </van-col>
+                </van-row>
+              </view>
+
             </view>
           </view>
         </van-collapse-item>
@@ -150,4 +181,7 @@
     </van-tab>
 
   </van-tabs>
+
+  <!-- <van-loading type="spinner" color="#fff" /> -->
+  <van-toast id="van-toast" />
 </view>
