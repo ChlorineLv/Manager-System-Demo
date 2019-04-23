@@ -4,3 +4,11 @@
   width: auto;
   display: inline-block !important;
 }
+
+.collapse-item-similar {
+  padding: 15px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #999;
+  background-color: #fff;
+}

@@ -69,9 +69,9 @@
       <view id="selectShow">
         <view id="selectTag">
           <van-row>
-            <van-col span="24" offset="">
+            <van-col span="18" offset="3">
               <van-row>
-                <van-col span="20" offset="2">
+                <van-col span="20" offset="">
                   <van-collapse value="{{ activeNamesBookSearchSelect }}" bind:change="onChangeCollapseBookSearchSelect">
                     <van-collapse-item title="筛选" name="1">
                       <picker mode="multiSelector" bindchange="bindBookSearchMultiPickerChange" bindcolumnchange="bindBookSearchMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiBookSearchArray}}">
@@ -87,39 +87,47 @@
                     </van-collapse-item>
                   </van-collapse>
                 </van-col>
-                <!-- <van-col span="4">
+                <van-col span="4">
                   <view class="container">
                     <van-button type="primary" style="margin:10px" size="small" bind:click="btn_search">查询</van-button>
                   </view>
-                </van-col> -->
+                </van-col>
               </van-row>
             </van-col>
           </van-row>
         </view>
-        <van-collapse value="{{ activeNamesBookSearchResult }}" bind:change="onChangeCollapseBookSearchResult">
-          <van-collapse-item title="教务员发布" name="1">
-            <view id="showBookSearchResultOrder">
-              <view id="showBookMgmt">
-            <view wx:for="{{orderBookSearch_list}}" wx:key="orderBookSearch_listID" class="card-container">
-              <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="《{{item.order_book_name}}》" bind:click="viewItemOrder">
-                <view slot="tags">学期：{{item.order_semester}}</view>
-                <view slot="tags">课程：{{item.order_course}}</view>
-                <view slot="tags">单号：{{item._id}}</view>
-                <view slot="tags">创建：{{item.order_create_date}}</view>
-                <view slot="footer" class="foot-btn">
-                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemOrder">详细</van-button>
-                </view>
-              </van-card>
+        <van-cell-group title="教务员发布">
+          <van-cell title="教务员发布" value="" />
+          <view id="showResultOrderBookSearch" class="collapse-item-similar" wx:if="{{boolHaveSearch && orderBookSearch_list}}">
+            <view>
+              <view wx:for="{{orderBookSearch_list}}" wx:key="orderBookSearch_listID" class="card-container">
+                <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="《{{item.order_book_name}}》" bind:click="viewItemOrder">
+                  <view slot="tags">学期：{{item.order_semester}}</view>
+                  <view slot="tags">课程：{{item.order_course}}</view>
+                  <view slot="tags">ISBN：{{item.order_book_isbn}}</view>
+                </van-card>
+              </view>
+            </view>
+            <view id="showResultOrderBookSearchListNumber" wx:if="{{boolHaveSearch}}">
+              共{{orderBookSearchListLength}}条
             </view>
           </view>
+        </van-cell-group>
+        <van-cell-group title="学生推荐">
+          <van-cell title="学生推荐" value="" />
+          <view id="showResultRecBookSearch" class="collapse-item-similar"  wx:if="{{boolHaveSearch && recBookSearch_list}}">
+            <view wx:for="{{recBookSearch_list}}" wx:key="recBookSearch_listID" class="card-container">
+              <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="《{{item.rec_book_name}}》" bind:click="viewItemRec">
+                <view slot="tags">学期：{{item.rec_semester}}</view>
+                <view slot="tags">课程：{{item.rec_course}}</view>
+                <view slot="tags">ISBN：{{item.rec_book_isbn}}</view>
+              </van-card>
             </view>
-          </van-collapse-item>
-          <van-collapse-item title="学生推荐" name="2">
-            <view id="showBookSearchResultRec">
-              学生推荐
+            <view id="showResultRecBookSearchListNumber" wx:if="{{boolHaveSearch}}">
+              共{{recBookSearchListLength}}条
             </view>
-          </van-collapse-item>
-        </van-collapse>
+          </view>
+        </van-cell-group>
       </view>
     </van-tab>
 
@@ -150,4 +158,5 @@
 
 
   </van-tabs>
+  <van-toast id="van-toast" />
 </view>
