@@ -13,8 +13,7 @@ Page({
     activeNamesBook: [],
     activeNamesBookRec: [],
     activeNamesBookSec: [],
-    activeNamesBookSearchSelect: [],
-    activeNamesBookSearchResult: ["1","2"],
+    activeNamesBookSearchResult: ["1", "2"],
     user_detail: [],
     order_list: [],
     rec_list: [],
@@ -192,6 +191,12 @@ Page({
     // })
   },
 
+  /*********************************************
+   * 
+   * Tab 预订教材
+   * 
+   *********************************************/
+
   /**
    * 教材预订Collapse栏目
    */
@@ -274,6 +279,12 @@ Page({
     })
   },
 
+  /*********************************************
+   * 
+   * Tab 二手教材
+   * 
+   *********************************************/
+
   /**
    * 二手申请历史栏目
    */
@@ -309,14 +320,11 @@ Page({
     })
   },
 
-  /**
-   * collapse点开筛选查询
-   */
-  onChangeCollapseBookSearchSelect(event) {
-    this.setData({
-      activeNamesBookSearchSelect: event.detail
-    });
-  },
+  /*********************************************
+   * 
+   * Tab 跨专业查询
+   * 
+   *********************************************/
 
   /**
    * picker选择年级Grade
@@ -387,52 +395,6 @@ Page({
     this.filterSearch();
   },
 
-  // /**
-  //  * picker选择页码
-  //  */
-  // bindPageIndexPickerChange: function(e) {
-  //   // console.log('picker发送选择改变，携带值为', e.detail.value)
-  //   this.setData({
-  //     indexPageIndex: e.detail.value,
-  //     pageIndex: this.data.arrayPageIndex[e.detail.value]
-  //   })
-  //   this.filterSearch();
-  // },
-
-  // /**
-  //  * picker选择页面大小
-  //  */
-  // bindPageSizePickerChange: function(e) {
-  //   // console.log('picker发送选择改变，携带值为', e.detail.value)
-  //   this.setData({
-  //     indexPageSize: e.detail.value,
-  //     pageSize: this.data.arrayPageSize[e.detail.value]
-  //   })
-  //   this.filterSearch();
-  // },
-
-  // /**
-  //  * pagination下一页 
-  //  */
-  // paginationNextPage: function(e) {
-  //   let i = this.data.pageIndex;
-  //   this.setData({
-  //     pageIndex: i + 1
-  //   });
-  //   this.filterSearch();
-  // },
-
-  // /**
-  //  * pagination上一页
-  //  */
-  // paginationPreviousPage: function(e) {
-  //   let i = this.data.pageIndex;
-  //   this.setData({
-  //     pageIndex: i - 1
-  //   });
-  //   this.filterSearch();
-  // },
-
   /**
    * filter-search筛选函数
    */
@@ -465,13 +427,6 @@ Page({
         orderBookSearchListLength: res.result.total,
         orderBookSearchListHasMore: res.result.hasMore,
       });
-      // let tempArr = [];
-      // for (let i = 0; i < res.result.totalPage; i++) {
-      //   tempArr[i] = i + 1;
-      // };
-      // this.setData({
-      //   arrayPageIndex: tempArr,
-      // });
       Toast.clear();
     })
 
@@ -500,16 +455,15 @@ Page({
         recBookSearchListLength: res.result.total,
         recBookSearchListHasMore: res.result.hasMore,
       });
-      // let tempArr = [];
-      // for (let i = 0; i < res.result.totalPage; i++) {
-      //   tempArr[i] = i + 1;
-      // };
-      // this.setData({
-      //   arrayPageIndex: tempArr,
-      // });
       Toast.clear();
     })
   },
+
+  /*********************************************
+   * 
+   * Tab 推荐书目申请
+   * 
+   *********************************************/
 
   /**
    * 推荐历史栏目

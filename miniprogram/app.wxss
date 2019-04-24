@@ -36,3 +36,11 @@
 .van-dialog__message {
   word-break: break-all;
 }
+
+.group-title {
+  padding-left: 5%;
+}
+
+.van-cell{
+  font-size: 15px;
+}

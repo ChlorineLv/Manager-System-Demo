@@ -7,7 +7,7 @@
     <van-field disabled name="sec_phone" label="联系方式" placeholder="{{sec_detail.sec_phone}}" />
     <van-field disabled name="sec_create_date" left-icon="" label="申请日期" placeholder="{{secUpdateDate}}" />
     <van-field disabled name="_id" left-icon="" label="单号" placeholder="{{sec_detail._id}}" />    
-    <van-field disabled name="sec_college" left-icon="home-o" label="学院名称" placeholder="{{sec_detail.sec_college}}" />
+    <van-field disabled name="sec_college" left-icon="" label="学院名称" placeholder="{{sec_detail.sec_college}}" />
     <van-field disabled name="sec_major" label="专业名称" placeholder="{{sec_detail.sec_major}}" />
     <van-field disabled name="sec_grade" label="年级" placeholder="{{sec_detail.sec_grade}}" />
     <van-field disabled name="sec_semester" label="学期" placeholder="{{sec_detail.sec_semester}}" />

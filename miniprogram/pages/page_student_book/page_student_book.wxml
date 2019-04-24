@@ -7,7 +7,7 @@
     <van-collapse-item title="待预订教材详细信息" name="1">
       <van-cell-group>
         <van-field disabled name="order_create_date" left-icon="" label="发布日期" placeholder="{{orderDetailCreateDate}}" />
-        <van-field disabled name="order_college" required left-icon="home-o" label="学院名称" placeholder="{{order_detail.order_college}}" />
+        <van-field disabled name="order_college" required left-icon="" label="学院名称" placeholder="{{order_detail.order_college}}" />
         <van-field disabled name="order_major" required label="专业名称" placeholder="{{order_detail.order_major}}" />
         <van-field disabled name="order_grade" required label="年级" placeholder="{{order_detail.order_grade}}" />
         <van-field disabled name="order_semester" required label="学期" placeholder="{{order_detail.order_semester}}" />

@@ -72,20 +72,18 @@
             <van-col span="18" offset="3">
               <van-row>
                 <van-col span="20" offset="">
-                  <van-collapse value="{{ activeNamesBookSearchSelect }}" bind:change="onChangeCollapseBookSearchSelect">
-                    <van-collapse-item title="筛选" name="1">
-                      <picker mode="multiSelector" bindchange="bindBookSearchMultiPickerChange" bindcolumnchange="bindBookSearchMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiBookSearchArray}}">
-                        <view>学院：{{filterBookSearchCollege}}</view>
-                        <view>专业：{{filterBookSearchMajor}}</view>
-                      </picker>
-                      <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startBookSearchGrade}}" bindchange="bindBookSearchDateChange">
-                        <view>年级：{{filterBookSearchGrade}}</view>
-                      </picker>
-                      <picker bindchange="bindBookSearchPickerChange" value="{{indexSemester}}" range="{{arrayBookSearchSemester}}">
-                        <view>学期：{{filterBookSearchSemester}}</view>
-                      </picker>
-                    </van-collapse-item>
-                  </van-collapse>
+                  <view class="collapse-item-similar">
+                    <picker mode="multiSelector" bindchange="bindBookSearchMultiPickerChange" bindcolumnchange="bindBookSearchMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiBookSearchArray}}">
+                      <view>学院：{{filterBookSearchCollege}}</view>
+                      <view>专业：{{filterBookSearchMajor}}</view>
+                    </picker>
+                    <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startBookSearchGrade}}" bindchange="bindBookSearchDateChange">
+                      <view>年级：{{filterBookSearchGrade}}</view>
+                    </picker>
+                    <picker bindchange="bindBookSearchPickerChange" value="{{indexSemester}}" range="{{arrayBookSearchSemester}}">
+                      <view>学期：{{filterBookSearchSemester}}</view>
+                    </picker>
+                  </view>
                 </van-col>
                 <van-col span="4">
                   <view class="container">
@@ -96,14 +94,12 @@
             </van-col>
           </van-row>
         </view>
-        <van-cell-group title="教务员发布">
+        <van-cell-group title="教务员发布"  wx:if="{{boolHaveSearch}}">
           <van-cell title="教务员发布" value="" />
-          <view id="showResultOrderBookSearch" class="collapse-item-similar" wx:if="{{boolHaveSearch && orderBookSearch_list}}">
+          <view id="showResultOrderBookSearch" class="collapse-item-similar" wx:if="{{boolHaveSearch}}">
             <view>
               <view wx:for="{{orderBookSearch_list}}" wx:key="orderBookSearch_listID" class="card-container">
-                <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="《{{item.order_book_name}}》" bind:click="viewItemOrder">
-                  <view slot="tags">学期：{{item.order_semester}}</view>
-                  <view slot="tags">课程：{{item.order_course}}</view>
+                <van-card desc="{{item.order_semester}}学期 - {{item.order_course}}" title="《{{item.order_book_name}}》" bind:click="viewItemOrder">
                   <view slot="tags">ISBN：{{item.order_book_isbn}}</view>
                 </van-card>
               </view>
@@ -113,13 +109,11 @@
             </view>
           </view>
         </van-cell-group>
-        <van-cell-group title="学生推荐">
+        <van-cell-group title="学生推荐"  wx:if="{{boolHaveSearch}}">
           <van-cell title="学生推荐" value="" />
-          <view id="showResultRecBookSearch" class="collapse-item-similar"  wx:if="{{boolHaveSearch && recBookSearch_list}}">
+          <view id="showResultRecBookSearch" class="collapse-item-similar">
             <view wx:for="{{recBookSearch_list}}" wx:key="recBookSearch_listID" class="card-container">
-              <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="《{{item.rec_book_name}}》" bind:click="viewItemRec">
-                <view slot="tags">学期：{{item.rec_semester}}</view>
-                <view slot="tags">课程：{{item.rec_course}}</view>
+              <van-card desc="{{item.rec_semester}}学期 - {{item.rec_course}}" title="《{{item.rec_book_name}}》" bind:click="viewItemRec">
                 <view slot="tags">ISBN：{{item.rec_book_isbn}}</view>
               </van-card>
             </view>

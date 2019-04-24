@@ -35,7 +35,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -45,10 +45,17 @@
 					"scene": null
 				},
 				{
-					"id": 4,
-					"name": "学生界面(stu_id=11)",
+					"id": 1,
+					"name": "学生 界面(stu_id=11)",
 					"pathName": "pages/page_student/page_student",
 					"query": "_id=11",
+					"scene": null
+				},
+				{
+					"id": 2,
+					"name": "教务员 预订详情",
+					"pathName": "pages/page_admin_book_detail/page_admin_book_detail",
+					"query": "_id=XJuH0t7E7L4w_jTe",
 					"scene": null
 				}
 			]

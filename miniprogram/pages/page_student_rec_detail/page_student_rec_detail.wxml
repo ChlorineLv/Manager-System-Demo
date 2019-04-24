@@ -6,7 +6,8 @@
     <van-field disabled name="rec_status" label="审核状态" placeholder="{{recStatus}}" />
     <van-field disabled name="rec_opinion" required label="审核留言" placeholder="{{rec_detail.rec_opinion}}" />
     <van-field disabled name="rec_check_date" left-icon="" label="审核日期" placeholder="{{recCheckDate}}" />
-    <van-field disabled name="_id" left-icon="" label="单号" placeholder="{{rec_detail._id}}" />   <van-field disabled name="rec_college" required left-icon="home-o" label="学院名称" placeholder="{{rec_detail.rec_college}}" />
+    <van-field disabled name="_id" left-icon="" label="单号" placeholder="{{rec_detail._id}}" />
+    <van-field disabled name="rec_college" required left-icon="" label="学院名称" placeholder="{{rec_detail.rec_college}}" />
     <van-field disabled name="rec_major" required label="专业名称" placeholder="{{rec_detail.rec_major}}" />
     <van-field disabled name="rec_grade" required label="年级" placeholder="{{rec_detail.rec_grade}}" />
     <van-field disabled name="rec_semester" required label="学期" placeholder="{{rec_detail.rec_semester}}" />

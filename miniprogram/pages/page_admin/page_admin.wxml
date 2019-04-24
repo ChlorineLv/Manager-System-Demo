@@ -94,7 +94,7 @@
       <van-collapse value="{{ activeNamesSec }}" bind:change="onChangeCollapseSec">
         <van-collapse-item title="待审核二手申请" name="1">
           <view id="showSecCheck">
-            <view wx:for="{{secCheck_list}}" wx:key="recCheck_listID" class="card-container">
+            <view wx:for="{{secCheck_list}}" wx:key="secCheck_listID" class="card-container">
               <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="《{{item.sec_book_name}}》" bind:click="viewItemSecCheck">
                 <view slot="tags">学期：{{item.sec_semester}}</view>
                 <view slot="tags">课程：{{item.sec_course}}</view>
@@ -108,8 +108,39 @@
             </view>
           </view>
         </van-collapse-item>
-        <van-collapse-item title="审核历史" name="2">
+        <van-collapse-item title="所有申请" name="2">
           <view id="showSecMgmt">
+            <view id="selectTag">
+              <van-row>
+                <van-col span="18" offset="3">
+                  <van-row>
+                    <van-col span="20">
+                      <picker mode="multiSelector" bindchange="bindMultiPickerChangeSec" bindcolumnchange="bindMultiPickerColumnChangeSec" value="{{multiIndexSec}}" range="{{multiArraySec}}">
+                        <view>学院：{{filterCollegeSec}}</view>
+                        <view>专业：{{filterMajorSec}}</view>
+                      </picker>
+                      <picker mode="date" fields="year" value="{{inputGradeSec}}" start="1900" end="{{startGradeSec}}" bindchange="bindDateChangeSec">
+                        <view>年级：{{filterGradeSec}}</view>
+                      </picker>
+                      <picker bindchange="bindPickerChangeSec" value="{{indexSemesterSec}}" range="{{arraySemesterSec}}">
+                        <view>学期：{{filterSemester}}</view>
+                      </picker>
+                      <picker bindchange="bindStatusChangeSec" value="{{indexStatusSec}}" range="{{arrayStatusSec}}">
+                        <view>状态：{{filterStatusSec}}</view>
+                      </picker>
+                    </van-col>
+                    <van-col span="4">
+                      <view class="container">
+                        <van-button type="primary" style="margin:10px" size="small" bind:click="btn_searchSec">查询</van-button>
+                      </view>
+                    </van-col>
+                  </van-row>
+                </van-col>
+              </van-row>
+            </view>
+            <view id="showBookMgmtListNumber" wx:if="{{boolHaveSearchSec}}">
+              共{{secListLength}}条
+            </view>
             <view wx:for="{{sec_list}}" wx:key="sec_listID" class="card-container">
               <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="《{{item.sec_book_name}}》" bind:click="viewItemSec">
                 <view slot="tags">学期：{{item.sec_semester}}</view>
@@ -118,11 +149,38 @@
                 <view slot="tags">创建：{{item.sec_create_date}}</view>
                 <view slot="footer" class="foot-btn">
                   <!-- //状态：0不可见，1初始，10为通过，11为不通过 -->
+                  <van-button wx:if="{{item.sec_status==1}}" size="mini" type="info" plain>待审核</van-button>
                   <van-button wx:if="{{item.sec_status==11}}" size="mini" type="warning" plain>不通过</van-button>
                   <van-button wx:if="{{item.sec_status==10}}" size="mini" type="primary" plain>通过</van-button>
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemSecCheck">详细</van-button>
                 </view>
               </van-card>
+            </view>
+            <view id="showBookMgmtPaginationSec" wx:if="{{sec_list.length}}">
+              <van-row>
+                <picker bindchange="bindPageSizePickerChangeSec" value="{{indexPageSizeSec}}" range="{{arrayPageSize}}">
+                  <van-col span="12">
+                    共{{secListTotalPage}}页，每页 {{pageSizeSec}} 条
+                  </van-col>
+                </picker>
+                <van-col span="12" class="text-center">
+                  <van-row>
+                    <van-col span="8">
+                      <view wx:if="{{pageIndexSec - 1}}" bindtap="paginationPreviousPageSec">上一页</view>
+                      <view wx:if="{{pageIndexSec == 1}}">已首页</view>
+                    </van-col>
+                    <van-col span="8">
+                      <picker bindchange="bindPageIndexPickerChangeSec" value="{{indexPageIndexSec}}" range="{{arrayPageIndexSec}}">
+                        第{{pageIndexSec}}页
+                      </picker>
+                    </van-col>
+                    <van-col span="8">
+                      <view wx:if="{{!(pageIndexSec == secListTotalPageSec)}}" bindtap="paginationNextPageSec">下一页</view>
+                      <view wx:if="{{pageIndexSec == secListTotalPageSec}}">已尾页</view>
+                    </van-col>
+                  </van-row>
+                </van-col>
+              </van-row>
             </view>
           </view>
         </van-collapse-item>

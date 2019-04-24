@@ -8,6 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    user_list: [],
     multiArray: [
       ["无", "计算机科学与工程学院", "机械与汽车工程学院", "自动化"],
       ["无", ]
@@ -25,12 +26,10 @@ Page({
     filterStatus: "无",
     arrayPageIndex: ["1"],
     indexPageIndex: 0,
-    arrayPageSize: [3,5,10,15],
+    arrayPageSize: [3, 5, 10, 15],
     indexPageSize: 1,
     activeNamesBookSelect: [],
     activeNamesBookMgmt: ["1"],
-    activeNamesSec: [],
-    activeNamesRec: [],
     boolHaveSearch: false,
     pageIndex: 1,
     pageSize: 10,
@@ -38,9 +37,35 @@ Page({
     orderListTotalPage: 0,
     orderListHasMore: false,
     order_list: [],
-    user_list: [],
+    activeNamesSec: [],
     secCheck_list: [],
+    multiArraySec: [
+      ["无", "计算机科学与工程学院", "机械与汽车工程学院", "自动化"],
+      ["无", ]
+    ],
+    multiIndexSec: [0, 0],
+    arraySemesterSec: ["无", "大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
+    arrayStatusSec: ["无", "待审核","通过", "不通过"],
+    startGradeSec: (new Date().getFullYear()).toString(),
+    indexSemesterSec: 0,
+    indexStatusSec: 0,
+    filterCollegeSec: "无",
+    filterMajorSec: "无",
+    filterGradeSec: "无",
+    filterSemesterSec: "无",
+    filterStatusSec: "无",
+    arrayPageIndexSec: ["1"],
+    indexPageIndexSec: 0,
+    arrayPageSizeSec: [3, 5, 10, 15],
+    indexPageSizeSec: 1,
+    boolHaveSearch: false,
+    pageIndexSec: 1,
+    pageSizeSec: 10,
+    secListLength: 0,
+    secListTotalPage: 0,
+    secListHasMore: false,
     sec_list: [],
+    activeNamesRec: [],
     recCheck_list: [],
     rec_list: [],
   },
@@ -68,6 +93,7 @@ Page({
       recCheck_list: [],
       activeNamesRec: [],
       activeNamesSec: [],
+      boolHaveSearch: false,
     });
     Toast.clear();
   },
@@ -167,6 +193,12 @@ Page({
     }
   },
 
+  /*********************************************
+   * 
+   * Tab 预订教材
+   * 
+   *********************************************/
+
   /**
    * button教材预订发布
    */
@@ -193,7 +225,6 @@ Page({
       activeNamesBookSelect: event.detail
     });
   },
-
 
   /**
    * picker选择年级Grade
@@ -293,7 +324,7 @@ Page({
   /**
    * picker选择页面大小
    */
-  bindPageSizePickerChange: function (e) {
+  bindPageSizePickerChange: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       indexPageSize: e.detail.value,
@@ -385,6 +416,12 @@ Page({
     })
   },
 
+  /*********************************************
+   * 
+   * Tab 二手教材
+   * 
+   *********************************************/
+
   /**
    * Collapse二手教材
    */
@@ -407,25 +444,154 @@ Page({
       })
     };
     if (this.data.activeNamesSec.indexOf("2") != -1) {
-      db.collection("tb_sec").where({
-        sec_status: db.command.neq(1)
-      }).get({
-        success: res => {
-          this.setData({
-            sec_list: this.changeSecCreateDate(res.data)
-          })
-        },
-        fail: err => {
-          console.log(err)
-        }
-      })
+      // db.collection("tb_sec").where({
+      //   sec_status: db.command.neq(1)
+      // }).get({
+      //   success: res => {
+      //     this.setData({
+      //       sec_list: this.changeSecCreateDate(res.data)
+      //     })
+      //   },
+      //   fail: err => {
+      //     console.log(err)
+      //   }
+      // })
     }
+  },
+
+  /**
+   * picker选择年级Grade
+   */
+  bindMultiPickerChangeSec: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndexSec: e.detail.value,
+      filterCollegeSec: this.data.multiArraySec[0][e.detail.value[0]],
+      filterMajorSec: this.data.multiArraySec[1][e.detail.value[1]]
+    })
+  },
+
+  /**
+   * picker改变第一列后的变化
+   */
+  bindMultiPickerColumnChangeSec: function(e) {
+    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    var data = {
+      multiArraySec: this.data.multiArraySec,
+      multiIndexSec: this.data.multiIndexSec
+    };
+    data.multiIndexSec[e.detail.column] = e.detail.value;
+    // 第一列的变化导致第二列内容的变化：各学院的各专业
+    switch (data.multiIndexSec[0]) {
+      case 0:
+        data.multiArraySec[1] = ["无"];
+        break;
+      case 1:
+        data.multiArraySec[1] = ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ];
+        break;
+      case 2:
+        data.multiArraySec[1] = ["机械工程"];
+        break;
+      case 3:
+        data.multiArraySec[1] = ["自动化"];
+        break;
+    }
+    this.setData(data);
+  },
+
+  /**
+   * picker填写年级
+   */
+  bindDateChangeSecSec: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      filterGradeSec: e.detail.value
+    })
+  },
+
+  /**
+   * picker填写学期
+   */
+  bindPickerChangeSec: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexSemesterSec: e.detail.value,
+      filterSemesterSec: this.data.arraySemesterSec[e.detail.value]
+    })
+  },
+
+  /**
+   * picker填写是否截止
+   */
+  bindStatusChangeSec: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexStatusSec: e.detail.value,
+      filterStatusSec: this.data.arrayStatusSec[e.detail.value]
+    })
+  },
+
+  /**
+   * button预订查询
+   */
+  btn_searchSec(options) {
+    this.setData({
+      pageIndex: 1,
+      pageSize: 5
+    })
+    this.filterSearchSec();
+  },
+
+  /**
+   * picker选择页码
+   */
+  bindPageIndexPickerChangeSec: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexPageIndexSec: e.detail.value,
+      pageIndexSec: this.data.arrayPageIndexSec[e.detail.value]
+    })
+    this.filterSearchSec();
+  },
+
+  /**
+   * picker选择页面大小
+   */
+  bindPageSizePickerChangeSec: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexPageSizeSec: e.detail.value,
+      pageSizeSec: this.data.arrayPageSizeSec[e.detail.value]
+    })
+    this.filterSearchSec();
+  },
+
+  /**
+   * pagination下一页 
+   */
+  paginationNextPageSec: function(e) {
+    let i = this.data.pageIndexSec;
+    this.setData({
+      pageIndexSec: i + 1
+    });
+    this.filterSearchSec();
+  },
+
+  /**
+   * pagination上一页
+   */
+  paginationPreviousPageSec: function(e) {
+    let i = this.data.pageIndexSec;
+    this.setData({
+      pageIndexSec: i - 1
+    });
+    this.filterSearchSec();
   },
 
   /**
    * button二手详情
    */
-  viewItemsecCheck: function(event) {
+  viewItemsecCheckSec: function(event) {
     var id = event.currentTarget.id;
     wx.navigateTo({
       url: '../page_admin_sec_detail/page_admin_sec_detail?_id=' + id,
@@ -441,6 +607,67 @@ Page({
       url: '../page_admin_sec_detail/page_admin_sec_detail?_id=' + id,
     })
   },
+
+
+
+  /**
+   * filter-search筛选函数
+   */
+  filterSearchSec: function() {
+    Toast.loading({
+      duration: 0,
+      mask: true,
+      message: '加载中...'
+    });
+    //状态：0不可见，1初始，10为通过，11为不通过
+    let filterStatusSec = "无";
+    if (this.data.filterStatusSec == "通过") {
+      filterStatusSec = 10;
+    } else if (this.data.filterStatusSec == "不通过") {
+      filterStatusSec = 11;
+    } else if (this.data.filterStatusSec == "待审核") {
+      filterStatusSec = 1;
+    }
+    console.log(this.data.filterStatusSec == "无")
+    wx.cloud.callFunction({
+      name: "dbRead",
+      data: {
+        dbName: "tb_sec",
+        pageIndex: this.data.pageIndexSec,
+        pageSize: this.data.pageSizeSec,
+        filter: {
+          sec_college: (this.data.filterCollegeSec == "无" ? null : this.data.filterCollegeSec),
+          sec_major: (this.data.filterMajorSec == "无" ? null : this.data.filterMajorSec),
+          sec_grade: (this.data.filterGradeSec == "无" ? null : parseInt(this.data.filterGradeSec)),
+          sec_semester: (this.data.filterSemesterSec == "无" ? null : this.data.filterSemesterSec),
+          sec_status: (this.data.filterStatusSec == "无" ? null : this.data.filterStatusSec),
+        }
+      }
+    }).then(res => {
+      console.log("dbRead callFunction:", res.result);
+      this.setData({
+        sec_list: this.changeOrderCreateDate(res.result.data),
+        boolHaveSearchSec: true,
+        secListTotalPage: res.result.totalPage,
+        secListLength: res.result.total,
+        secListHasMore: res.result.hasMore,
+      });
+      let tempArr = [];
+      for (let i = 0; i < res.result.totalPage; i++) {
+        tempArr[i] = i + 1;
+      };
+      this.setData({
+        arrayPageIndexSec: tempArr,
+      });
+      Toast.clear();
+    })
+  },
+
+  /*********************************************
+   * 
+   * Tab 书目推荐
+   * 
+   *********************************************/
 
   /**
    * Collapse推荐栏
