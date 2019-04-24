@@ -57,7 +57,7 @@
                 </van-card>
               </view>
 
-              <view id="showBookMgmtPagination" wx:if="{{order_list.length}}">
+              <view id="showBookMgmtPagination" class="show-pagination" wx:if="{{order_list.length}}">
                 <van-row>
                   <picker bindchange="bindPageSizePickerChange" value="{{indexPageSize}}" range="{{arrayPageSize}}">
                     <van-col span="12">
@@ -156,9 +156,9 @@
                 </view>
               </van-card>
             </view>
-            <view id="showBookMgmtPaginationSec" wx:if="{{sec_list.length}}">
+            <view id="showBookMgmtPaginationSec" wx:if="{{sec_list.length}}" class="show-pagination">
               <van-row>
-                <picker bindchange="bindPageSizePickerChangeSec" value="{{indexPageSizeSec}}" range="{{arrayPageSize}}">
+                <picker bindchange="bindPageSizePickerChangeSec" value="{{indexPageSizeSec}}" range="{{arrayPageSizeSec}}">
                   <van-col span="12">
                     共{{secListTotalPage}}页，每页 {{pageSizeSec}} 条
                   </van-col>
@@ -175,8 +175,8 @@
                       </picker>
                     </van-col>
                     <van-col span="8">
-                      <view wx:if="{{!(pageIndexSec == secListTotalPageSec)}}" bindtap="paginationNextPageSec">下一页</view>
-                      <view wx:if="{{pageIndexSec == secListTotalPageSec}}">已尾页</view>
+                      <view wx:if="{{!(pageIndexSec == secListTotalPage)}}" bindtap="paginationNextPageSec">下一页</view>
+                      <view wx:if="{{pageIndexSec == secListTotalPage}}">已尾页</view>
                     </van-col>
                   </van-row>
                 </van-col>

@@ -44,3 +44,7 @@
 .van-cell{
   font-size: 15px;
 }
+
+.show-pagination{
+  margin-top: 3%;
+}

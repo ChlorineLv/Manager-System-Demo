@@ -532,12 +532,12 @@ Page({
   },
 
   /**
-   * button预订查询
+   * button二手查询
    */
   btn_searchSec(options) {
     this.setData({
-      pageIndex: 1,
-      pageSize: 5
+      pageIndexSec: 1,
+      pageSizeSec: 5
     })
     this.filterSearchSec();
   },
@@ -628,7 +628,6 @@ Page({
     } else if (this.data.filterStatusSec == "待审核") {
       filterStatusSec = 1;
     }
-    console.log(this.data.filterStatusSec == "无")
     wx.cloud.callFunction({
       name: "dbRead",
       data: {
@@ -646,7 +645,7 @@ Page({
     }).then(res => {
       console.log("dbRead callFunction:", res.result);
       this.setData({
-        sec_list: this.changeOrderCreateDate(res.result.data),
+        sec_list: this.changeSecCreateDate(res.result.data),
         boolHaveSearchSec: true,
         secListTotalPage: res.result.totalPage,
         secListLength: res.result.total,
