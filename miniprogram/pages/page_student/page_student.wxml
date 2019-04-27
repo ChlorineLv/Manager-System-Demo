@@ -148,7 +148,7 @@
           </view>
         </van-collapse-item>
       </van-collapse>
-      <view style="margin:5%;font-family:serif;font-size:11pt;color:grey">
+      <view class="remark-text">
         说明：推荐成功的书目，将在跨专业查询中展示。
       </view>
     </van-tab>

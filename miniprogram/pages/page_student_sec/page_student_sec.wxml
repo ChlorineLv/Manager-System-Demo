@@ -26,6 +26,9 @@
       <van-field name="sec_book_price" required clearable label="单价" type="digit" bind:change="onChangeBookPrice" />
       <van-field name="sec_remark" clearable label="备注" placeholder="选填" bind:change="onChangeRemark" />
     </van-cell-group>
+    <view class="remark-text">
+      说明：请认真填写，提交前请确认是否无误。
+    </view>
     <view class="container button-under-container">
       <van-button type="primary" size="mini" bind:click="submit">提交</van-button>
     </view>

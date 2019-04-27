@@ -41,11 +41,11 @@
   padding-left: 5%;
 }
 
-.van-cell{
+.van-cell {
   font-size: 15px;
 }
 
-.show-pagination{
+.show-pagination {
   margin-top: 3%;
 }
 
@@ -55,4 +55,11 @@
   line-height: 1.5;
   color: #999;
   background-color: #fff;
+}
+
+.remark-text {
+  margin: 5%;
+  font-family: serif;
+  font-size: 10pt;
+  color: grey;
 }
