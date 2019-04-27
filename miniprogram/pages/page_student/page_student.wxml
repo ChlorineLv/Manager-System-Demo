@@ -94,7 +94,7 @@
             </van-col>
           </van-row>
         </view>
-        <van-cell-group title="教务员发布"  wx:if="{{boolHaveSearch}}">
+        <van-cell-group title="教务员发布" wx:if="{{boolHaveSearch}}">
           <van-cell title="教务员发布" value="" />
           <view id="showResultOrderBookSearch" class="collapse-item-similar" wx:if="{{boolHaveSearch}}">
             <view>
@@ -109,7 +109,7 @@
             </view>
           </view>
         </van-cell-group>
-        <van-cell-group title="学生推荐"  wx:if="{{boolHaveSearch}}">
+        <van-cell-group title="学生推荐" wx:if="{{boolHaveSearch}}">
           <van-cell title="学生推荐" value="" />
           <view id="showResultRecBookSearch" class="collapse-item-similar">
             <view wx:for="{{recBookSearch_list}}" wx:key="recBookSearch_listID" class="card-container">
@@ -148,8 +148,10 @@
           </view>
         </van-collapse-item>
       </van-collapse>
+      <view style="margin:5%;font-family:serif;font-size:11pt;color:grey">
+        说明：推荐成功的书目，将在跨专业查询中展示。
+      </view>
     </van-tab>
-
 
   </van-tabs>
   <van-toast id="van-toast" />
