@@ -22,7 +22,7 @@
         <van-field name="rec_book_version" clearable label="版次" bind:change="onChangeBookVersion" />
         <van-field name="rec_book_publisher" clearable label="出版社" bind:change="onChangeBookPublisher" />
         <van-field name="rec_book_price" required clearable label="单价" type="digit" bind:change="onChangeBookPrice" />
-        <van-field name="rec_remark" clearable label="备注" placeholder="选填" bind:change="onChangeBRemark" />
+        <van-field name="rec_remark" clearable label="备注" placeholder="选填" bind:change="onChangeRemark" />
       </van-cell-group>
       <view class="container button-under-container">
         <van-button type="primary" size="mini" bind:click="submit">提交</van-button>

@@ -1,39 +1,54 @@
 <!--miniprogram/pages/page_admin_sec_detail/page_admin_sec_detail.wxml-->
 <van-nav-bar title="二手教材审核详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
-<view id="showSec" class="container">
+<view id="showSec">
   <van-cell-group>
-    <van-field disabled name="sec_stu_id" label="申请人学号" placeholder="{{sec_detail.sec_stu_id}}" />
-    <van-field disabled name="sec_add" label="申请人宿舍号" placeholder="{{sec_detail.sec_add}}" />
-    <van-field disabled name="sec_phone" label="联系方式" placeholder="{{sec_detail.sec_phone}}" />
-    <van-field disabled name="sec_create_date" left-icon="" label="申请日期" placeholder="{{secUpdateDate}}" />
-    <van-field disabled name="_id" left-icon="" label="单号" placeholder="{{sec_detail._id}}" />    
-    <van-field disabled name="sec_college" left-icon="" label="学院名称" placeholder="{{sec_detail.sec_college}}" />
-    <van-field disabled name="sec_major" label="专业名称" placeholder="{{sec_detail.sec_major}}" />
-    <van-field disabled name="sec_grade" label="年级" placeholder="{{sec_detail.sec_grade}}" />
-    <van-field disabled name="sec_semester" label="学期" placeholder="{{sec_detail.sec_semester}}" />
-    <van-field disabled name="sec_course" label="课程名称" placeholder="{{sec_detail.sec_course}}" />
-    <van-field disabled name="sec_teacher" label="任课老师" placeholder="{{sec_detail.sec_teacher}}" />
-    <van-field disabled name="sec_book_name" label="教材名称" placeholder="{{sec_detail.sec_book_name}}" />
-    <van-field disabled name="sec_book_isbn" label="教材ISBN" placeholder="{{sec_detail.sec_book_isbn}}" />
-    <van-field disabled name="sec_book_writer" label="作者/编著者" placeholder="{{sec_detail.sec_book_writer}}" />
-    <van-field disabled name="sec_book_version" label="版次" placeholder="{{sec_detail.sec_book_version}}" />
-    <van-field disabled name="sec_book_publisher" label="出版社" placeholder="{{sec_detail.sec_book_publisher}}" />
-    <van-field disabled name="sec_book_price" label="单价" placeholder="{{sec_detail.sec_book_price}}" />
-    <van-field disabled name="sec_check_date" left-icon="" label="审核日期" placeholder="{{secCheckDate}}" />
-    <van-field name="sec_opinion" required border="{{ false }}" label="审核留言" value="{{sec_detail.sec_opinion}}" bind:change="onChangeOpinion" />
-    <van-row>
-      <van-col span="6" style="display:block">
-        <van-field name="sec_status" required disabled border="{{ false }}" label="审核状态" />
-      </van-col>
-      <van-col span="10" offset="8">
-        <van-radio-group value="{{ radioSecCheck }}" bind:change="onChangeRadioSecCheck">
-        <!-- //状态：0不可见，1初始，10为通过，11为不通过 -->
-          <van-radio name="1">待审核</van-radio>
-          <van-radio name="10">通过</van-radio>
-          <van-radio name="11">不通过</van-radio>
-        </van-radio-group>
-      </van-col>
-    </van-row>
+    <view class="group-title">
+      <van-cell title="申请人详情" value="" />
+    </view>
+    <view class="container">
+      <van-field disabled name="sec_stu_id" label="申请人学号" placeholder="{{sec_detail.sec_stu_id}}" />
+      <van-field disabled name="sec_add" label="申请人宿舍号" placeholder="{{sec_detail.sec_add}}" />
+      <van-field disabled name="sec_phone" label="联系方式" placeholder="{{sec_detail.sec_phone}}" />
+      <van-field disabled name="sec_create_date" left-icon="" label="申请日期" placeholder="{{secUpdateDate}}" />
+      <van-field disabled name="_id" left-icon="" label="单号" placeholder="{{sec_detail._id}}" />
+    </view>
+    <view class="group-title">
+      <van-cell title="教材详情" value="" />
+    </view>
+    <view class="container">
+      <van-field disabled name="sec_college" left-icon="" label="学院名称" placeholder="{{sec_detail.sec_college}}" />
+      <van-field disabled name="sec_major" label="专业名称" placeholder="{{sec_detail.sec_major}}" />
+      <van-field disabled name="sec_grade" label="年级" placeholder="{{sec_detail.sec_grade}}" />
+      <van-field disabled name="sec_semester" label="学期" placeholder="{{sec_detail.sec_semester}}" />
+      <van-field disabled name="sec_course" label="课程名称" placeholder="{{sec_detail.sec_course}}" />
+      <van-field disabled name="sec_teacher" label="任课老师" placeholder="{{sec_detail.sec_teacher}}" />
+      <van-field disabled name="sec_book_name" label="教材名称" placeholder="{{sec_detail.sec_book_name}}" />
+      <van-field disabled name="sec_book_isbn" label="教材ISBN" placeholder="{{sec_detail.sec_book_isbn}}" />
+      <van-field disabled name="sec_book_writer" label="作者/编著者" placeholder="{{sec_detail.sec_book_writer}}" />
+      <van-field disabled name="sec_book_version" label="版次" placeholder="{{sec_detail.sec_book_version}}" />
+      <van-field disabled name="sec_book_publisher" label="出版社" placeholder="{{sec_detail.sec_book_publisher}}" />
+      <van-field disabled name="sec_book_price" label="单价" placeholder="{{sec_detail.sec_book_price}}" />
+    </view>
+    <view class="group-title">
+      <van-cell title="审核详情" value="" />
+    </view>
+    <view class="container">
+      <van-field disabled name="sec_check_date" left-icon="" label="审核日期" placeholder="{{secCheckDate}}" />
+      <van-field name="sec_opinion" required border="{{ false }}" label="审核留言" value="{{sec_detail.sec_opinion}}" bind:change="onChangeOpinion" />
+      <van-row>
+        <van-col span="6" style="display:block">
+          <van-field name="sec_status" required disabled border="{{ false }}" label="审核状态" />
+        </van-col>
+        <van-col span="10" offset="8">
+          <van-radio-group value="{{ radioSecCheck }}" bind:change="onChangeRadioSecCheck">
+            <!-- //状态：0不可见，1初始，10为通过，11为不通过 -->
+            <van-radio name="1">待审核</van-radio>
+            <van-radio name="10">通过</van-radio>
+            <van-radio name="11">不通过</van-radio>
+          </van-radio-group>
+        </van-col>
+      </van-row>
+    </view>
   </van-cell-group>
   <view class="container button-under-container">
     <van-button type="primary" size="small" form-type="submit" bind:click="btn_submit">登记</van-button>

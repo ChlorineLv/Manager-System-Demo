@@ -1,0 +1,22 @@
+<!--miniprogram/pages/page_user/page_user.wxml-->
+<van-nav-bar title="更新用户" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
+
+<view class="container">
+  <view class="input-container">
+    <van-cell-group class="wid-eight">
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <van-field name="user_college" required readonly label="学院名称" value="{{user_list.user_college}}" />
+        <van-field name="user_major" required readonly label="专业名称" value="{{user_list.user_major}}" />
+      </picker>
+      <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startGrade}}" bindchange="bindDateChange">
+        <van-field name="user_grade" required readonly label="年级" value="{{user_list.user_grade}}" />
+      </picker>
+      <van-field name="user_id" required clearable type="number" label="用户ID" bind:change="onChangeID" value="{{user_list.user_id}}" />
+      <van-field name="user_pwd" required clearable label="用户密码" bind:change="onChangePwd" value="{{user_list.user_pwd}}"/>
+    </van-cell-group>
+    <view class="container button-under-container">
+      <van-button type="primary" size="mini" bind:click="submit">提交</van-button>
+    </view>
+  </view>
+  <van-dialog id="van-dialog" />
+</view>

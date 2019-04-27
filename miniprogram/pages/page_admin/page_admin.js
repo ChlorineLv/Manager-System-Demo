@@ -24,6 +24,7 @@ Page({
     filterGrade: "无",
     filterSemester: "无",
     filterStatus: "无",
+    filterISBN: "无",
     arrayPageIndex: ["1"],
     indexPageIndex: 0,
     arrayPageSize: [3, 5, 10, 15],
@@ -45,7 +46,7 @@ Page({
     ],
     multiIndexSec: [0, 0],
     arraySemesterSec: ["无", "大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
-    arrayStatusSec: ["无", "待审核","通过", "不通过"],
+    arrayStatusSec: ["无", "待审核", "通过", "不通过"],
     startGradeSec: (new Date().getFullYear()).toString(),
     indexSemesterSec: 0,
     indexStatusSec: 0,
@@ -54,6 +55,7 @@ Page({
     filterGradeSec: "无",
     filterSemesterSec: "无",
     filterStatusSec: "无",
+    filterISBNSec: "无",
     arrayPageIndexSec: ["1"],
     indexPageIndexSec: 0,
     arrayPageSizeSec: [3, 5, 10, 15],
@@ -68,6 +70,8 @@ Page({
     activeNamesRec: [],
     recCheck_list: [],
     rec_list: [],
+    activeNamesSetting: [],
+
   },
 
   /**
@@ -182,14 +186,6 @@ Page({
     // console.log("点击了", event)
     // 点击了设置tab
     if (event.detail.index == 3) {
-      db.collection("tb_user").get({
-        success: res => {
-          this.setData({
-            user_list: res.data
-          })
-          // console.log("tb_user",res.data);
-        }
-      })
     }
   },
 
@@ -299,6 +295,16 @@ Page({
   },
 
   /**
+   * input填写ISBN
+   */
+  onChangeFilterISBN: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      filterISBN: e.detail.value,
+    })
+  },
+
+  /**
    * button预订查询
    */
   btn_search(options) {
@@ -383,6 +389,7 @@ Page({
           order_major: (this.data.filterMajor == "无" ? null : this.data.filterMajor),
           order_grade: (this.data.filterGrade == "无" ? null : parseInt(this.data.filterGrade)),
           order_semester: (this.data.filterSemester == "无" ? null : this.data.filterSemester),
+          order_book_isbn: (this.data.filterISBN == "无" ? null : parseInt(this.data.filterISBN)),
           order_timeout: filterStatus,
         }
       }
@@ -443,20 +450,7 @@ Page({
         }
       })
     };
-    if (this.data.activeNamesSec.indexOf("2") != -1) {
-      // db.collection("tb_sec").where({
-      //   sec_status: db.command.neq(1)
-      // }).get({
-      //   success: res => {
-      //     this.setData({
-      //       sec_list: this.changeSecCreateDate(res.data)
-      //     })
-      //   },
-      //   fail: err => {
-      //     console.log(err)
-      //   }
-      // })
-    }
+    if (this.data.activeNamesSec.indexOf("2") != -1) {}
   },
 
   /**
@@ -528,6 +522,16 @@ Page({
     this.setData({
       indexStatusSec: e.detail.value,
       filterStatusSec: this.data.arrayStatusSec[e.detail.value]
+    })
+  },
+
+  /**
+   * input填写ISBN
+   */
+  onChangeFilterISBNSec: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      filterISBNSec: e.detail.value,
     })
   },
 
@@ -640,6 +644,8 @@ Page({
           sec_grade: (this.data.filterGradeSec == "无" ? null : parseInt(this.data.filterGradeSec)),
           sec_semester: (this.data.filterSemesterSec == "无" ? null : this.data.filterSemesterSec),
           sec_status: (this.data.filterStatusSec == "无" ? null : this.data.filterStatusSec),
+          sec_book_isbn: (this.data.filterISBNSec == "无" ? null : parseInt(this.data.filterISBNSec)),
+
         }
       }
     }).then(res => {
@@ -715,5 +721,42 @@ Page({
     wx.navigateTo({
       url: '../page_admin_rec_detail/page_admin_rec_detail?_id=' + id,
     })
-  }
+  },
+
+  /*********************************************
+   * 
+   * Tab 用户设置
+   * 
+   *********************************************/
+
+  /**
+   * Collapse二手教材
+   */
+  onChangeCollapseSetting: function(event) {
+    this.setData({
+      activeNamesSetting: event.detail
+    });
+    if (this.data.activeNamesSetting.indexOf("1") != -1) {
+      db.collection("tb_user").get({
+        success: res => {
+          this.setData({
+            user_list: res.data
+          })
+          // console.log("tb_user",res.data);
+        }
+      })
+    };
+    if (this.data.activeNamesSetting.indexOf("2") != -1) {}
+  },
+
+  /**
+   * button推荐审核传ID
+   */
+  viewItemSetting: function (event) {
+    var id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_user/page_user?_id=' + id,
+    })
+  },
+
 })

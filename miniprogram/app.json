@@ -13,7 +13,9 @@
     "pages/page_admin_rec_detail/page_admin_rec_detail",
     "pages/page_student_sec/page_student_sec",
     "pages/page_student_sec_detail/page_student_sec_detail",
-    "pages/page_admin_sec_detail/page_admin_sec_detail"
+    "pages/page_admin_sec_detail/page_admin_sec_detail",
+    "pages/page_user/page_user",
+    "pages/page_user_new/page_user_new"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
@@ -47,5 +49,6 @@
     "van-popup": "../../miniprogram_npm/vant-weapp/popup/index",
     "van-datetime-picker": "../../miniprogram_npm/vant-weapp/datetime-picker/index",
     "van-loading": "../../miniprogram_npm/vant-weapp/loading/index"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

@@ -28,6 +28,14 @@
                           <picker bindchange="bindStatusChange" value="{{indexStatus}}" range="{{arrayStatus}}">
                             <view>状态：{{filterStatus}}</view>
                           </picker>
+                          <van-row>
+                            <van-col span="7">
+                              <view style="margin-top:0.2rem;height:1.4rem;">教材ISBN：</view>
+                            </van-col>
+                            <van-col span="17">
+                              <input type="number" required clearable label="ISBN" value="{{filterISBN}}" bind:change="onChangeFilterISBN" />
+                            </van-col>
+                          </van-row>
                         </van-collapse-item>
                       </van-collapse>
                     </van-col>
@@ -128,6 +136,14 @@
                       <picker bindchange="bindStatusChangeSec" value="{{indexStatusSec}}" range="{{arrayStatusSec}}">
                         <view>状态：{{filterStatusSec}}</view>
                       </picker>
+                      <van-row>
+                        <van-col span="8">
+                          <view style="margin-top:0.2rem;height:1.4rem;">教材ISBN：</view>
+                        </van-col>
+                        <van-col span="16">
+                          <input type="number" required clearable label="ISBN" value="{{filterISBNSec}}" bind:change="onChangeFilterISBNSec" />
+                        </van-col>
+                      </van-row>
                     </van-col>
                     <van-col span="4">
                       <view class="container">
@@ -145,6 +161,8 @@
               <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="《{{item.sec_book_name}}》" bind:click="viewItemSec">
                 <view slot="tags">学期：{{item.sec_semester}}</view>
                 <view slot="tags">课程：{{item.sec_course}}</view>
+                <view slot="tags">电话：{{item.sec_phone}}</view>
+                <view slot="tags">宿舍：{{item.sec_add}}</view>
                 <view slot="tags">单号：{{item._id}}</view>
                 <view slot="tags">创建：{{item.sec_create_date}}</view>
                 <view slot="footer" class="foot-btn">
@@ -222,24 +240,36 @@
       </van-collapse>
     </van-tab>
 
-    <van-tab title="设置">
-      <view class="container">
-        <view id="showUserList">
-          <view wx:for="{{user_list}}" wx:key="user_listID">
-            <van-card desc="{{item.user_college}} {{item.user_grade}}级 - {{item.user_major}}" title="{{item.user_id}}" bind:click="viewUser">
-              <view slot="tags"></view>
-              <view slot="footer">
-                <van-button id="{{item._id}}" size="mini" bind:click="viewUser">详细</van-button>
+    <van-tab title="用户设置">
+      <van-cell title="新增用户" value="跳转" is-link url="../page_user_new/page_user_new" />
+      <van-collapse value="{{ activeNamesSetting }}" bind:change="onChangeCollapseSetting">
+        <van-collapse-item title="用户管理" name="1">
+          <view id="showUserList">
+            <view wx:for="{{user_list}}" wx:key="user_listID">
+              <view wx:if="{{item.user_college !='教务处'}}">
+                <van-card desc="{{item.user_college}} {{item.user_grade}}级 - {{item.user_major}}" title="{{item.user_id}}" bind:click="viewUser ">
+                  <view slot="footer" class="foot-btn">
+                    <van-button id="{{item._id}}" size="mini" bind:click="viewItemSetting">详细</van-button>
+                  </view>
+                </van-card>
               </view>
-            </van-card>
+              <view wx:if="{{item.user_college=='教务处'}}">
+                <van-card desc="{{item.user_college}}" title="{{item.user_id}}" bind:click="viewUser">
+                  <view slot="footer" class="foot-btn">
+                    <van-button id="{{item._id}}" size="mini" bind:click="viewItemSetting">详细</van-button>
+                  </view>
+                </van-card>
+              </view>
+            </view>
           </view>
-        </view>
-      </view>
-
+        </van-collapse-item>
+        <van-collapse-item title="设置 " name="2">
+          待
+        </van-collapse-item>
+      </van-collapse>
     </van-tab>
-
   </van-tabs>
 
-  <!-- <van-loading type="spinner" color="#fff" /> -->
-  <van-toast id="van-toast" />
+  <!-- <van-loading type="spinner " color="#fff " /> -->
+  <van-toast id="van-toast " />
 </view>
