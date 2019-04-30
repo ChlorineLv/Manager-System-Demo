@@ -263,7 +263,7 @@
             </view>
           </view>
         </van-collapse-item>
-        <van-collapse-item title="设置 " name="2">
+        <van-collapse-item title="设置" name="2">
           待
         </van-collapse-item>
       </van-collapse>
@@ -271,5 +271,5 @@
   </van-tabs>
 
   <!-- <van-loading type="spinner " color="#fff " /> -->
-  <van-toast id="van-toast " />
+  <van-toast id="van-toast" />
 </view>

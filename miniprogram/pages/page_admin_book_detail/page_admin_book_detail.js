@@ -23,6 +23,7 @@ Page({
     multiIndex: [0, 0],
     arraySemester: ["大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
     startGrade: (new Date().getFullYear()).toString(),
+    usedBook: null,
   },
 
   /**
@@ -78,7 +79,21 @@ Page({
           fail: err => {
             console.error(err);
           }
-        })
+        });
+        // 查询可用二手数量
+        var usedBook = db.collection("tb_sec").where({
+          sec_book_isbn: this.data.order_detail.order_book_isbn,
+        }).count({
+          success: res => {
+            this.setData({
+              usedBook: res.total
+            })
+            console.log("usedBook", this.data.usedBook);
+          },
+          fail: err => {
+            console.log(err)
+          }
+        });
       },
       fail: err => {
         console.error(err);
