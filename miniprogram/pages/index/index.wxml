@@ -1,25 +1,22 @@
 <!--index.wxml-->
-<!-- <van-notice-bar text="2018年10月10日后发布新版本的小程序，将无法在线上版本中使用接口直接弹出授权框。" bind:click="clickBar" />
-<button  /> -->
-<view class="container">
-  <view class="input-container">
-    <van-cell-group>
-      <van-field value="{{ userinfo }}" required clearable label="用户名" icon="question-o" placeholder="请输入用户名" bind:change="onAccChange" bind:click-icon="onClickIcon" />
-      <van-field value="{{ userpwd }}" type="password" label="密码" placeholder="请输入密码" bind:change="onPwdChange" required clearable border="{{ false }}" />
-    </van-cell-group>
-  </view>
 
-  <view class="btn-container">
-    <van-row gutter='30'>
-      <van-col>
-        <van-button open-type="getUserInfo" bind:click="onClickSign" type="primary">登陆</van-button>
-      </van-col>
-      <van-col>
-        <van-button type="default" bind:click="onClickCancel">取消</van-button>
-      </van-col>
-    </van-row>
+<view id="indexView" class="container">
+  <image src='cloud://test-scutchlorine.7465-test-scutchlorine/image/book-cartoon-130237-1319021.jpg'></image>
+  <view>教材管理系统</view>
+  <view id="loginView" class="container">
+    <view class="input-container">
+      <van-cell-group>
+        <van-field value="{{ userinfo }}" required type="number" label="用户名" icon="question-o" placeholder="请输入用户名" bind:change="onAccChange" bind:click-icon="onClickIcon" />
+        <van-field value="{{ userpwd }}" type="password" label="密码" placeholder="请输入密码" bind:change="onPwdChange" required clearable border="{{ false }}" />
+      </van-cell-group>
+    </view>
+    <view class="btn-container">
+      <van-row gutter='30'>
+        <van-col>
+          <van-button open-type="getUserInfo" bind:click="onClickSign" type="primary" size="small">登 陆</van-button>
+        </van-col>
+      </van-row>
+    </view>
   </view>
-
   <van-toast id="van-toast" />
-
 </view>

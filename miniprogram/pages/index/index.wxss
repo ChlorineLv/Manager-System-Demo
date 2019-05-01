@@ -1,5 +1,18 @@
 /**index.wxss**/
 
 .btn-container {
-  margin: 5%;
+  margin: 10%;
+}
+
+page {
+  height: 100%;
+}
+
+#indexView {
+  height: 100%;
+  /* background-image: url('https://7465-test-scutchlorine-1258843266.tcb.qcloud.la/image/Cathedral Cove, New Zealand(mobile).jpg?sign=e8c1f27060d98e17d630624aa2eaadda&t=1556733354'); */
+}
+
+#loginView{
+  margin: 10% 0;
 }

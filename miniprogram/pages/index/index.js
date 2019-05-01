@@ -116,7 +116,7 @@ Page({
   },
 
   onClickIcon() {
-    Toast("密码为账号本身");
+    Toast("初始密码为账号本身");
   },
 
 })
