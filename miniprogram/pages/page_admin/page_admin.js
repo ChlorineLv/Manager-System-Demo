@@ -9,6 +9,7 @@ Page({
    */
   data: {
     user_list: [],
+    // Tab预订
     multiArray: [
       ["无", "计算机科学与工程学院", "机械与汽车工程学院", "自动化"],
       ["无", ]
@@ -38,6 +39,7 @@ Page({
     orderListTotalPage: 0,
     orderListHasMore: false,
     order_list: [],
+    // Tab二手
     activeNamesSec: [],
     secCheck_list: [],
     multiArraySec: [
@@ -60,15 +62,42 @@ Page({
     indexPageIndexSec: 0,
     arrayPageSizeSec: [3, 5, 10, 15],
     indexPageSizeSec: 1,
-    boolHaveSearch: false,
+    boolHaveSearchSec: false,
     pageIndexSec: 1,
     pageSizeSec: 10,
     secListLength: 0,
     secListTotalPage: 0,
     secListHasMore: false,
     sec_list: [],
+    // Tab推荐
     activeNamesRec: [],
     recCheck_list: [],
+    multiArrayRec: [
+      ["无", "计算机科学与工程学院", "机械与汽车工程学院", "自动化"],
+      ["无",]
+    ],
+    multiIndexRec: [0, 0],
+    arraySemesterRec: ["无", "大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
+    arrayStatusRec: ["无", "待审核", "通过", "不通过"],
+    startGradeRec: (new Date().getFullYear()).toString(),
+    indexSemesterRec: 0,
+    indexStatusRec: 0,
+    filterCollegeRec: "无",
+    filterMajorRec: "无",
+    filterGradeRec: "无",
+    filterSemesterRec: "无",
+    filterStatusRec: "无",
+    filterISBNRec: "无",
+    arrayPageIndexRec: ["1"],
+    indexPageIndexRec: 0,
+    arrayPageSizeRec: [3, 5, 10, 15],
+    indexPageSizeRec: 1,
+    boolHaveSearchRec: false,
+    pageIndexRec: 1,
+    pageSizeRec: 10,
+    recListLength: 0,
+    recListTotalPage: 0,
+    recListHasMore: false,
     rec_list: [],
     activeNamesSetting: [],
 
@@ -370,13 +399,13 @@ Page({
       mask: true,
       message: '加载中...'
     });
-    let filterStatus = false;
+    let tempStatus = false;
     if (this.data.filterStatus == "已截止") {
-      filterStatus = true;
+      tempStatus = true;
     } else if (this.data.filterStatus == "未截止") {
-      filterStatus = false;
+      tempStatus = false;
     } else {
-      filterStatus = null;
+      tempStatus = null;
     }
     wx.cloud.callFunction({
       name: "dbRead",
@@ -390,7 +419,7 @@ Page({
           order_grade: (this.data.filterGrade == "无" ? null : parseInt(this.data.filterGrade)),
           order_semester: (this.data.filterSemester == "无" ? null : this.data.filterSemester),
           order_book_isbn: (this.data.filterISBN == "无" ? null : parseInt(this.data.filterISBN)),
-          order_timeout: filterStatus,
+          order_timeout: tempStatus,
         }
       }
     }).then(res => {
@@ -624,13 +653,13 @@ Page({
       message: '加载中...'
     });
     //状态：0不可见，1初始，10为通过，11为不通过
-    let filterStatusSec = "无";
+    let tempStatusSec = "无";
     if (this.data.filterStatusSec == "通过") {
-      filterStatusSec = 10;
+      tempStatusSec = 10;
     } else if (this.data.filterStatusSec == "不通过") {
-      filterStatusSec = 11;
+      tempStatusSec = 11;
     } else if (this.data.filterStatusSec == "待审核") {
-      filterStatusSec = 1;
+      tempStatusSec = 1;
     }
     wx.cloud.callFunction({
       name: "dbRead",
@@ -643,7 +672,7 @@ Page({
           sec_major: (this.data.filterMajorSec == "无" ? null : this.data.filterMajorSec),
           sec_grade: (this.data.filterGradeSec == "无" ? null : parseInt(this.data.filterGradeSec)),
           sec_semester: (this.data.filterSemesterSec == "无" ? null : this.data.filterSemesterSec),
-          sec_status: (this.data.filterStatusSec == "无" ? null : this.data.filterStatusSec),
+          sec_status: (tempStatusSec == "无" ? null : tempStatusSec),
           sec_book_isbn: (this.data.filterISBNSec == "无" ? null : parseInt(this.data.filterISBNSec)),
 
         }
@@ -697,20 +726,166 @@ Page({
       })
     };
     if (this.data.activeNamesRec.indexOf("2") != -1) {
-      db.collection("tb_rec").where({
-        rec_status: db.command.neq(1)
-      }).get({
-        success: res => {
-          // console.log(res)
-          this.setData({
-            rec_list: this.changeRecCreateDate(res.data)
-          })
-        },
-        fail: err => {
-          console.log("tb_rec", err);
-        }
-      })
+      // db.collection("tb_rec").where({
+      //   rec_status: db.command.neq(1)
+      // }).get({
+      //   success: res => {
+      //     // console.log(res)
+      //     this.setData({
+      //       rec_list: this.changeRecCreateDate(res.data)
+      //     })
+      //   },
+      //   fail: err => {
+      //     console.log("tb_rec", err);
+      //   }
+      // })
     };
+  },
+
+  /**
+   * picker选择年级Grade
+   */
+  bindMultiPickerChangeRec: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      multiIndexRec: e.detail.value,
+      filterCollegeRec: this.data.multiArrayRec[0][e.detail.value[0]],
+      filterMajorRec: this.data.multiArrayRec[1][e.detail.value[1]]
+    })
+  },
+
+  /**
+   * picker改变第一列后的变化
+   */
+  bindMultiPickerColumnChangeRec: function (e) {
+    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+    var data = {
+      multiArrayRec: this.data.multiArrayRec,
+      multiIndexRec: this.data.multiIndexRec
+    };
+    data.multiIndexRec[e.detail.column] = e.detail.value;
+    // 第一列的变化导致第二列内容的变化：各学院的各专业
+    switch (data.multiIndexRec[0]) {
+      case 0:
+        data.multiArrayRec[1] = ["无"];
+        break;
+      case 1:
+        data.multiArrayRec[1] = ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全",];
+        break;
+      case 2:
+        data.multiArrayRec[1] = ["机械工程"];
+        break;
+      case 3:
+        data.multiArrayRec[1] = ["自动化"];
+        break;
+    }
+    this.setData(data);
+  },
+
+  /**
+   * picker填写年级
+   */
+  bindDateChangeRec: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      filterGradeRec: e.detail.value
+    })
+  },
+
+  /**
+   * picker填写学期
+   */
+  bindPickerChangeRec: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexSemesterRec: e.detail.value,
+      filterSemesterRec: this.data.arraySemesterRec[e.detail.value]
+    })
+  },
+
+  /**
+   * picker填写是否截止
+   */
+  bindStatusChangeRec: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexStatusRec: e.detail.value,
+      filterStatusRec: this.data.arrayStatusRec[e.detail.value]
+    })
+  },
+
+  /**
+   * input填写ISBN
+   */
+  onChangeFilterISBNRec: function (e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      filterISBNRec: e.detail.value,
+    })
+  },
+
+  /**
+   * button二手查询
+   */
+  btn_searchRec(options) {
+    this.setData({
+      pageIndexRec: 1,
+      pageSizeRec: 5
+    })
+    this.filterSearchRec();
+  },
+
+  /**
+  * filter-search筛选函数
+  */
+  filterSearchRec: function () {
+    Toast.loading({
+      duration: 0,
+      mask: true,
+      message: '加载中...'
+    });
+    //状态：0不可见，1初始，10为通过，11为不通过
+    let tempStatusRec = "无";
+    if (this.data.filterStatusRec == "通过") {
+      tempStatusRec = 10;
+    } else if (this.data.filterStatusRec == "不通过") {
+      tempStatusRec = 11;
+    } else if (this.data.filterStatusRec == "待审核") {
+      tempStatusRec = 1;
+    }
+    wx.cloud.callFunction({
+      name: "dbRead",
+      data: {
+        dbName: "tb_rec",
+        pageIndex: this.data.pageIndexRec,
+        pageSize: this.data.pageSizeRec,
+        filter: {
+          rec_college: (this.data.filterCollegeRec == "无" ? null : this.data.filterCollegeRec),
+          rec_major: (this.data.filterMajorRec == "无" ? null : this.data.filterMajorRec),
+          rec_grade: (this.data.filterGradeRec == "无" ? null : parseInt(this.data.filterGradeRec)),
+          rec_semester: (this.data.filterSemesterRec == "无" ? null : this.data.filterSemesterRec),
+          rec_status: (tempStatusRec == "无" ? null : tempStatusRec),
+
+        }
+      }
+    }).then(res => {
+      console.log("dbRead callFunction:", res.result);
+      this.setData({
+        rec_list: this.changeRecCreateDate(res.result.data),
+        boolHaveSearchRec: true,
+        recListTotalPage: res.result.totalPage,
+        recListLength: res.result.total,
+        recListHasMore: res.result.hasMore,
+      });
+      let tempArr = [];
+      for (let i = 0; i < res.result.totalPage; i++) {
+        tempArr[i] = i + 1;
+      };
+      this.setData({
+        arrayPageIndexRec: tempArr,
+      });
+      Toast.clear();
+    })
   },
 
   /**

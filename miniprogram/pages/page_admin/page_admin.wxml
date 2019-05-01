@@ -223,12 +223,44 @@
         </van-collapse-item>
         <van-collapse-item title="审核历史" name="2">
           <view id="showRecMgmt">
+            <view id="selectTag">
+              <van-row>
+                <van-col span="18" offset="3">
+                  <van-row>
+                    <van-col span="20">
+                      <picker mode="multiSelector" bindchange="bindMultiPickerChangeRec" bindcolumnchange="bindMultiPickerColumnChangeRec" value="{{multiIndexRec}}" range="{{multiArrayRec}}">
+                        <view>学院：{{filterCollegeRec}}</view>
+                        <view>专业：{{filterMajorRec}}</view>
+                      </picker>
+                      <picker mode="date" fields="year" value="{{inputGradeRec}}" start="1900" end="{{startGradeRec}}" bindchange="bindDateChangeRec">
+                        <view>年级：{{filterGradeRec}}</view>
+                      </picker>
+                      <picker bindchange="bindPickerChangeRec" value="{{indexSemesterRec}}" range="{{arraySemesterRec}}">
+                        <view>学期：{{filterSemester}}</view>
+                      </picker>
+                      <picker bindchange="bindStatusChangeRec" value="{{indexStatusRec}}" range="{{arrayStatusRec}}">
+                        <view>状态：{{filterStatusRec}}</view>
+                      </picker>
+                    </van-col>
+                    <van-col span="4">
+                      <view class="container">
+                        <van-button type="primary" style="margin:10px" size="small" bind:click="btn_searchRec">查询</van-button>
+                      </view>
+                    </van-col>
+                  </van-row>
+                </van-col>
+              </van-row>
+            </view>
+            <view id="" wx:if="{{boolHaveSearchRec}}">
+              共{{recListLength}}条
+            </view>
             <view wx:for="{{rec_list}}" wx:key="rec_listID" class="card-container">
               <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="{{item.rec_semester}}学期 - {{item.rec_course}} -《{{item.rec_book_name}}》" bind:click="viewItemRec">
                 <view slot="tags">单号：{{item._id}}</view>
                 <view slot="tags">创建：{{item.rec_create_date}}</view>
                 <view slot="footer" class="foot-btn">
                   <!-- //状态：0不可见，1初始，10为通过，11为不通过 -->
+                  <van-button wx:if="{{item.rec_status==1}}" size="mini" type="info" plain>待审核</van-button>
                   <van-button wx:if="{{item.rec_status==11}}" size="mini" type="warning" plain>不通过</van-button>
                   <van-button wx:if="{{item.rec_status==10}}" size="mini" type="primary" plain>通过</van-button>
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemRecCheck">详细</van-button>
