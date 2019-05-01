@@ -27,7 +27,7 @@ exports.main = async(event, context) => {
         rec_book_version: event.inputBookVersion,
         rec_book_publisher: event.inputBookPublisher,
         rec_book_price: parseInt(event.inputBookPrice),
-        rec_remark: event.inputRemark,
+        // rec_remark: event.inputRemark,
         //状态：0不可见，1初始，10为通过，11为不通过
         rec_status: 1,
       },
