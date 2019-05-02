@@ -80,37 +80,27 @@ Page({
     /**
      * 用户点击登陆
      */
-    db.collection('tb_user').where({
-      user_id: parseInt(this.data.in_acc)
-    }).get({
-      // 采用箭头函数使this指回Page中
+    wx.cloud.callFunction({
+      name: "dbLogin",
+      data: this.data,
       success: res => {
-        console.log(res.data[0])
         // 账号是否存在
-        if (res.data[0] != undefined) {
-          // 密码是否正确
-          if (this.data.in_pwd == res.data[0].user_pwd) {
-            // console.log("登陆成功");
-            if (res.data[0].user_college == '教务处') {
-              // console.log("教务员");
-              wx.navigateTo({
-                url: '../page_admin/page_admin',
-              })
-            } else {
-              // console.log("学生");
-              wx.navigateTo({
-                url: '../page_student/page_student?_id='+this.data.in_acc,
-              })
-            }
-          } else {
-            Toast("密码错误");
-          }
-        } else {
+        if (res.result == 0) {
           Toast("账号不存在");
+        } else if (res.result.boolPassword == false) {
+          Toast("密码错误");
+        } else if (res.result.userCollege == "教务处") {
+          wx.navigateTo({
+            url: '../page_admin/page_admin?user_id='+ this.data.in_acc,
+          })
+        } else {
+          wx.navigateTo({
+            url: '../page_student/page_student?user_id=' + this.data.in_acc,
+          })
         }
       },
       fail: err => {
-        console.error(err);
+        console.log(err);
       }
     })
   },

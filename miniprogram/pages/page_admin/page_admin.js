@@ -100,14 +100,13 @@ Page({
     recListHasMore: false,
     rec_list: [],
     activeNamesSetting: [],
-
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log("教务员界面", options);
+    console.log("教务员界面，user_id:", parseInt(options.user_id));
   },
 
   /**

@@ -51,9 +51,9 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      stu_id: parseInt(options._id),
-      urlRec: "../page_student_rec/page_student_rec?_id=" + options._id,
-      urlSec: "../page_student_sec/page_student_sec?_id=" + options._id,
+      stu_id: parseInt(options.user_id),
+      urlRec: "../page_student_rec/page_student_rec?_id=" + options.user_id,
+      urlSec: "../page_student_sec/page_student_sec?_id=" + options.user_id,
     });
     console.log("学生界面，stu_id:", this.data.stu_id);
     db.collection('tb_user').where({
