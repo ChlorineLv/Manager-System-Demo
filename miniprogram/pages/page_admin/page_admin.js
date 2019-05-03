@@ -417,7 +417,7 @@ Page({
           order_major: (this.data.filterMajor == "无" ? null : this.data.filterMajor),
           order_grade: (this.data.filterGrade == "无" ? null : parseInt(this.data.filterGrade)),
           order_semester: (this.data.filterSemester == "无" ? null : this.data.filterSemester),
-          order_book_isbn: (this.data.filterISBN == "无" ? null : parseInt(this.data.filterISBN)),
+          order_book_isbn: ((this.data.filterISBN == "无" || this.data.filterISBN == "") ? null : parseInt(this.data.filterISBN)),
           order_timeout: tempStatus,
         }
       }
@@ -672,7 +672,7 @@ Page({
           sec_grade: (this.data.filterGradeSec == "无" ? null : parseInt(this.data.filterGradeSec)),
           sec_semester: (this.data.filterSemesterSec == "无" ? null : this.data.filterSemesterSec),
           sec_status: (tempStatusSec == "无" ? null : tempStatusSec),
-          sec_book_isbn: (this.data.filterISBNSec == "无" ? null : parseInt(this.data.filterISBNSec)),
+          sec_book_isbn: ((this.data.filterISBNSec == "无" || this.data.filterISBNSec == "") ? null : parseInt(this.data.filterISBNSec)),
 
         }
       }
