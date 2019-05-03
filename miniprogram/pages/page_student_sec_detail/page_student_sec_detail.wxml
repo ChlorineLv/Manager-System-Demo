@@ -1,14 +1,23 @@
 <!--miniprogram/pages/page_student_sec_detail/page_student_sec_detail.wxml-->
 <van-nav-bar title="二手回收申请历史详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 
-<view id="showSec" class="container">
+<view id="showSec">
   <van-cell-group>
+    <view class="group-title">
+      <van-cell title="审核详情" value="" />
+    </view>
+    <view class="container">
+      <van-field disabled name="sec_status" label="审核状态" placeholder="{{secStatus}}" />
+      <van-field disabled name="sec_opinion" required label="审核留言" placeholder="{{sec_detail.sec_opinion}}" />
+      <van-field disabled name="sec_check_date" left-icon="" label="审核日期" placeholder="{{secCheckDate}}" />
+    </view>
+    <view class="group-title">
+      <van-cell title="申请详情" value="" />
+    </view>
+    <view class="container">
     <van-field disabled name="sec_add" left-icon="" label="联系宿舍" placeholder="{{sec_detail.sec_add}}" />
     <van-field disabled name="sec_phone" left-icon="" label="联系方式" placeholder="{{sec_detail.sec_phone}}" />
     <van-field disabled name="sec_create_date" left-icon="" label="申请日期" placeholder="{{secUpdateDate}}" />
-    <van-field disabled name="sec_status" label="审核状态" placeholder="{{secStatus}}" />
-    <van-field disabled name="sec_opinion" required label="审核留言" placeholder="{{sec_detail.sec_opinion}}" />
-    <van-field disabled name="sec_check_date" left-icon="" label="审核日期" placeholder="{{secCheckDate}}" />
     <van-field disabled name="_id" left-icon="" label="单号" placeholder="{{sec_detail._id}}" />
     <van-field disabled name="sec_college" required left-icon="" label="学院名称" placeholder="{{sec_detail.sec_college}}" />
     <van-field disabled name="sec_major" required label="专业名称" placeholder="{{sec_detail.sec_major}}" />
@@ -22,5 +31,6 @@
     <van-field disabled name="sec_book_version" label="版次" placeholder="{{sec_detail.sec_book_version}}" />
     <van-field disabled name="sec_book_publisher" label="出版社" placeholder="{{sec_detail.sec_book_publisher}}" />
     <van-field disabled name="sec_book_price" required label="单价" placeholder="{{sec_detail.sec_book_price}}" />
+    </view>
   </van-cell-group>
 </view>
