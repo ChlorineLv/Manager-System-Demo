@@ -7,8 +7,8 @@
     </view>
     <view class="container">
       <van-field disabled name="rec_stu_id" label="申请人学号" placeholder="{{rec_detail.rec_stu_id}}" />
-      <van-field disabled name="rec_add" label="申请人宿舍号" placeholder="{{rec_detail.rec_add}}" />
-      <van-field disabled name="rec_phone" label="联系方式" placeholder="{{rec_detail.rec_phone}}" />
+      <!-- <van-field disabled name="rec_add" label="申请人宿舍号" placeholder="{{rec_detail.rec_add}}" /> -->
+      <!-- <van-field disabled name="rec_phone" label="联系方式" placeholder="{{rec_detail.rec_phone}}" /> -->
       <van-field disabled name="rec_create_date" left-icon="" label="申请日期" placeholder="{{recUpdateDate}}" />
       <!-- <van-field disabled name="_id" left-icon="" label="单号" placeholder="{{rec_detail._id}}" /> -->
     </view>

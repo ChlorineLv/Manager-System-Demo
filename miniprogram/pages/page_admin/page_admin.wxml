@@ -221,7 +221,7 @@
             </view>
           </view>
         </van-collapse-item>
-        <van-collapse-item title="审核历史" name="2">
+        <van-collapse-item title="所有申请" name="2">
           <view id="showRecMgmt">
             <view id="selectTag">
               <van-row>
