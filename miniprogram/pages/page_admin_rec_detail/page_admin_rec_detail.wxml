@@ -34,7 +34,7 @@
     </view>
     <view class="container">
       <van-field disabled name="rec_check_date" left-icon="" label="审核日期" placeholder="{{recCheckDate}}" />
-      <van-field name="rec_opinion" required border="{{ false }}" label="审核留言" value="{{rec_detail.rec_opinion}}" bind:change="onChangeOpinion" />
+      <van-field name="rec_opinion" border="{{ false }}" label="审核留言" value="{{rec_detail.rec_opinion}}" bind:change="onChangeOpinion" />
       <van-row>
         <van-col span="6" style="display:block">
           <van-field name="rec_status" required disabled border="{{ false }}" label="审核状态" />
