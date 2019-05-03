@@ -110,7 +110,7 @@
                 <view slot="tags">创建：{{item.sec_create_date}}</view>
                 <view slot="footer" class="foot-btn">
                   <van-button wx:if="{{item.sec_status==1}}" size="mini" type="info" plain>待审核</van-button>
-                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemsecCheck">详细</van-button>
+                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemSecCheck">详细</van-button>
                 </view>
               </van-card>
             </view>

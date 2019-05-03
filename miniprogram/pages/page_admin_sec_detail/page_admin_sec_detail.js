@@ -131,7 +131,7 @@ Page({
    * 提交审核结果
    */
   btn_submit: function (event) {
-    console.log(this.data);
+    // console.log(this.data);
     wx.cloud.callFunction({
       // 云函数名称
       name: 'dbCheckSec',

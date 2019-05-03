@@ -37,20 +37,20 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "管理员界面",
 					"pathName": "pages/page_admin/page_admin",
-					"query": "",
+					"query": "user_id=1",
 					"scene": null
 				},
 				{
 					"id": 1,
 					"name": "学生 界面(stu_id=11)",
 					"pathName": "pages/page_student/page_student",
-					"query": "_id=11",
+					"query": "user_id=11",
 					"scene": null
 				},
 				{
