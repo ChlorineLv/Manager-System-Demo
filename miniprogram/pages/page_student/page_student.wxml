@@ -73,7 +73,7 @@
               <van-row>
                 <van-col span="20" offset="">
                   <view class="collapse-item-similar">
-                    <picker mode="multiSelector" bindchange="bindBookSearchMultiPickerChange" bindcolumnchange="bindBookSearchMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiBookSearchArray}}">
+                    <picker mode="multiSelector" bindchange="bindBookSearchMultiPickerChange" bindcolumnchange="bindBookSearchMultiPickerColumnChange" value="{{multiBookSearchIndex}}" range="{{multiBookSearchArray}}">
                       <view>学院：{{filterBookSearchCollege}}</view>
                       <view>专业：{{filterBookSearchMajor}}</view>
                     </picker>

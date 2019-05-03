@@ -20,17 +20,17 @@ Page({
     sec_list: [],
     multiBookSearchArray: [
       ["计算机科学与工程学院", "机械与汽车工程学院", "自动化"],
-      ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ]
+      ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全",]
     ],
     multiBookSearchIndex: [0, 0],
-    arrayBookSearchSemester: ["大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
+    arrayBookSearchSemester: ["无", "大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
     startBookSearchGrade: (new Date().getFullYear()).toString(),
     indexBookSearchSemester: 0,
     indexBookSearchStatus: 0,
     filterBookSearchCollege: "计算机科学与工程学院",
     filterBookSearchMajor: "网络工程",
-    filterBookSearchGrade: "2015",
-    filterBookSearchSemester: "大一上",
+    filterBookSearchGrade: "无",
+    filterBookSearchSemester: "无",
     arrayPageIndex: ["1"],
     indexPageIndex: 0,
     arrayPageSize: [3, 5, 10, 15],
@@ -350,6 +350,9 @@ Page({
     data.multiBookSearchIndex[e.detail.column] = e.detail.value;
     // 第一列的变化导致第二列内容的变化：各学院的各专业
     switch (data.multiBookSearchIndex[0]) {
+      // case 0:
+      //   data.multiBookSearchArray[1] = ["无"];
+      //   break;
       case 0:
         data.multiBookSearchArray[1] = ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ];
         break;
@@ -412,10 +415,10 @@ Page({
         pageIndex: this.data.pageIndex,
         pageSize: this.data.pageSize,
         filter: {
-          order_college: this.data.filterBookSearchCollege,
-          order_major: this.data.filterBookSearchMajor,
-          order_grade: parseInt(this.data.filterBookSearchGrade),
-          order_semester: this.data.filterBookSearchSemester,
+          order_college: (this.data.filterBookSearchCollege == "无" ? null : this.data.filterBookSearchCollege),
+          order_major: (this.data.filterBookSearchMajor == "无" ? null : this.data.filterBookSearchMajor),
+          order_grade: (this.data.filterBookSearchGrade == "无" ? null : parseInt(this.data.filterBookSearchGrade)),
+          order_semester: (this.data.filterBookSearchSemester == "无" ? null : this.data.filterBookSearchSemester),
         }
       }
     }).then(res => {
@@ -438,10 +441,10 @@ Page({
         pageIndex: this.data.pageIndex,
         pageSize: this.data.pageSize,
         filter: {
-          rec_college: this.data.filterBookSearchCollege,
-          rec_major: this.data.filterBookSearchMajor,
-          rec_grade: parseInt(this.data.filterBookSearchGrade),
-          rec_semester: this.data.filterBookSearchSemester,
+          rec_college: (this.data.filterBookSearchCollege == "无" ? null : this.data.filterBookSearchCollege),
+          rec_major: (this.data.filterBookSearchMajor == "无" ? null : this.data.filterBookSearchMajor),
+          rec_grade: (this.data.filterBookSearchGrade == "无" ? null : parseInt(this.data.filterBookSearchGrade)),
+          rec_semester: (this.data.filterBookSearchSemester == "无" ? null : this.data.filterBookSearchSemester),
           // 状态：0不可见，1初始，10为通过，11为不通过
           rec_status: 10
         }
