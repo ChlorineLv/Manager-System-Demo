@@ -81,8 +81,10 @@ Page({
           }
         });
         // 查询可用二手数量
+        //状态：0不可见，1初始，10为通过，11为不通过
         var usedBook = db.collection("tb_sec").where({
           sec_book_isbn: this.data.order_detail.order_book_isbn,
+          sec_status: 10,
         }).count({
           success: res => {
             this.setData({
