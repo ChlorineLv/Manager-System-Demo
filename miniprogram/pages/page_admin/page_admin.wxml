@@ -205,7 +205,7 @@
       </van-collapse>
     </van-tab>
 
-    <van-tab title="书目推荐管理">
+    <van-tab title="辅导书推荐管理">
       <van-collapse value="{{ activeNamesRec }}" bind:change="onChangeCollapseRec">
         <van-collapse-item title="待审核推荐" name="1">
           <view id="showRecCheck">
@@ -279,14 +279,14 @@
           <view id="showUserList">
             <view wx:for="{{user_list}}" wx:key="user_listID">
               <view wx:if="{{item.user_college !='教务处'}}">
-                <van-card desc="{{item.user_college}} {{item.user_grade}}级 - {{item.user_major}}" title="{{item.user_id}}" bind:click="viewUser ">
+                <van-card desc="{{item.user_college}} {{item.user_grade}}级 - {{item.user_major}}" title="用户名：{{item.user_id}}" bind:click="viewUser ">
                   <view slot="footer" class="foot-btn">
                     <van-button id="{{item._id}}" size="mini" bind:click="viewItemSetting">详细</van-button>
                   </view>
                 </van-card>
               </view>
               <view wx:if="{{item.user_college=='教务处'}}">
-                <van-card desc="{{item.user_college}}" title="{{item.user_id}}" bind:click="viewUser">
+                <van-card desc="{{item.user_college}}" title="用户名：{{item.user_id}}" bind:click="viewUser">
                   <view slot="footer" class="foot-btn">
                     <van-button id="{{item._id}}" size="mini" bind:click="viewItemSetting">详细</van-button>
                   </view>
@@ -295,7 +295,7 @@
             </view>
           </view>
         </van-collapse-item>
-        <van-collapse-item title="设置" name="2">
+        <van-collapse-item title="更多" name="2">
           待
         </van-collapse-item>
       </van-collapse>

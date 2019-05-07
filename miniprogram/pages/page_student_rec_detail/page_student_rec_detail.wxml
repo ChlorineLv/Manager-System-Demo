@@ -1,5 +1,5 @@
 <!--miniprogram/pages/page_student_rec_detail/page_student_rec_detail.wxml-->
-<van-nav-bar title="教材推荐详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
+<van-nav-bar title="辅导书推荐详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 <view id="showRec">
   <van-cell-group>
     <view class="group-title">
@@ -22,8 +22,8 @@
       <van-field disabled name="rec_semester" label="学期" placeholder="{{rec_detail.rec_semester}}" />
       <van-field disabled name="rec_course" label="课程名称" placeholder="{{rec_detail.rec_course}}" />
       <van-field disabled name="rec_teacher" label="任课老师" placeholder="{{rec_detail.rec_teacher}}" />
-      <van-field disabled name="rec_book_name" label="教材名称" placeholder="{{rec_detail.rec_book_name}}" />
-      <van-field disabled name="rec_book_isbn" label="教材ISBN" placeholder="{{rec_detail.rec_book_isbn}}" />
+      <van-field disabled name="rec_book_name" label="书籍名称" placeholder="{{rec_detail.rec_book_name}}" />
+      <van-field disabled name="rec_book_isbn" label="书籍ISBN" placeholder="{{rec_detail.rec_book_isbn}}" />
       <van-field disabled name="rec_book_writer" label="作者/编著者" placeholder="{{rec_detail.rec_book_writer}}" />
       <van-field disabled name="rec_book_version" label="版次" placeholder="{{rec_detail.rec_book_version}}" />
       <van-field disabled name="rec_book_publisher" label="出版社" placeholder="{{rec_detail.rec_book_publisher}}" />

@@ -1,5 +1,5 @@
 <!--miniprogram/pages/page_student_rec/page_student_rec.wxml-->
-<van-nav-bar title="教材推荐申请填写" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
+<van-nav-bar title="辅导书推荐申请填写" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 
 <view class="container">
   <view class="input-container">
@@ -16,8 +16,8 @@
       </picker>
       <van-field name="rec_course" required clearable label="课程名称" bind:change="onChangeCourse" />
       <van-field name="rec_teacher" clearable label="任课老师" bind:change="onChangeTeacher" />
-      <van-field name="rec_book_name" required clearable label="教材名称" bind:change="onChangeBookName" />
-      <van-field name="rec_book_isbn" required clearable label="教材ISBN" type="number" bind:change="onChangeBookISBN" />
+      <van-field name="rec_book_name" required clearable label="书籍名称" bind:change="onChangeBookName" />
+      <van-field name="rec_book_isbn" required clearable label="书籍ISBN" type="number" bind:change="onChangeBookISBN" />
       <van-field name="rec_book_writer" clearable label="作者/编著者" bind:change="onChangeBookWriter" />
       <van-field name="rec_book_version" clearable label="版次" bind:change="onChangeBookVersion" />
       <van-field name="rec_book_publisher" clearable label="出版社" bind:change="onChangeBookPublisher" />

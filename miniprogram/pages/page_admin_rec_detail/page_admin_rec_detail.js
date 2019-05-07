@@ -19,7 +19,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    console.log("教务员教材推荐审核详情页面", options);
+    console.log("教务员辅导书推荐审核详情页面", options);
     db.collection("tb_rec").doc(options._id).get({
       success: res => {
         this.setData({
