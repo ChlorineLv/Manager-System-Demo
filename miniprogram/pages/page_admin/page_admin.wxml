@@ -131,7 +131,7 @@
                         <view>年级：{{filterGradeSec}}</view>
                       </picker>
                       <picker bindchange="bindPickerChangeSec" value="{{indexSemesterSec}}" range="{{arraySemesterSec}}">
-                        <view>学期：{{filterSemester}}</view>
+                        <view>学期：{{filterSemesterSec}}</view>
                       </picker>
                       <picker bindchange="bindStatusChangeSec" value="{{indexStatusSec}}" range="{{arrayStatusSec}}">
                         <view>状态：{{filterStatusSec}}</view>
@@ -236,7 +236,7 @@
                         <view>年级：{{filterGradeRec}}</view>
                       </picker>
                       <picker bindchange="bindPickerChangeRec" value="{{indexSemesterRec}}" range="{{arraySemesterRec}}">
-                        <view>学期：{{filterSemester}}</view>
+                        <view>学期：{{filterSemesterRec }}</view>
                       </picker>
                       <picker bindchange="bindStatusChangeRec" value="{{indexStatusRec}}" range="{{arrayStatusRec}}">
                         <view>状态：{{filterStatusRec}}</view>

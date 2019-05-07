@@ -10,10 +10,10 @@ exports.main = async(event, context) => {
   return db.collection("tb_user").add({
     data: {
       user_college: event.inputCollege,
-      user_ID: event.inputID,
+      user_id: parseInt(event.inputID),
       user_major: event.inputMajor,
       user_pwd: event.inputPwd,
-      user_grade: event.inputGrade,
+      user_grade: parseInt(event.inputGrade),
     },
     success: resAdd => {
       return resAdd;

@@ -74,7 +74,7 @@ Page({
     recCheck_list: [],
     multiArrayRec: [
       ["无", "计算机科学与工程学院", "机械与汽车工程学院", "自动化"],
-      ["无",]
+      ["无", ]
     ],
     multiIndexRec: [0, 0],
     arraySemesterRec: ["无", "大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
@@ -213,8 +213,7 @@ Page({
   onChangeTab(event) {
     // console.log("点击了", event)
     // 点击了设置tab
-    if (event.detail.index == 3) {
-    }
+    if (event.detail.index == 3) {}
   },
 
   /*********************************************
@@ -744,7 +743,7 @@ Page({
   /**
    * picker选择年级Grade
    */
-  bindMultiPickerChangeRec: function (e) {
+  bindMultiPickerChangeRec: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       multiIndexRec: e.detail.value,
@@ -756,7 +755,7 @@ Page({
   /**
    * picker改变第一列后的变化
    */
-  bindMultiPickerColumnChangeRec: function (e) {
+  bindMultiPickerColumnChangeRec: function(e) {
     // console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
     var data = {
       multiArrayRec: this.data.multiArrayRec,
@@ -769,7 +768,7 @@ Page({
         data.multiArrayRec[1] = ["无"];
         break;
       case 1:
-        data.multiArrayRec[1] = ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全",];
+        data.multiArrayRec[1] = ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ];
         break;
       case 2:
         data.multiArrayRec[1] = ["机械工程"];
@@ -784,7 +783,7 @@ Page({
   /**
    * picker填写年级
    */
-  bindDateChangeRec: function (e) {
+  bindDateChangeRec: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       filterGradeRec: e.detail.value
@@ -794,7 +793,7 @@ Page({
   /**
    * picker填写学期
    */
-  bindPickerChangeRec: function (e) {
+  bindPickerChangeRec: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       indexSemesterRec: e.detail.value,
@@ -805,7 +804,7 @@ Page({
   /**
    * picker填写是否截止
    */
-  bindStatusChangeRec: function (e) {
+  bindStatusChangeRec: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       indexStatusRec: e.detail.value,
@@ -816,7 +815,7 @@ Page({
   /**
    * input填写ISBN
    */
-  onChangeFilterISBNRec: function (e) {
+  onChangeFilterISBNRec: function(e) {
     // console.log('picker发送选择改变，携带值为', e.detail.value)
     this.setData({
       filterISBNRec: e.detail.value,
@@ -835,9 +834,9 @@ Page({
   },
 
   /**
-  * filter-search筛选函数
-  */
-  filterSearchRec: function () {
+   * filter-search筛选函数
+   */
+  filterSearchRec: function() {
     Toast.loading({
       duration: 0,
       mask: true,
@@ -926,7 +925,7 @@ Page({
   /**
    * button推荐审核传ID
    */
-  viewItemSetting: function (event) {
+  viewItemSetting: function(event) {
     var id = event.currentTarget.id;
     wx.navigateTo({
       url: '../page_user/page_user?_id=' + id,
