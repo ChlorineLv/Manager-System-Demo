@@ -39,7 +39,7 @@
       <van-cell title="预订量" value="" />
     </view>
     <view class="container">
-      <!-- <van-field disabled name="order_book_num_total" required label="共计预订量" value="{{numBookFirst+numBookSec}}" /> -->
+      <van-field disabled name="order_book_num_total" required label="共计预订量" value="{{numBookFirst+numBookSec}}" />
       <van-field disabled name="order_book_num_first" required label="一手书预订量" value="{{numBookFirst}}（登记）" />
       <van-field disabled name="order_book_num_sec" required label="二手书预订量" value="{{numBookSec}}（登记）/ {{usedBook}}（库存）" /> </view>
   </van-cell-group>
