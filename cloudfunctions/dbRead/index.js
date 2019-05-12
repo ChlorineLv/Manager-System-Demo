@@ -27,6 +27,7 @@ exports.main = async(event, context) => {
     res.totalPage = totalPage;
     res.pageSize = pageSize;
     res.pageIndex = pageIndex;
+    res.event = event;
     return res;
   })
 }
