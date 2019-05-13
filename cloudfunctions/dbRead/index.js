@@ -9,6 +9,11 @@ exports.main = async(event, context) => {
   const wxContext = cloud.getWXContext();
   var dbName = event.dbName;
   var filter = event.filter ? event.filter:null;
+  for(var i in filter){
+    if(filter[i]==null){
+      delete filter[i];
+    }
+  }
   var pageIndex = event.pageIndex ? event.pageIndex: 1;
   var pageSize = event.pageSize ? event.pageSize: 10;
   const countResult = await db.collection(dbName).where(filter).count();
@@ -28,6 +33,7 @@ exports.main = async(event, context) => {
     res.pageSize = pageSize;
     res.pageIndex = pageIndex;
     res.event = event;
+    res.filter = filter;
     return res;
   })
 }

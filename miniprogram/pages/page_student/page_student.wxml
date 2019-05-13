@@ -96,31 +96,29 @@
         </view>
         <van-cell-group title="教务员发布" wx:if="{{boolHaveSearch}}">
           <van-cell title="教务员发布" value="" />
-          <view id="showResultOrderBookSearch" class="collapse-item-similar" wx:if="{{boolHaveSearch}}">
-            <view>
-              <view wx:for="{{orderBookSearch_list}}" wx:key="orderBookSearch_listID" class="card-container">
-                <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}} - {{item.order_semester}}学期" title="《{{item.order_book_name}}》" bind:click="viewItemOrder">
-                  <view slot="tags">ISBN：{{item.order_book_isbn}}</view>
-                  <view slot="tags">课程：{{item.order_course}}</view>
-                </van-card>
-              </view>
-            </view>
-            <view id="showResultOrderBookSearchListNumber" wx:if="{{boolHaveSearch}}">
+          <view id="showResultOrderBookSearch" class="collapse-item-similar">
+            <view id="showResultOrderBookSearchListNumber">
               共{{orderBookSearchListLength}}条
+            </view>
+            <view wx:for="{{orderBookSearch_list}}" wx:key="orderBookSearch_listID" class="card-container">
+              <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}} - {{item.order_semester}}学期" title="《{{item.order_book_name}}》" bind:click="viewItemOrder">
+                <view slot="tags">ISBN：{{item.order_book_isbn}}</view>
+                <view slot="tags">课程：{{item.order_course}}</view>
+              </van-card>
             </view>
           </view>
         </van-cell-group>
         <van-cell-group title="学生推荐" wx:if="{{boolHaveSearch}}">
           <van-cell title="学生推荐" value="" />
           <view id="showResultRecBookSearch" class="collapse-item-similar">
+            <view id="showResultRecBookSearchListNumber">
+              共{{recBookSearchListLength}}条
+            </view>
             <view wx:for="{{recBookSearch_list}}" wx:key="recBookSearch_listID" class="card-container">
               <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}} - {{item.rec_semester}}学期" title="《{{item.rec_book_name}}》" bind:click="viewItemRec">
                 <view slot="tags">ISBN：{{item.rec_book_isbn}}</view>
                 <view slot="tags">课程：{{item.rec_course}}</view>
               </van-card>
-            </view>
-            <view id="showResultRecBookSearchListNumber" wx:if="{{boolHaveSearch}}">
-              共{{recBookSearchListLength}}条
             </view>
           </view>
         </van-cell-group>

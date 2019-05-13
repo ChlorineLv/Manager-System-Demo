@@ -23,14 +23,14 @@ Page({
       ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ]
     ],
     multiBookSearchIndex: [0, 0],
-    arrayBookSearchSemester: ["大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
+    arrayBookSearchSemester: ["无","大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
     startBookSearchGrade: (new Date().getFullYear()).toString(),
     indexBookSearchSemester: 0,
     indexBookSearchStatus: 0,
     filterBookSearchCollege: "计算机科学与工程学院",
     filterBookSearchMajor: "网络工程",
     filterBookSearchGrade: 2015,
-    filterBookSearchSemester: "大一上",
+    filterBookSearchSemester: "无",
     arrayPageIndex: ["1"],
     indexPageIndex: 0,
     arrayPageSize: [3, 5, 10, 15],
@@ -420,31 +420,31 @@ Page({
       }
     }).then(res => {
       console.log("dbRead callFunction: tb_order", res.result);
-      // this.setData({
-      //   orderBookSearch_list: this.changeOrderCreateDate(res.result.data),
-      //   boolHaveSearch: true,
-      //   orderBookSearchListLength: res.result.total,
-      //   orderBookSearchListHasMore: res.result.hasMore,
-      // });
-      // Toast.clear();
+      this.setData({
+        orderBookSearch_list: this.changeOrderCreateDate(res.result.data),
+        boolHaveSearch: true,
+        orderBookSearchListLength: res.result.total,
+        orderBookSearchListHasMore: res.result.hasMore,
+      });
+      Toast.clear();
     });
 
-    db.collection("tb_order").where({
-      order_college: this.data.filterBookSearchCollege,
-      order_major: this.data.filterBookSearchMajor,
-      order_grade: this.data.filterBookSearchGrade,
-      order_semester: this.data.filterBookSearchSemester,
-    }).get({
-      success: res => {
-        this.setData({
-          boolHaveSearch: true,
-          orderBookSearch_list: this.changeOrderCreateDate(res.data),
-          orderBookSearchListLength: res.data.length,
-        })
-        console.log("db.collection('tb_order').get", res);
-        Toast.clear();
-      }
-    });
+    // db.collection("tb_order").where({
+    //   order_college: this.data.filterBookSearchCollege,
+    //   order_major: this.data.filterBookSearchMajor,
+    //   order_grade: this.data.filterBookSearchGrade,
+    //   order_semester: this.data.filterBookSearchSemester,
+    // }).get({
+    //   success: res => {
+    //     this.setData({
+    //       boolHaveSearch: true,
+    //       orderBookSearch_list: this.changeOrderCreateDate(res.data),
+    //       orderBookSearchListLength: res.data.length,
+    //     })
+    //     console.log("db.collection('tb_order').get", res);
+    //     Toast.clear();
+    //   }
+    // });
 
     // tb_rec的查询
     wx.cloud.callFunction({
@@ -464,32 +464,32 @@ Page({
       }
     }).then(res => {
       console.log("dbRead callFunction: tb_rec", res.result);
-      // this.setData({
-      //   recBookSearch_list: this.changeRecCreateDate(res.result.data),
-      //   boolHaveSearch: true,
-      //   recBookSearchListTotalPage: res.result.totalPage,
-      //   recBookSearchListLength: res.result.total,
-      //   recBookSearchListHasMore: res.result.hasMore,
-      // });
-      // Toast.clear();
+      this.setData({
+        recBookSearch_list: this.changeRecCreateDate(res.result.data),
+        boolHaveSearch: true,
+        recBookSearchListTotalPage: res.result.totalPage,
+        recBookSearchListLength: res.result.total,
+        recBookSearchListHasMore: res.result.hasMore,
+      });
+      Toast.clear();
     });
 
-    db.collection("tb_rec").where({
-      rec_college: this.data.filterBookSearchCollege,
-      rec_major: this.data.filterBookSearchMajor,
-      rec_grade: this.data.filterBookSearchGrade,
-      rec_semester: this.data.filterBookSearchSemester,
-    }).get({
-      success: res => {
-        this.setData({
-          boolHaveSearch: true,
-          recBookSearch_list: this.changeRecCreateDate(res.data),
-          recBookSearchListLength: res.data.length,
-        })
-        console.log("db.collection('tb_rec').get", res);
-        Toast.clear();
-      }
-    });
+    // db.collection("tb_rec").where({
+    //   rec_college: this.data.filterBookSearchCollege,
+    //   rec_major: this.data.filterBookSearchMajor,
+    //   rec_grade: this.data.filterBookSearchGrade,
+    //   rec_semester: this.data.filterBookSearchSemester,
+    // }).get({
+    //   success: res => {
+    //     this.setData({
+    //       boolHaveSearch: true,
+    //       recBookSearch_list: this.changeRecCreateDate(res.data),
+    //       recBookSearchListLength: res.data.length,
+    //     })
+    //     console.log("db.collection('tb_rec').get", res);
+    //     Toast.clear();
+    //   }
+    // });
 
 
   },
