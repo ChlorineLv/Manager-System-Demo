@@ -43,7 +43,6 @@
     "van-tabs": "../../miniprogram_npm/vant-weapp/tabs/index",
     "van-cell": "../../miniprogram_npm/vant-weapp/cell/index",
     "van-cell-group": "../../miniprogram_npm/vant-weapp/cell-group/index",
-    "van-notice-bar": "../../miniprogram_npm/vant-weapp/notice-bar/index",
     "van-radio": "../../miniprogram_npm/vant-weapp/radio/index",
     "van-radio-group": "../../miniprogram_npm/vant-weapp/radio-group/index",
     "van-popup": "../../miniprogram_npm/vant-weapp/popup/index",

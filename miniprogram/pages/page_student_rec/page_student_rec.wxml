@@ -1,5 +1,5 @@
 <!--miniprogram/pages/page_student_rec/page_student_rec.wxml-->
-<van-nav-bar title="辅导书推荐申请填写" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
+<van-nav-bar title="参考书推荐申请填写" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 
 <view class="container">
   <view class="input-container">
