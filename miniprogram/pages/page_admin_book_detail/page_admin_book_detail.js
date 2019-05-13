@@ -182,109 +182,109 @@ Page({
 
   },
 
-  /**
-   * Picker选择年级Grade
-   */
-  bindMultiPickerChange: function(e) {
-    // console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      multiIndex: e.detail.value,
-      "order_detail.order_college": this.data.multiArray[0][e.detail.value[0]],
-      "order_detail.order_major": this.data.multiArray[1][e.detail.value[1]]
-    })
-  },
+  // /**
+  //  * Picker选择年级Grade
+  //  */
+  // bindMultiPickerChange: function(e) {
+  //   // console.log('picker发送选择改变，携带值为', e.detail.value)
+  //   this.setData({
+  //     multiIndex: e.detail.value,
+  //     "order_detail.order_college": this.data.multiArray[0][e.detail.value[0]],
+  //     "order_detail.order_major": this.data.multiArray[1][e.detail.value[1]]
+  //   })
+  // },
 
-  /**
-   * Picker改变第一列后的变化
-   */
-  bindMultiPickerColumnChange: function(e) {
-    // console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
-    var data = {
-      multiArray: this.data.multiArray,
-      multiIndex: this.data.multiIndex
-    };
-    data.multiIndex[e.detail.column] = e.detail.value;
-    // 第一列的变化导致第二列内容的变化：各学院的各专业
-    switch (data.multiIndex[0]) {
-      case 0:
-        data.multiArray[1] = ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ];
-        break;
-      case 1:
-        data.multiArray[1] = ["机械工程"];
-        break;
-      case 2:
-        data.multiArray[1] = ["自动化"];
-        break;
-    }
-    this.setData(data);
-  },
+  // /**
+  //  * Picker改变第一列后的变化
+  //  */
+  // bindMultiPickerColumnChange: function(e) {
+  //   // console.log('修改的列为', e.detail.column, '，值为', e.detail.value);
+  //   var data = {
+  //     multiArray: this.data.multiArray,
+  //     multiIndex: this.data.multiIndex
+  //   };
+  //   data.multiIndex[e.detail.column] = e.detail.value;
+  //   // 第一列的变化导致第二列内容的变化：各学院的各专业
+  //   switch (data.multiIndex[0]) {
+  //     case 0:
+  //       data.multiArray[1] = ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ];
+  //       break;
+  //     case 1:
+  //       data.multiArray[1] = ["机械工程"];
+  //       break;
+  //     case 2:
+  //       data.multiArray[1] = ["自动化"];
+  //       break;
+  //   }
+  //   this.setData(data);
+  // },
 
-  /**
-   * Field填写年级
-   */
-  bindDateChange: function(e) {
-    // console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      "order_detail.order_grade": e.detail.value
-    })
-  },
+  // /**
+  //  * Field填写年级
+  //  */
+  // bindDateChange: function(e) {
+  //   // console.log('picker发送选择改变，携带值为', e.detail.value)
+  //   this.setData({
+  //     "order_detail.order_grade": e.detail.value
+  //   })
+  // },
 
-  /**
-   * Field填写学期
-   */
-  bindPickerChange: function(e) {
-    // console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      indexSemester: e.detail.value,
-      "order_detail.order_semester": this.data.arraySemester[e.detail.value]
-    })
-  },
+  // /**
+  //  * Field填写学期
+  //  */
+  // bindPickerChange: function(e) {
+  //   // console.log('picker发送选择改变，携带值为', e.detail.value)
+  //   this.setData({
+  //     indexSemester: e.detail.value,
+  //     "order_detail.order_semester": this.data.arraySemester[e.detail.value]
+  //   })
+  // },
 
-  onChangeCourse: function(e) {
-    this.setData({
-      "order_detail.order_course": e.detail,
-    })
-  },
-  onChangeTeacher: function(e) {
-    this.setData({
-      "order_detail.order_teacher": e.detail,
-    })
-  },
-  onChangeBookName: function(e) {
-    this.setData({
-      "order_detail.order_book_name": e.detail,
-    })
-  },
-  onChangeBookISBN: function(e) {
-    this.setData({
-      "order_detail.order_book_isbn": e.detail,
-    })
-  },
-  onChangeBookWriter: function(e) {
-    this.setData({
-      "order_detail.order_book_writer": e.detail,
-    })
-  },
-  onChangeBookVersion: function(e) {
-    this.setData({
-      "order_detail.order_book_version": e.detail,
-    })
-  },
-  onChangeBookPublisher: function(e) {
-    this.setData({
-      "order_detail.order_book_publisher": e.detail,
-    })
-  },
-  onChangeBookPrice: function(e) {
-    this.setData({
-      "order_detail.order_book_price": e.detail,
-    })
-  },
-  onChangeRemark: function(e) {
-    this.setData({
-      "order_detail.order_remark": e.detail,
-    })
-  },
+  // onChangeCourse: function(e) {
+  //   this.setData({
+  //     "order_detail.order_course": e.detail,
+  //   })
+  // },
+  // onChangeTeacher: function(e) {
+  //   this.setData({
+  //     "order_detail.order_teacher": e.detail,
+  //   })
+  // },
+  // onChangeBookName: function(e) {
+  //   this.setData({
+  //     "order_detail.order_book_name": e.detail,
+  //   })
+  // },
+  // onChangeBookISBN: function(e) {
+  //   this.setData({
+  //     "order_detail.order_book_isbn": e.detail,
+  //   })
+  // },
+  // onChangeBookWriter: function(e) {
+  //   this.setData({
+  //     "order_detail.order_book_writer": e.detail,
+  //   })
+  // },
+  // onChangeBookVersion: function(e) {
+  //   this.setData({
+  //     "order_detail.order_book_version": e.detail,
+  //   })
+  // },
+  // onChangeBookPublisher: function(e) {
+  //   this.setData({
+  //     "order_detail.order_book_publisher": e.detail,
+  //   })
+  // },
+  // onChangeBookPrice: function(e) {
+  //   this.setData({
+  //     "order_detail.order_book_price": e.detail,
+  //   })
+  // },
+  // onChangeRemark: function(e) {
+  //   this.setData({
+  //     "order_detail.order_remark": e.detail,
+  //   })
+  // },
 
   /**
    * 更新按钮
