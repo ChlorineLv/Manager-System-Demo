@@ -120,13 +120,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.setData({
-      order_list: [],
-      recCheck_list: [],
-      activeNamesRec: [],
-      activeNamesSec: [],
-      boolHaveSearch: false,
-    });
+    // this.setData({
+    //   order_list: [],
+    //   recCheck_list: [],
+    //   activeNamesRec: [],
+    //   activeNamesSec: [],
+    //   boolHaveSearch: false,
+    // });
     Toast.clear();
   },
 

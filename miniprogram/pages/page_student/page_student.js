@@ -80,11 +80,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    this.setData({
-      activeNamesBook: [],
-      activeNamesBookRec: [],
-      activeNamesBookSec: [],
-    })
+    // this.setData({
+    //   activeNamesBook: [],
+    //   activeNamesBookRec: [],
+    //   activeNamesBookSec: [],
+    // })
   },
 
   /**
