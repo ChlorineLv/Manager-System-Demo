@@ -38,7 +38,8 @@ Page({
       success: res => {
         this.setData({
           order_detail: res.data[0],
-          orderDetailCreateDate: (new Date(res.data[0].order_create_date)).toLocaleString()
+          // orderDetailCreateDate: (new Date(res.data[0].order_create_date)).toLocaleString()
+          orderDetailCreateDate: this.changeDateSingle(res.data[0].order_create_date)
         });
         // console.log("tb_order:", this.data.order_detail);
       },
@@ -128,6 +129,15 @@ Page({
     wx.navigateBack({
       delta: 2
     })
+  },
+
+  /**
+   * order_create_date日期处理
+   */
+  changeDateSingle: function (str) {
+    var date = new Date(str);
+    date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    return date;
   },
 
   /**

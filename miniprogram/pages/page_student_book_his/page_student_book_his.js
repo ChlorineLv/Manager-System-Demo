@@ -30,7 +30,7 @@ Page({
           his_detail: res.data,
           checkedBook: 0 || res.data.his_first,
           checkedBookSec: res.data.his_sec & res.data.his_first,
-          hisUpdateDate: (new Date(res.data.his_update_date)).toLocaleString(),
+          hisUpdateDate: this.changeDateSingle(res.data.his_update_date),
           hisOrderID: res.data.his_order_id
         });
         db.collection("tb_order").where({
@@ -115,6 +115,15 @@ Page({
     wx.navigateBack({
       delta: 2
     })
+  },
+
+  /**
+   * his_update_date日期处理
+   */
+  changeDateSingle: function (str) {
+    var date = new Date(str);
+    date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    return date;
   },
 
   /**

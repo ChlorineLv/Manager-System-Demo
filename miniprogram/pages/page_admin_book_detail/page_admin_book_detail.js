@@ -38,11 +38,11 @@ Page({
         this.setData({
           order_id: options._id,
           order_detail: res.data,
-          orderDetailCreateDate: (new Date(res.data.order_create_date)).toLocaleString(),
+          orderDetailCreateDate: this.changeDateSingle(res.data.order_create_date),
         });
         if (res.data.order_update_date != null) {
           this.setData({
-            orderDetailUpdateDate: (new Date(res.data.order_update_date)).toLocaleString(),
+            orderDetailUpdateDate: this.changeDateSingle(res.data.order_update_date),
           })
         }
         if (res.data.order_timeout == true) {
@@ -169,6 +169,15 @@ Page({
     wx.navigateBack({
       delta: 2
     })
+  },
+
+  /**
+   * 单个日期处理
+   */
+  changeDateSingle: function (str) {
+    var date = new Date(str);
+    date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    return date;
   },
 
   /**

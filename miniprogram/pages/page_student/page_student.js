@@ -123,23 +123,25 @@ Page({
   },
 
   /**
-   * sec_create_date日期处理
+   * his_create_date日期处理
    */
-  changeSecCreateDate: function(arr) {
+  changeHisUpdateDate: function (arr) {
     for (let i = 0; i < arr.length; i++) {
-      let date = new Date(arr[i].sec_create_date);
-      arr[i].sec_create_date = date.toLocaleString();
+      let date = new Date(arr[i].his_update_date);
+      // arr[i].his_update_date = date.toLocaleString();
+      arr[i].his_update_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "   " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     }
     return arr;
   },
 
   /**
-   * his_create_date日期处理
+   * sec_create_date日期处理
    */
-  changeHisUpdateDate: function(arr) {
+  changeSecCreateDate: function (arr) {
     for (let i = 0; i < arr.length; i++) {
-      let date = new Date(arr[i].his_update_date);
-      arr[i].his_update_date = date.toLocaleString();
+      let date = new Date(arr[i].sec_create_date);
+      // arr[i].sec_create_date = date.toLocaleString();
+      arr[i].sec_create_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "   " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     }
     return arr;
   },
@@ -147,10 +149,11 @@ Page({
   /**
    * rec_create_date日期处理
    */
-  changeRecCreateDate: function(arr) {
+  changeRecCreateDate: function (arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].rec_create_date);
-      arr[i].rec_create_date = date.toLocaleString();
+      // arr[i].rec_create_date = date.toLocaleString();
+      arr[i].rec_create_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "   " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     }
     return arr;
   },
@@ -158,12 +161,22 @@ Page({
   /**
    * order_create_date日期处理
    */
-  changeOrderCreateDate: function(arr) {
+  changeOrderCreateDate: function (arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].order_create_date);
-      arr[i].order_create_date = date.toLocaleString();
+      // arr[i].order_create_date = date.toLocaleString();
+      arr[i].order_create_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "   " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     }
     return arr;
+  },
+
+  /**
+   * 单个日期处理
+   */
+  changeDateSingle: function (str) {
+    var date = new Date(str);
+    date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    return date;
   },
 
   /**
@@ -234,7 +247,7 @@ Page({
               success: resOrder => {
                 // console.log(res.data)
                 res.data[i].his_order_timeout = resOrder.data.order_timeout;
-                let date = (new Date(res.data[i].his_update_date)).toLocaleString();
+                let date = this.changeDateSingle(res.data[i].his_update_date);
                 res.data[i].his_update_date = date;
                 // 必须在db成功后再setData否则同步流导致内容没有变化
                 this.setData({

@@ -171,7 +171,8 @@ Page({
   changeSecCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].sec_create_date);
-      arr[i].sec_create_date = date.toLocaleString();
+      // arr[i].sec_create_date = date.toLocaleString();
+      arr[i].sec_create_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     }
     return arr;
   },
@@ -182,7 +183,8 @@ Page({
   changeRecCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].rec_create_date);
-      arr[i].rec_create_date = date.toLocaleString();
+      // arr[i].rec_create_date = date.toLocaleString();
+      arr[i].rec_create_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     }
     return arr;
   },
@@ -193,7 +195,8 @@ Page({
   changeOrderCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].order_create_date);
-      arr[i].order_create_date = date.toLocaleString();
+      // arr[i].order_create_date = date.toLocaleString();
+      arr[i].order_create_date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     }
     return arr;
   },

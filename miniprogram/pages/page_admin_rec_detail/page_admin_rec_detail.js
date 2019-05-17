@@ -25,12 +25,12 @@ Page({
         this.setData({
           rec_detail: res.data,
           recID: options._id,
-          recUpdateDate: (new Date(res.data.rec_create_date)).toLocaleString(),
+          recUpdateDate: this.changeDateSingle(res.data.rec_create_date),
           radioRecCheck: (res.data.rec_status).toString(),
         })
         if (res.data.rec_check_date != null) {
           this.setData({
-            recCheckDate: (new Date(res.data.rec_check_date)).toLocaleString(),
+            recCheckDate: this.changeDateSingle(res.data.rec_check_date),
           })
         }
       },
@@ -105,6 +105,15 @@ Page({
     wx.navigateBack({
       delta: 2
     })
+  },
+
+  /**
+   * 单个日期处理
+   */
+  changeDateSingle: function (str) {
+    var date = new Date(str);
+    date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+    return date;
   },
 
   /**
