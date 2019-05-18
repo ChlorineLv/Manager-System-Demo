@@ -91,7 +91,7 @@ Page({
           Toast("密码错误");
         } else if (res.result.userCollege == "教务处") {
           wx.navigateTo({
-            url: '../page_admin/page_admin?user_id='+ this.data.in_acc,
+            url: '../page_admin/page_admin?user_id=' + this.data.in_acc,
           })
         } else {
           wx.navigateTo({
@@ -109,8 +109,9 @@ Page({
     Toast("初始密码为账号本身");
   },
 
-  detailJump:function() {
+  detailJump: function() {
     // Toast("版本号：" + wx.getSystemInfoSync());
+    console.log("请联系：ChlorineCL2@outlook.com");
     console.log(wx.getSystemInfoSync());
   }
 
