@@ -15,7 +15,8 @@
     "pages/page_student_sec_detail/page_student_sec_detail",
     "pages/page_admin_sec_detail/page_admin_sec_detail",
     "pages/page_user/page_user",
-    "pages/page_user_new/page_user_new"
+    "pages/page_user_new/page_user_new",
+    "pages/index_detail/index_detail"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

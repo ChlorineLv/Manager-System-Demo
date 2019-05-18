@@ -109,4 +109,9 @@ Page({
     Toast("初始密码为账号本身");
   },
 
+  detailJump:function() {
+    // Toast("版本号：" + wx.getSystemInfoSync());
+    console.log(wx.getSystemInfoSync());
+  }
+
 })
