@@ -29,6 +29,7 @@ Page({
     inputBookISBN: "",
     inputBookWriter: "",
     inputRemark: "",
+    inputIntroduction: "",
   },
 
   /**
@@ -209,6 +210,26 @@ Page({
     })
   },
 
+  autoInput: function(e) {
+    console.log(this.data.inputBookISBN);
+    wx.cloud.callFunction({
+      name: "getISBN",
+      data: {
+        isbn: parseInt(this.data.inputBookISBN)
+      },
+      success: res => {
+        var info = JSON.parse(res.result);
+        console.log(info.data);
+        this.setData({
+          inputBookWriter: info.data.author,
+          inputBookName: info.data.name,
+          inputBookPublisher: info.data.publisher,
+          inputIntroduction: info.data.introduction,
+        })
+      }
+    })
+  },
+
   /**
    * 确定发布
    */
@@ -239,6 +260,7 @@ Page({
           inputBookISBN: this.data.inputBookISBN,
           inputBookWriter: this.data.inputBookWriter,
           inputRemark: this.data.inputRemark,
+          inputIntroduction: this.data.inputIntroduction,
         },
         success(res) {
           console.log("callFunction dbReleaseOrder result:", res.result)
@@ -270,7 +292,5 @@ Page({
         }
       });
     }
-
-
   }
 })

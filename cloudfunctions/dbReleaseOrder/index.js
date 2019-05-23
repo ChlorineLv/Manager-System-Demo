@@ -28,7 +28,8 @@ exports.main = async(event, context) => {
         order_book_num_sec: 0,
         order_book_num_first: 0,
         order_visible: true,
-        order_remark: event.inputRemark
+        order_remark: event.inputRemark,
+        order_introduction: event.inputIntroduction,
       },
       success: res => {
         console.log("dbReleaseOrder db.collection('tb_order') res:", res);

@@ -8,37 +8,31 @@
       <van-field disabled name="order_update_date" left-icon="" label="更新日期" value="{{orderDetailUpdateDate}}" />
     </van-cell-group>
   </view>
-  <van-cell-group title="分组1">
-    <view class="group-title">
-      <van-cell title="教材详情" value="" />
-    </view>
-    <view class="container">
-
-      <!-- <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-      </picker> -->
-      <!-- <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startGrade}}" bindchange="bindDateChange">
-      </picker> -->
-      <!-- <picker bindchange="bindPickerChange" value="{{indexSemester}}" range="{{arraySemester}}">
-      </picker> -->
+  <view class="group-title">
+    <van-cell title="教材详情" value="" />
+  </view>
+  <view class="container">
+    <van-cell-group title="分组1" class="wid-eight">
       <van-field name="order_grade" required readonly label="年级" value="{{order_detail.order_grade}}" />
       <van-field name="order_college" required readonly label="学院名称" value="{{order_detail.order_college}}" />
       <van-field name="order_Major" required readonly label="专业名称" value="{{order_detail.order_major}}" />
       <van-field name="order_semester" required readonly label="学期" value="{{order_detail.order_semester}}" />
-      <van-field bind:change="onChangeCourse" name="order_course" readonly required label="课程名称" value="{{order_detail.order_course}}" />
-      <van-field bind:change="onChangeTeacher" name="order_teacher" readonly label="任课老师" value="{{order_detail.order_teacher}}" />
-      <van-field bind:change="onChangeBookName" name="order_book_name" readonly required label="教材名称" value="{{order_detail.order_book_name}}" />
-      <van-field bind:change="onChangeBookISBN" name="order_book_isbn" readonly required label="教材ISBN" value="{{order_detail.order_book_isbn}}" />
-      <van-field bind:change="onChangeBookWriter" name="order_book_writer" readonly label="作者/编著者" value="{{order_detail.order_book_writer}}" />
-      <van-field bind:change="onChangeBookVersion" name="order_book_version" readonly label="版次" value="{{order_detail.order_book_version}}" />
-      <van-field bind:change="onChangeBookPublisher" name="order_book_publisher" readonly label="出版社" value="{{order_detail.order_book_publisher}}" />
-      <van-field bind:change="onChangeBookPrice" name="order_book_price" required readonly label="单价" value="{{order_detail.order_book_price}}" />
-      <van-field bind:change="onChangeRemark" name="order_remark" label="备注" value="选填" value="{{order_detail.order_remark}}" />
-    </view>
-  </van-cell-group>
-  <van-cell-group title="分组1">
-    <view class="group-title">
-      <van-cell title="预订量" value="" />
-    </view>
+      <van-field name="order_course" readonly required label="课程名称" value="{{order_detail.order_course}}" />
+      <van-field name="order_teacher" readonly label="任课老师" value="{{order_detail.order_teacher}}" />
+      <van-field name="order_book_name" readonly required label="教材名称" value="{{order_detail.order_book_name}}" />
+      <van-field name="order_book_isbn" readonly required label="教材ISBN" value="{{order_detail.order_book_isbn}}" />
+      <van-field name="order_book_writer" readonly label="作者/编著者" value="{{order_detail.order_book_writer}}" />
+      <van-field name="order_book_version" readonly label="版次" value="{{order_detail.order_book_version}}" />
+      <van-field name="order_book_publisher" readonly label="出版社" value="{{order_detail.order_book_publisher}}" />
+      <van-field name="order_book_price" required readonly label="单价" value="{{order_detail.order_book_price}}" />
+      <van-field name="order_remark" label="备注" value="{{order_detail.order_remark}}" />
+      <van-field name="order_introduction" readonly label="简介" value="{{order_detail.order_introduction}}" type="textarea" autosize="true" />
+    </van-cell-group>
+  </view>
+  <view class="group-title">
+    <van-cell title="预订量" value="" />
+  </view>
+  <van-cell-group title="分组1" class="wid-eight">
     <view class="container">
       <van-field disabled name="order_book_num_total" required label="共计预订量" value="{{numBookFirst+numBookSec}}" />
       <van-field disabled name="order_book_num_first" required label="一手书预订量" value="{{numBookFirst}}（登记）" />

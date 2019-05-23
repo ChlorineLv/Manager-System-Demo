@@ -8,13 +8,14 @@
     <van-field disabled name="his_semester" label="学期" placeholder="{{his_detail.his_semester}}" />
     <van-field disabled name="his_course" label="课程名称" placeholder="{{his_detail.his_course}}" />
     <van-field disabled name="his_teacher" label="任课老师" placeholder="{{his_detail.his_teacher}}" />
-    <van-field disabled name="his_book_name" label="教材名称" placeholder="{{his_detail.his_book_name}}" />
-    <van-field disabled name="his_book_isbn" label="教材ISBN" placeholder="{{his_detail.his_book_isbn}}" />
-    <van-field disabled name="his_book_writer" label="作者/编著者" placeholder="{{his_detail.his_book_writer}}" />
+    <van-field disabled name="his_book_name" label="教材名称" placeholder="{{his_detail.his_book_name}}" type="textarea" autosize="true" />
+    <van-field disabled name="his_book_isbn" label="教材ISBN" placeholder="{{his_detail.his_book_isbn}}" type="textarea" autosize="true" />
+    <van-field disabled name="his_book_writer" label="作者/编著者" placeholder="{{his_detail.his_book_writer}}" type="textarea" autosize="true" />
     <van-field disabled name="his_book_version" label="版次" placeholder="{{his_detail.his_book_version}}" />
-    <van-field disabled name="his_book_publisher" label="出版社" placeholder="{{his_detail.his_book_publisher}}" />
+    <van-field disabled name="his_book_publisher" label="出版社" placeholder="{{his_detail.his_book_publisher}}" type="textarea" autosize="true" />
     <van-field disabled name="his_book_price" label="单价" placeholder="{{his_detail.his_book_price}}" />
-    <van-field disabled name="his_create_date" left-icon="" label="登记日期" placeholder="{{hisUpdateDate}}" />
+    <van-field disabled name="order_introduction" label="简介" value="{{his_detail.his_introduction}}" type="textarea" autosize="true" />
+    <van-field disabled name="his_create_date" left-icon="" label="登记日期" placeholder="{{hisUpdateDate}}" type="textarea" autosize="true" />
     <van-switch-cell title="预订此教材" checked="{{ checkedBook }}" bind:change="onChangeSwitchBook" />
     <van-switch-cell title="愿意使用二手教材" checked="{{ checkedBook & checkedBookSec }}" bind:change="onChangeSwitchBookSec" />
     <view class="container button-under-container">

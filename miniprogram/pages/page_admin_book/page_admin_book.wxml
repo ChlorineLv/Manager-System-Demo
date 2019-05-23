@@ -3,30 +3,33 @@
 
 <view class="container">
   <view class="input-container">
-      <van-cell-group class="wid-eight">
-        <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
-          <van-field name="order_college" required readonly label="学院名称" value="{{inputCollege}}" />
-          <van-field name="order_Major" required readonly label="专业名称" value="{{inputMajor}}" />
-        </picker>
-        <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startGrade}}" bindchange="bindDateChange">
-          <van-field name="order_grade" required readonly label="年级" value="{{inputGrade}}" />
-        </picker>
-        <picker bindchange="bindPickerChange" value="{{indexSemester}}" range="{{arraySemester}}">
-          <van-field name="order_semester" required readonly label="学期" value="{{inputSemester}}" />
-        </picker>
-        <van-field name="order_course" required clearable label="课程名称" bind:change="onChangeCourse"/>
-        <van-field name="order_teacher" clearable label="任课老师" bind:change="onChangeTeacher"/>
-        <van-field name="order_book_name" required clearable label="教材名称" bind:change="onChangeBookName"/>
-        <van-field name="order_book_isbn" required clearable label="教材ISBN" type="number" bind:change="onChangeBookISBN"/>
-        <van-field name="order_book_writer" clearable label="作者/编著者" bind:change="onChangeBookWriter"/>
-        <van-field name="order_book_version" clearable label="版次" bind:change="onChangeBookVersion"/>
-        <van-field name="order_book_publisher" clearable label="出版社" bind:change="onChangeBookPublisher"/>
-        <van-field name="order_book_price" required clearable label="单价" type="digit" bind:change="onChangeBookPrice"/>
-        <van-field name="order_remark" clearable label="备注" placeholder="选填" bind:change="onChangeRemark"/>
-      </van-cell-group>
-      <view class="container button-under-container">
-        <van-button type="primary" size="mini" bind:click="submit">提交</van-button>
-      </view>
+    <van-cell-group class="wid-eight">
+      <picker mode="multiSelector" bindchange="bindMultiPickerChange" bindcolumnchange="bindMultiPickerColumnChange" value="{{multiIndex}}" range="{{multiArray}}">
+        <van-field name="order_college" required readonly label="学院名称" value="{{inputCollege}}" />
+        <van-field name="order_Major" required readonly label="专业名称" value="{{inputMajor}}" />
+      </picker>
+      <picker mode="date" fields="year" value="{{inputGrade}}" start="1900" end="{{startGrade}}" bindchange="bindDateChange">
+        <van-field name="order_grade" required readonly label="年级" value="{{inputGrade}}" />
+      </picker>
+      <picker bindchange="bindPickerChange" value="{{indexSemester}}" range="{{arraySemester}}">
+        <van-field name="order_semester" required readonly label="学期" value="{{inputSemester}}" />
+      </picker>
+      <van-field name="order_course" required clearable label="课程名称" bind:change="onChangeCourse" type="textarea" autosize="true"/>
+      <van-field name="order_teacher" clearable label="任课老师" bind:change="onChangeTeacher" type="textarea" autosize="true"/>
+      <van-field name="order_book_name" required clearable label="教材名称" bind:change="onChangeBookName" value="{{inputBookName}}" type="textarea" autosize="true"/>
+      <van-field name="order_book_isbn" required clearable label="教材ISBN" type="number" bind:change="onChangeBookISBN" type="textarea" autosize="true" use-button-slot>
+        <van-button slot="button" size="small" type="mini" bind:click="autoInput">自动生成</van-button>
+      </van-field>
+      <van-field name="order_book_writer" clearable label="作者/编著者" bind:change="onChangeBookWriter" value="{{inputBookWriter}}" type="textarea" autosize="true"/>
+      <van-field name="order_book_version" clearable label="版次" bind:change="onChangeBookVersion" type="textarea" autosize="true"/>
+      <van-field name="order_book_publisher " clearable label="出版社" bind:change="onChangeBookPublisher" value="{{inputBookPublisher}}" type="textarea" autosize="true"/>
+      <van-field name="order_book_price" required clearable label="单价" type="digit" bind:change="onChangeBookPrice" />
+      <van-field name="order_remark" clearable label="备注" placeholder="选填" type="textarea" autosize="true" bind:change="onChangeRemark" />
+      <van-field name="order_introduction" clearable label="简介" placeholder="" value="{{inputIntroduction}}" bind:change="onChangeRemark"  type="textarea" autosize="true"/>
+    </van-cell-group>
+    <view class="container button-under-container">
+      <van-button type="primary" size="mini" bind:click="submit">提交</van-button>
+    </view>
   </view>
   <van-dialog id="van-dialog" />
 </view>

@@ -1,6 +1,5 @@
 import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 const db = wx.cloud.database();
-
 Page({
 
   /**
@@ -112,7 +111,14 @@ Page({
   detailJump: function() {
     // Toast("版本号：" + wx.getSystemInfoSync());
     console.log("请联系：ChlorineCL2@outlook.com");
-    console.log(wx.getSystemInfoSync());
+    // console.log(wx.getSystemInfoSync());
+    wx.cloud.callFunction({
+      name: "getISBN",
+      success: res => {
+        console.log(res);
+      }
+    })
+   
   }
 
 })
