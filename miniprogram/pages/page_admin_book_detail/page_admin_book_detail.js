@@ -174,7 +174,7 @@ Page({
   /**
    * 单个日期处理
    */
-  changeDateSingle: function (str) {
+  changeDateSingle: function(str) {
     var date = new Date(str);
     date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     return date;
@@ -291,5 +291,31 @@ Page({
         }
       });
     }
+  },
+
+  /**
+   * 删除按钮
+   */
+  btn_delete(event) {
+    wx.cloud.callFunction({
+      name: "dbDeleteOrder",
+      data: {
+        dbName: "tb_order",
+        order_id: this.data.order_id
+      },
+      success: res => {
+        console.log("btn_delete", res)
+        let pages = getCurrentPages(); //当前页面
+        let prevPage = pages[pages.length - 2]; //上一页面
+        prevPage.setData({ //直接给上移页面赋值
+          message: "delete",
+          selAddress: 'yes'
+        });
+        wx.navigateBack({ //返回
+          delta: 1
+        })
+
+      }
+    })
   }
 })

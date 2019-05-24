@@ -27,7 +27,7 @@ exports.main = async(event, context) => {
         order_publisher: event.order_detail.order_publisher,
         order_price: parseInt(event.order_detail.order_price),
         order_remark: event.order_detail.order_remark,
-        order_update_date: Date.parse(new Date())
+        order_update_date: Date.parse(new Date()),
       },
       success: res => {
         console.log("dbUpdateOrder db.collection('tb_order') res:", res);

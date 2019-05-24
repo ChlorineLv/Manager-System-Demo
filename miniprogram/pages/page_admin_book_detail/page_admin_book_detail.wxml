@@ -38,8 +38,15 @@
       <van-field disabled name="order_book_num_first" required label="一手书预订量" value="{{numBookFirst}}（登记）" />
       <van-field disabled name="order_book_num_sec" required label="二手书预订量" value="{{numBookSec}}（登记）/ {{usedBook}}（库存）" /> </view>
   </van-cell-group>
-  <view class="container button-under-container">
-    <van-button type="primary" size='small' bind:click="btn_update">更新</van-button>
+  <view class="button-under-container">
+    <van-row>
+      <van-col offset="6">
+        <van-button type="primary" size='small' bind:click="btn_update">更新</van-button>
+      </van-col>
+      <van-col offset="3">
+        <van-button type="danger" size='small' bind:click="btn_delete">删除</van-button>
+      </van-col>
+    </van-row>
   </view>
   <van-dialog id="van-dialog" />
 </view>

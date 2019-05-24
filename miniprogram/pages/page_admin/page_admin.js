@@ -100,6 +100,7 @@ Page({
     recListHasMore: false,
     rec_list: [],
     activeNamesSetting: [],
+    message: "",
   },
 
   /**
@@ -127,6 +128,12 @@ Page({
     //   activeNamesSec: [],
     //   boolHaveSearch: false,
     // });
+    if (this.data.message == "delete") {
+      this.setData({
+        order_list: [],
+        boolHaveSearch:false
+      })
+    }
     Toast.clear();
   },
 

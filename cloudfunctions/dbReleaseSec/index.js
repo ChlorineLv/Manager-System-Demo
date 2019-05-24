@@ -31,6 +31,7 @@ exports.main = async(event, context) => {
         sec_opinion: "",
         //状态：0不可见，1初始，10为通过，11为不通过
         sec_status: 1,
+        sec_visible:true,
       },
       success: res => {
         console.log("dbReleaseSec db.collection('tb_sec') res:", res);

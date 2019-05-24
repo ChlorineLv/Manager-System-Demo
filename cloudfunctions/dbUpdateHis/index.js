@@ -13,7 +13,7 @@ exports.main = async(event, context) => {
       data: {
         his_first: event.checkedBook,
         his_sec: event.checkedBookSec,
-        his_update_date: Date.parse(new Date())
+        his_update_date: Date.parse(new Date()),
       },
       success: res => {
         console.log("dbUpdateHis db.collection('tb_his') res:", res);

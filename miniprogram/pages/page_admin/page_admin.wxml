@@ -295,8 +295,36 @@
             </view>
           </view>
         </van-collapse-item>
-        <van-collapse-item title="更多" name="2">
-          待
+        <van-collapse-item title="最近删除" name="2">
+          <view id="showDeleteList">
+            <view wx:if="{{delete_tb == 'tb_order'}}">
+              <view wx:for="{{delete_list}}" wx:key="delete_listID">
+                <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="用户名：{{item.order_id}}" bind:click="viewDeleteOrder ">
+                  <view slot="footer" class="foot-btn">
+                    <van-button id="{{item._id}}" size="mini" bind:click="">详细</van-button>
+                  </view>
+                </van-card>
+              </view>
+            </view>
+            <view wx:if="{{delete_tb == 'tb_sec'}}">
+              <view wx:for="{{delete_list}}" wx:key="delete_listID">
+                <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="{{item.sec_id}}" bind:click="viewDeleteSec ">
+                  <view slot="footer" class="foot-btn">
+                    <van-button id="{{item._id}}" size="mini" bind:click="">详细</van-button>
+                  </view>
+                </van-card>
+              </view>
+            </view>
+            <view wx:if="{{delete_tb == 'tb_user'}}">
+              <view wx:for="{{delete_list}}" wx:key="delete_listID">
+                <van-card desc="{{item.user_college}} {{item.user_grade}}级 - {{item.user_major}}" title="用户名：{{item.user_id}}" bind:click="viewDeleteUser ">
+                  <view slot="footer" class="foot-btn">
+                    <van-button id="{{item._id}}" size="mini" bind:click="">详细</van-button>
+                  </view>
+                </van-card>
+              </view>
+            </view>
+          </view>
         </van-collapse-item>
       </van-collapse>
     </van-tab>

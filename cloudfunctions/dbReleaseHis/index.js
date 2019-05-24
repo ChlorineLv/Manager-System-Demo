@@ -28,7 +28,8 @@ exports.main = async(event, context) => {
           his_book_price: event.order_detail.order_book_price,
           his_first: event.checkedBook,
           his_sec: event.checkedBookSec,
-          his_introduction: event.order_detail.order_introduction
+          his_introduction: event.order_detail.order_introduction,
+          his_visible:true,
         },
         success: resAdd => {
           console.log("dbReleaseHis db.collection('tb_his') res:", res);

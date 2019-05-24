@@ -210,25 +210,51 @@ Page({
     })
   },
 
-  autoInput: function(e) {
-    console.log(this.data.inputBookISBN);
-    wx.cloud.callFunction({
-      name: "getISBN",
-      data: {
-        isbn: parseInt(this.data.inputBookISBN)
-      },
-      success: res => {
-        var info = JSON.parse(res.result);
-        console.log(info.data);
-        this.setData({
-          inputBookWriter: info.data.author,
-          inputBookName: info.data.name,
-          inputBookPublisher: info.data.publisher,
-          inputIntroduction: info.data.introduction,
+  scanISBN: function(e){
+    wx.scanCode({
+      onlyFromCamer: true,
+      scanType: ['barCode'],
+      success:res=>{
+        wx.cloud.callFunction({
+          name: "getISBN",
+          data: {
+            isbn: parseInt(res.result)
+          },
+          success: res => {
+            var info = JSON.parse(res.result);
+            console.log(info.data);
+            this.setData({
+              inputBookISBN: info.data.isbn,
+              inputBookWriter: info.data.author,
+              inputBookName: info.data.name,
+              inputBookPublisher: info.data.publisher,
+              inputIntroduction: info.data.introduction,
+            })
+          }
         })
       }
     })
   },
+
+  // autoInput: function(e) {
+  //   console.log(this.data.inputBookISBN);
+  //   wx.cloud.callFunction({
+  //     name: "getISBN",
+  //     data: {
+  //       isbn: parseInt(this.data.inputBookISBN)
+  //     },
+  //     success: res => {
+  //       var info = JSON.parse(res.result);
+  //       console.log(info.data);
+  //       this.setData({
+  //         inputBookWriter: info.data.author,
+  //         inputBookName: info.data.name,
+  //         inputBookPublisher: info.data.publisher,
+  //         inputIntroduction: info.data.introduction,
+  //       })
+  //     }
+  //   })
+  // },
 
   /**
    * 确定发布

@@ -17,8 +17,8 @@
       <van-field name="order_course" required clearable label="课程名称" bind:change="onChangeCourse" type="textarea" autosize="true"/>
       <van-field name="order_teacher" clearable label="任课老师" bind:change="onChangeTeacher" type="textarea" autosize="true"/>
       <van-field name="order_book_name" required clearable label="教材名称" bind:change="onChangeBookName" value="{{inputBookName}}" type="textarea" autosize="true"/>
-      <van-field name="order_book_isbn" required clearable label="教材ISBN" type="number" bind:change="onChangeBookISBN" type="textarea" autosize="true" use-button-slot>
-        <van-button slot="button" size="small" type="mini" bind:click="autoInput">自动生成</van-button>
+      <van-field name="order_book_isbn" required clearable label="教材ISBN" type="number" value="{{inputBookISBN}}" bind:change="onChangeBookISBN" type="textarea" autosize="true" use-button-slot>
+        <van-button slot="button" size="small" type="mini" bind:click="scanISBN">自动生成</van-button>
       </van-field>
       <van-field name="order_book_writer" clearable label="作者/编著者" bind:change="onChangeBookWriter" value="{{inputBookWriter}}" type="textarea" autosize="true"/>
       <van-field name="order_book_version" clearable label="版次" bind:change="onChangeBookVersion" type="textarea" autosize="true"/>

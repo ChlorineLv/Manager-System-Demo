@@ -14,6 +14,7 @@ exports.main = async(event, context) => {
       user_major: event.inputMajor,
       user_pwd: event.inputPwd,
       user_grade: parseInt(event.inputGrade),
+      user_visible:true,
     },
     success: resAdd => {
       return resAdd;
