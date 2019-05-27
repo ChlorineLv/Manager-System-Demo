@@ -50,8 +50,15 @@
       </van-row>
     </view>
   </van-cell-group>
-  <view class="container button-under-container">
-    <van-button type="primary" size="small" form-type="submit" bind:click="btn_submit">登记</van-button>
+  <view class="button-under-container">
+    <van-row>
+      <van-col offset="6">
+        <van-button type="primary" size="small" form-type="submit" bind:click="btn_submit">登记</van-button>
+      </van-col>
+      <van-col offset="3">
+        <van-button type="danger" size='small' bind:click="btn_delete">删除</van-button>
+      </van-col>
+    </van-row>
   </view>
   <van-dialog id="van-dialog" />
 </view>

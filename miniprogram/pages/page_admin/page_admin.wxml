@@ -296,19 +296,58 @@
           </view>
         </van-collapse-item>
         <van-collapse-item title="最近删除" name="2">
+          <view id="selectTag">
+            <van-row>
+              <van-col span="18" offset="3">
+                <van-row>
+                  <van-col span="20">
+                    <picker bindchange="bindTableChange" value="{{indexDeleteTable}}" range="{{arrayDeleteTable}}">
+                      <view>表名：{{delete_tb}}</view>
+                    </picker>
+                    查询结果只展示最近20条。
+                  </van-col>
+                  <van-col span="4">
+                    <view class="container">
+                      <van-button type="primary" style="margin:10px" size="small" bind:click="btnDeleteSearch">查询</van-button>
+                    </view>
+                  </van-col>
+                </van-row>
+              </van-col>
+            </van-row>
+          </view>
+          <view id="" wx:if="{{boolHaveSearchDelete}}">
+            共{{deleteListLength}}条
+          </view>
           <view id="showDeleteList">
-            <view wx:if="{{delete_tb == 'tb_order'}}">
+            <view wx:if="{{delete_tb == 'tb_order' && boolHaveSearchDelete}}">
+              <view wx:for="{{delete_list}}" wx:key="delete_listID" class="card-container">
+                <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="《{{item.order_book_name}}》" bind:click="viewDeleteOrder">
+                  <view slot="tags">学期：{{item.order_semester}}</view>
+                  <view slot="tags">课程：{{item.order_course}}</view>
+                  <view slot="tags">单号：{{item._id}}</view>
+                  <view slot="tags">创建：{{item.order_create_date}}</view>
+                  <view slot="footer" class="foot-btn">
+                    <van-button id="{{item._id}}" size="mini" bind:click="viewDelete">详细</van-button>
+                  </view>
+                </van-card>
+              </view>
+            </view>
+            <view wx:if="{{delete_tb == 'tb_sec' && boolHaveSearchDelete}}">
               <view wx:for="{{delete_list}}" wx:key="delete_listID">
-                <van-card desc="{{item.order_college}} {{item.order_grade}}级 - {{item.order_major}}" title="用户名：{{item.order_id}}" bind:click="viewDeleteOrder ">
+                <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="《{{item.sec_book_name}}》" bind:click="viewDeleteSec ">
                   <view slot="footer" class="foot-btn">
                     <van-button id="{{item._id}}" size="mini" bind:click="">详细</van-button>
                   </view>
                 </van-card>
               </view>
             </view>
-            <view wx:if="{{delete_tb == 'tb_sec'}}">
+            <view wx:if="{{delete_tb == 'tb_rec' && boolHaveSearchDelete}}">
               <view wx:for="{{delete_list}}" wx:key="delete_listID">
-                <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="{{item.sec_id}}" bind:click="viewDeleteSec ">
+                <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="《{{item.rec_book_name}}》" bind:click="viewDeleteRec ">
+                  <view slot="tags">学期：{{item.rec_semester}}</view>
+                  <view slot="tags">课程：{{item.rec_course}}</view>
+                  <view slot="tags">单号：{{item._id}}</view>
+                  <view slot="tags">创建：{{item.rec_create_date}}</view>
                   <view slot="footer" class="foot-btn">
                     <van-button id="{{item._id}}" size="mini" bind:click="">详细</van-button>
                   </view>

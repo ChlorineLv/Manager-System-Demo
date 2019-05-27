@@ -13,6 +13,7 @@ Page({
     checkedBookSec: false,
     id_His: "",
     boolOrderTimeout: true,
+    boolOrderVisible: false,
   },
 
   /**
@@ -37,9 +38,10 @@ Page({
           _id: this.data.hisOrderID
         }).get({
           success: res => {
-            console.log(res.data);
+            // console.log(res.data);
             this.setData({
-              boolOrderTimeout: res.data[0].order_timeout
+              boolOrderTimeout: res.data[0].order_timeout,
+              boolOrderVisible: res.data[0].order_visible,
             })
           }
         })
@@ -120,7 +122,7 @@ Page({
   /**
    * his_update_date日期处理
    */
-  changeDateSingle: function (str) {
+  changeDateSingle: function(str) {
     var date = new Date(str);
     date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     return date;
@@ -130,14 +132,14 @@ Page({
    * 手动侦听“预订”选项改变状态
    */
   onChangeSwitchBook(event) {
-    if (!this.data.boolOrderTimeout) {
+    if (!this.data.boolOrderTimeout && this.data.boolOrderVisible) {
       this.setData({
         checkedBook: event.detail
       });
     } else {
       Dialog.alert({
         title: '提示',
-        message: '预订已截止，不再更新。'
+        message: '预订已失效，不再更新。'
       }).then(() => {
         // on close
       });
@@ -148,14 +150,14 @@ Page({
    * 手动侦听“二手书”选项改变状态
    */
   onChangeSwitchBookSec(event) {
-    if (!this.data.boolOrderTimeout) {
+    if (!this.data.boolOrderTimeout && this.data.boolOrderVisible) {
       this.setData({
         checkedBookSec: event.detail
       });
     } else {
       Dialog.alert({
         title: '提示',
-        message: '预订已截止，不再更新。'
+        message: '预订已失效，不再更新。'
       }).then(() => {
         // on close
       });
@@ -168,7 +170,7 @@ Page({
   btn_submit() {
     // console.log("提交", this.data);
     // console.log(this.data.boolOrderTimeout)
-    if (!this.data.boolOrderTimeout) {
+    if (!this.data.boolOrderTimeout && !this.data.boolOrderVisible) {
       wx.cloud.callFunction({
         name: 'dbUpdateHis',
         data: {
@@ -208,7 +210,7 @@ Page({
     } else {
       Dialog.alert({
         title: '提示',
-        message: '预订已截止，不再更新。'
+        message: '预订已失效，不再更新。'
       }).then(() => {
         // on close
       });

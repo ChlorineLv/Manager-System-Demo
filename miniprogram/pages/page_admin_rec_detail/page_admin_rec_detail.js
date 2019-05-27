@@ -8,7 +8,7 @@ Page({
    */
   data: {
     radioRecCheck: true,
-    recID:"",
+    recID: "",
     rec_detail: [],
     recUpdateDate: "",
     recCheckDate: "",
@@ -110,7 +110,7 @@ Page({
   /**
    * 单个日期处理
    */
-  changeDateSingle: function (str) {
+  changeDateSingle: function(str) {
     var date = new Date(str);
     date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     return date;
@@ -150,7 +150,7 @@ Page({
         recCheckOpinion: this.data.rec_detail.rec_opinion,
         radioRecCheck: this.data.rec_detail.rec_status
       },
-      success:res=> {
+      success: res => {
         console.log("callFunction dbCheckRec result:", res.result)
         if (res.result.stats != undefined) {
           if (res.result.stats.updated == 1) {
@@ -202,5 +202,36 @@ Page({
         console.error("callFunction dbCheckRec err:", err)
       }
     });
+  },
+
+  /**
+   * 删除按钮
+   */
+  btn_delete(event) {
+    wx.cloud.callFunction({
+      name: "dbDelete",
+      data: {
+        dbName: "tb_rec",
+        _id: this.data.recID
+      },
+      success: res => {
+        console.log("btn_delete", res)
+
+        Dialog.alert({
+          title: '已删除',
+          message: '正在返回上一页'
+        }).then(() => {
+          let pages = getCurrentPages(); //当前页面
+          let prevPage = pages[pages.length - 2]; //上一页面
+          prevPage.setData({ //直接给上移页面赋值
+            message: "delete",
+            selAddress: 'yes'
+          });
+          wx.navigateBack({ //返回
+            delta: 1
+          })
+        });
+      }
+    })
   }
 })

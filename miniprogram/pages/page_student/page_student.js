@@ -247,6 +247,7 @@ Page({
               success: resOrder => {
                 // console.log(res.data)
                 res.data[i].his_order_timeout = resOrder.data.order_timeout;
+                res.data[i].his_order_visible = resOrder.data.order_visible;
                 let date = this.changeDateSingle(res.data[i].his_update_date);
                 res.data[i].his_update_date = date;
                 // 必须在db成功后再setData否则同步流导致内容没有变化

@@ -101,6 +101,13 @@ Page({
     rec_list: [],
     activeNamesSetting: [],
     message: "",
+    // Tab删除历史
+    delete_list: [],
+    delete_tb: "tb_order",
+    arrayDeleteTable: ["tb_order", "tb_rec", "tb_sec", "tb_user"],
+    indexDeleteTable: 0,
+    deleteListLength: 0,
+    boolHaveSearchDelete: false
   },
 
   /**
@@ -130,8 +137,10 @@ Page({
     // });
     if (this.data.message == "delete") {
       this.setData({
-        order_list: [],
-        boolHaveSearch:false
+        order_list: [], 
+        rec_list: [],
+        boolHaveSearch: false,
+        boolHaveSearchRec: false,
       })
     }
     Toast.clear();
@@ -347,6 +356,7 @@ Page({
   btn_search(options) {
     this.setData({
       pageIndex: 1,
+      indexPageIndex: "0",
       pageSize: 5
     })
     this.filterSearch();
@@ -650,7 +660,6 @@ Page({
   },
 
 
-
   /**
    * filter-search筛选函数
    */
@@ -929,11 +938,65 @@ Page({
         }
       })
     };
-    if (this.data.activeNamesSetting.indexOf("2") != -1) {}
+    if (this.data.activeNamesSetting.indexOf("2") != -1) {
+
+
+
+    }
   },
 
   /**
-   * button推荐审核传ID
+   * picker选择表
+   */
+  bindTableChange: function(e) {
+    // console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      indexDeleteTable: e.detail.value,
+      delete_tb: this.data.arrayDeleteTable[e.detail.value],
+      boolHaveSearchDelete: false
+    })
+  },
+
+  /**
+   * button预订查询
+   */
+  btnDeleteSearch(options) {
+    this.setData({
+      pageIndex: 1,
+      pageSize: 5
+    })
+    this.filterDeleteSearch();
+  },
+
+  /**
+   * filter-delete-search筛选函数
+   */
+  filterDeleteSearch: function() {
+    Toast.loading({
+      duration: 0,
+      mask: true,
+      message: '加载中...'
+    });
+    wx.cloud.callFunction({
+      name: "dbReadDelete",
+      data: {
+        dbName: this.data.delete_tb,
+        pageSize: 20,
+      }
+    }).then(res => {
+      console.log("dbRead callFunction: tb_order", res.result);
+      this.setData({
+        boolHaveSearchDelete: true,
+        delete_list: res.result.data,
+        deleteListLength: res.result.total,
+      })
+
+      Toast.clear();
+    });
+  },
+
+  /**
+   * button用户管理详情传ID
    */
   viewItemSetting: function(event) {
     var id = event.currentTarget.id;

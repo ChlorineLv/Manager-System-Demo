@@ -298,10 +298,10 @@ Page({
    */
   btn_delete(event) {
     wx.cloud.callFunction({
-      name: "dbDeleteOrder",
+      name: "dbDelete",
       data: {
         dbName: "tb_order",
-        order_id: this.data.order_id
+        _id: this.data.order_id
       },
       success: res => {
         console.log("btn_delete", res)
@@ -311,10 +311,14 @@ Page({
           message: "delete",
           selAddress: 'yes'
         });
-        wx.navigateBack({ //返回
-          delta: 1
-        })
-
+        Dialog.alert({
+          title: '已删除',
+          message: '正在返回上一页'
+        }).then(() => {
+          wx.navigateBack({ //返回
+            delta: 1
+          })
+        });
       }
     })
   }
