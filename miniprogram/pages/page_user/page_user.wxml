@@ -14,9 +14,16 @@
       <van-field name="user_id" required clearable type="number" label="用户ID" bind:change="onChangeID" value="{{user_list.user_id}}" />
       <van-field name="user_pwd" required clearable label="用户密码" bind:change="onChangePwd" value="{{user_list.user_pwd}}"/>
     </van-cell-group>
-    <view class="container button-under-container">
-      <van-button type="primary" size="mini" bind:click="submit">提交</van-button>
-    </view>
+    <view class="button-under-container">
+    <van-row>
+      <van-col offset="6">
+        <van-button type="primary" size="small" bind:click="submit">提交</van-button>
+      </van-col>
+      <van-col offset="3">
+        <van-button type="danger" size='small' bind:click="btn_delete">删除</van-button>
+      </van-col>
+    </van-row>
+  </view>
   </view>
   <van-dialog id="van-dialog" />
 </view>

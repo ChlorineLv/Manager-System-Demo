@@ -327,40 +327,53 @@
                   <view slot="tags">单号：{{item._id}}</view>
                   <view slot="tags">创建：{{item.order_create_date}}</view>
                   <view slot="footer" class="foot-btn">
-                    <van-button id="{{item._id}}" size="mini" bind:click="viewDelete">详细</van-button>
+                    <van-button id="{{item._id}}" size="mini" bind:click="btnRecover">恢复</van-button>
                   </view>
                 </van-card>
               </view>
             </view>
             <view wx:if="{{delete_tb == 'tb_sec' && boolHaveSearchDelete}}">
-              <view wx:for="{{delete_list}}" wx:key="delete_listID">
+              <view wx:for="{{delete_list}}" wx:key="delete_listID" class="card-container">
                 <van-card desc="{{item.sec_college}} {{item.sec_grade}}级 - {{item.sec_major}}" title="《{{item.sec_book_name}}》" bind:click="viewDeleteSec ">
+                  <view slot="tags">学期：{{item.sec_semester}}</view>
+                  <view slot="tags">课程：{{item.sec_course}}</view>
+                  <view slot="tags">单号：{{item._id}}</view>
+                  <view slot="tags">创建：{{item.sec_create_date}}</view>
                   <view slot="footer" class="foot-btn">
-                    <van-button id="{{item._id}}" size="mini" bind:click="">详细</van-button>
+                    <van-button id="{{item._id}}" size="mini" bind:click="btnRecover">恢复</van-button>
                   </view>
                 </van-card>
               </view>
             </view>
             <view wx:if="{{delete_tb == 'tb_rec' && boolHaveSearchDelete}}">
-              <view wx:for="{{delete_list}}" wx:key="delete_listID">
+              <view wx:for="{{delete_list}}" wx:key="delete_listID" class="card-container">
                 <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}}" title="《{{item.rec_book_name}}》" bind:click="viewDeleteRec ">
                   <view slot="tags">学期：{{item.rec_semester}}</view>
                   <view slot="tags">课程：{{item.rec_course}}</view>
                   <view slot="tags">单号：{{item._id}}</view>
                   <view slot="tags">创建：{{item.rec_create_date}}</view>
                   <view slot="footer" class="foot-btn">
-                    <van-button id="{{item._id}}" size="mini" bind:click="">详细</van-button>
+                    <van-button id="{{item._id}}" size="mini" bind:click="btnRecover">恢复</van-button>
                   </view>
                 </van-card>
               </view>
             </view>
-            <view wx:if="{{delete_tb == 'tb_user'}}">
+            <view wx:if="{{delete_tb == 'tb_user'&& boolHaveSearchDelete}}">
               <view wx:for="{{delete_list}}" wx:key="delete_listID">
-                <van-card desc="{{item.user_college}} {{item.user_grade}}级 - {{item.user_major}}" title="用户名：{{item.user_id}}" bind:click="viewDeleteUser ">
-                  <view slot="footer" class="foot-btn">
-                    <van-button id="{{item._id}}" size="mini" bind:click="">详细</van-button>
-                  </view>
-                </van-card>
+                <view wx:if="{{item.user_college !='教务处'}}">
+                  <van-card desc="{{item.user_college}} {{item.user_grade}}级 - {{item.user_major}}" title="用户名：{{item.user_id}}" bind:click="viewUser ">
+                    <view slot="footer" class="foot-btn">
+                      <van-button id="{{item._id}}" size="mini" bind:click="btnRecover">恢复</van-button>
+                    </view>
+                  </van-card>
+                </view>
+                <view wx:if="{{item.user_college=='教务处'}}">
+                  <van-card desc="{{item.user_college}}" title="用户名：{{item.user_id}}" bind:click="viewUser">
+                    <view slot="footer" class="foot-btn">
+                      <van-button id="{{item._id}}" size="mini" bind:click="btnRecover">恢复</van-button>
+                    </view>
+                  </van-card>
+                </view>
               </view>
             </view>
           </view>
@@ -371,4 +384,5 @@
 
   <!-- <van-loading type="spinner " color="#fff " /> -->
   <van-toast id="van-toast" />
+  <van-dialog id="van-dialog" />
 </view>

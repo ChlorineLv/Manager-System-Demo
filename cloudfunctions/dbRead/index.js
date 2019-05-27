@@ -8,7 +8,7 @@ const db = cloud.database()
 exports.main = async(event, context) => {
   const wxContext = cloud.getWXContext();
   var dbName = event.dbName;
-  var filter = event.filter ? event.filter : null;
+  var filter = event.filter ? event.filter : {};
   for (var i in filter) {
     if (filter[i] == null) {
       delete filter[i];

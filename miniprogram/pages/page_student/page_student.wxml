@@ -53,6 +53,7 @@
                 <view slot="tags">单号：{{item._id}}</view>
                 <view slot="tags">创建：{{item.sec_create_date}}</view>
                 <view slot="footer" class="foot-btn">
+                  <!-- <van-button wx:if="{{!item.sec_visbile}}" size="mini" disabled type="warning" plain>已删除</van-button> -->
                   <!-- //状态：0不可见，1初始，10为通过，11为不通过 -->
                   <van-button wx:if="{{item.sec_status==1}}" size="mini" type="info" plain>待审核</van-button>
                   <van-button wx:if="{{item.sec_status==11}}" size="mini" type="warning" plain>不通过</van-button>
@@ -138,6 +139,7 @@
                 <view slot="tags">单号：{{item._id}}</view>
                 <view slot="tags">创建：{{item.rec_create_date}}</view>
                 <view slot="footer" class="foot-btn">
+                  <!-- <van-button wx:if="{{!item.rec_visbile}}" size="mini" disabled type="warning" plain>已删除</van-button> -->
                   <!-- //状态：0不可见，1初始，10为通过，11为不通过 -->
                   <van-button wx:if="{{item.rec_status==1}}" size="mini" type="info" plain>待审核</van-button>
                   <van-button wx:if="{{item.rec_status==11}}" size="mini" type="warning" plain>不通过</van-button>

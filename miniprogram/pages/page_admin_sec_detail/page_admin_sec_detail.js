@@ -202,5 +202,36 @@ Page({
         console.error("callFunction dbCheckSec err:", err)
       }
     });
+  },
+
+  /**
+   * 删除按钮
+   */
+  btn_delete(event) {
+    wx.cloud.callFunction({
+      name: "dbDelete",
+      data: {
+        dbName: "tb_sec",
+        _id: this.data.secID
+      },
+      success: res => {
+        console.log("btn_delete", res)
+
+        Dialog.alert({
+          title: '已删除',
+          message: '正在返回上一页'
+        }).then(() => {
+          let pages = getCurrentPages(); //当前页面
+          let prevPage = pages[pages.length - 2]; //上一页面
+          prevPage.setData({ //直接给上移页面赋值
+            message: "delete",
+            selAddress: 'yes'
+          });
+          wx.navigateBack({ //返回
+            delta: 1
+          })
+        });
+      }
+    })
   }
 })

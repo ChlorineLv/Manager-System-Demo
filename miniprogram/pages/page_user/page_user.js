@@ -22,6 +22,7 @@ Page({
     inputMajor: "",
     inputGrade: "",
     user_list: [],
+    userID:"",
   },
 
   /**
@@ -33,7 +34,8 @@ Page({
       _id: options._id
     }).get().then(res => {
       this.setData({
-        user_list: res.data[0]
+        user_list: res.data[0],
+        userID: options._id
       })
     })
   },
@@ -220,5 +222,36 @@ Page({
         }
       });
     }
+  },
+
+  /**
+   * 删除按钮
+   */
+  btn_delete(event) {
+    wx.cloud.callFunction({
+      name: "dbDelete",
+      data: {
+        dbName: "tb_user",
+        _id: this.data.userID,
+      },
+      success: res => {
+        console.log("btn_delete", res)
+
+        Dialog.alert({
+          title: '已删除',
+          message: '正在返回上一页'
+        }).then(() => {
+          let pages = getCurrentPages(); //当前页面
+          let prevPage = pages[pages.length - 2]; //上一页面
+          prevPage.setData({ //直接给上移页面赋值
+            message: "delete",
+            selAddress: 'yes'
+          });
+          wx.navigateBack({ //返回
+            delta: 1
+          })
+        });
+      }
+    })
   }
 })

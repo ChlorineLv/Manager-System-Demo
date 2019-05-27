@@ -1,6 +1,7 @@
 // miniprogram/pages/page_admin/page_admin.js
 import Notify from '../../miniprogram_npm/vant-weapp/notify/notify';
 import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 const db = wx.cloud.database();
 Page({
 
@@ -137,10 +138,14 @@ Page({
     // });
     if (this.data.message == "delete") {
       this.setData({
-        order_list: [], 
+        order_list: [],
         rec_list: [],
+        sec_list: [],
+        user_list: [],
+        activeNamesSetting: [],
         boolHaveSearch: false,
         boolHaveSearchRec: false,
+        boolHaveSearchSec: false,
       })
     }
     Toast.clear();
@@ -929,13 +934,15 @@ Page({
       activeNamesSetting: event.detail
     });
     if (this.data.activeNamesSetting.indexOf("1") != -1) {
-      db.collection("tb_user").get({
-        success: res => {
-          this.setData({
-            user_list: res.data
-          })
-          // console.log("tb_user",res.data);
+      wx.cloud.callFunction({
+        name: "dbRead",
+        data: {
+          dbName: "tb_user",
         }
+      }).then(res => {
+        this.setData({
+          user_list: res.result.data
+        })
       })
     };
     if (this.data.activeNamesSetting.indexOf("2") != -1) {
@@ -943,6 +950,17 @@ Page({
 
 
     }
+  },
+
+
+  /**
+   * button用户管理详情传ID
+   */
+  viewItemSetting: function(event) {
+    var id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_user/page_user?_id=' + id,
+    })
   },
 
   /**
@@ -995,14 +1013,24 @@ Page({
     });
   },
 
+
   /**
-   * button用户管理详情传ID
+   * 按钮恢复删除
    */
-  viewItemSetting: function(event) {
-    var id = event.currentTarget.id;
-    wx.navigateTo({
-      url: '../page_user/page_user?_id=' + id,
+  btnRecover: function(event) {
+    wx.cloud.callFunction({
+      name: "dbRecover",
+      data: {
+        dbName: this.data.delete_tb,
+        _id: event.currentTarget.id,
+      }
+    }).then(res=>{
+      Dialog.alert({
+        title: '已恢复',
+        
+      }).then(() => {
+        this.filterDeleteSearch()
+      });
     })
   },
-
 })
