@@ -16,12 +16,15 @@
       </picker>
       <van-field name="rec_course" required clearable label="课程名称" bind:change="onChangeCourse" />
       <van-field name="rec_teacher" clearable label="任课老师" bind:change="onChangeTeacher" />
-      <van-field name="rec_book_name" required clearable label="书籍名称" bind:change="onChangeBookName" />
-      <van-field name="rec_book_isbn" required clearable label="书籍ISBN" type="number" bind:change="onChangeBookISBN" />
-      <van-field name="rec_book_writer" clearable label="作者/编著者" bind:change="onChangeBookWriter" />
+      <van-field name="rec_book_name" required clearable label="书籍名称" bind:change="onChangeBookName" value="{{inputBookName}}" type="textarea" autosize="true" />
+      <van-field name="rec_book_isbn" required clearable label="书籍ISBN" type="number" bind:change="onChangeBookISBN" value="{{inputBookISBN}}" type="textarea" autosize="true" use-button-slot>
+        <van-button slot="button" size="small" type="mini" bind:click="scanISBN">扫描</van-button>
+      </van-field>
+      <van-field name="rec_book_writer" clearable label="作者/编著者" bind:change="onChangeBookWriter" value="{{inputBookWriter}}" type="textarea" autosize="true" />
       <van-field name="rec_book_version" clearable label="版次" bind:change="onChangeBookVersion" />
-      <van-field name="rec_book_publisher" clearable label="出版社" bind:change="onChangeBookPublisher" />
+      <van-field name="rec_book_publisher" clearable label="出版社" bind:change="onChangeBookPublisher" value="{{inputBookPublisher}}" type="textarea" autosize="true" />
       <van-field name="rec_book_price" required clearable label="单价" type="digit" bind:change="onChangeBookPrice" />
+      <van-field name="order_introduction" clearable label="简介" placeholder="" value="{{inputIntroduction}}" bind:change="onChangeRemark" type="textarea" autosize="true" />
       <!-- <van-field name="rec_remark" clearable label="备注" placeholder="选填" bind:change="onChangeRemark" /> -->
     </van-cell-group>
     <view class="remark-text">

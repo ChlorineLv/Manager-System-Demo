@@ -1,16 +1,7 @@
+<!--miniprogram/pages/page_student_rec_comment/page_student_rec_comment.wxml-->
 <!--miniprogram/pages/page_student_rec_detail/page_student_rec_detail.wxml-->
 <van-nav-bar title="参考书推荐详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 <view id="showRec">
-  <view class="group-title">
-    <van-cell title="审核详情" value="" />
-  </view>
-  <view class="container">
-    <van-cell-group class="wid-eight">
-      <van-field disabled name="rec_status" label="审核状态" value="{{recStatus}}" />
-      <van-field disabled name="rec_opinion" label="审核留言" value="{{rec_detail.rec_opinion}}" />
-      <van-field disabled name="rec_check_date" left-icon="" label="审核日期" value="{{recCheckDate}}" />
-    </van-cell-group>
-  </view>
   <view class="group-title">
     <van-cell title="书籍详情" value="" />
   </view>
@@ -31,8 +22,23 @@
       <van-field disabled name="rec_book_publisher" label="出版社" value="{{rec_detail.rec_book_publisher}}" type="textarea" autosize="true" />
       <van-field disabled name="rec_book_price" label="单价" value="{{rec_detail.rec_book_price}}" />
       <van-field disabled name="rec_introduction" readonly label="简介" value="{{rec_detail.rec_introduction}}" type="textarea" autosize="true" />
-
     </van-cell-group>
   </view>
-
+  <view class="group-title">
+    <van-cell title="评论详情" value="" />
+  </view>
+  <view class="container">
+    <van-cell-group class="wid-eight">
+      <van-field name="inputComment" clearable placeholder="请输入评论" value="{{inputComment}}" bind:change="onChangeComment" type="textarea" autosize="true" use-button-slot>
+        <van-button slot="button" type="primary" size="mini" bind:click="submit">提交</van-button>
+      </van-field>
+    </van-cell-group>
+  </view>
+  <view class="remark-text">
+    <view wx:for="{{comment_list}}" wx:key="comment_listID" class="card-container">
+      <van-card desc="{{item.com_stu_id}}" title="{{item.com_comment}}">
+        <view slot="tags">{{item.com_create_date}}</view>
+      </van-card>
+    </view>
+  </view>
 </view>

@@ -23,7 +23,7 @@ Page({
       ["计算机科学与技术", "计算机全英联合", "计算机全英创新", "网络工程", "信息安全", ]
     ],
     multiBookSearchIndex: [0, 0],
-    arrayBookSearchSemester: ["无","大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
+    arrayBookSearchSemester: ["无", "大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下"],
     startBookSearchGrade: (new Date().getFullYear()).toString(),
     indexBookSearchSemester: 0,
     indexBookSearchStatus: 0,
@@ -125,7 +125,7 @@ Page({
   /**
    * his_create_date日期处理
    */
-  changeHisUpdateDate: function (arr) {
+  changeHisUpdateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].his_update_date);
       // arr[i].his_update_date = date.toLocaleString();
@@ -137,7 +137,7 @@ Page({
   /**
    * sec_create_date日期处理
    */
-  changeSecCreateDate: function (arr) {
+  changeSecCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].sec_create_date);
       // arr[i].sec_create_date = date.toLocaleString();
@@ -149,7 +149,7 @@ Page({
   /**
    * rec_create_date日期处理
    */
-  changeRecCreateDate: function (arr) {
+  changeRecCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].rec_create_date);
       // arr[i].rec_create_date = date.toLocaleString();
@@ -161,7 +161,7 @@ Page({
   /**
    * order_create_date日期处理
    */
-  changeOrderCreateDate: function (arr) {
+  changeOrderCreateDate: function(arr) {
     for (let i = 0; i < arr.length; i++) {
       let date = new Date(arr[i].order_create_date);
       // arr[i].order_create_date = date.toLocaleString();
@@ -173,7 +173,7 @@ Page({
   /**
    * 单个日期处理
    */
-  changeDateSingle: function (str) {
+  changeDateSingle: function(str) {
     var date = new Date(str);
     date = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + "    " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     return date;
@@ -417,7 +417,7 @@ Page({
       mask: true,
       message: '加载中...'
     });
-    console.log("data",this.data);
+    // console.log("data", this.data);
     // tb_order的查询
     wx.cloud.callFunction({
       name: "dbRead",
@@ -506,6 +506,16 @@ Page({
     // });
 
 
+  },
+
+  /**
+   * btn推荐详情评价
+   */
+  viewItemRecComment: function(event) {
+    let id = event.currentTarget.id;
+    wx.navigateTo({
+      url: '../page_student_rec_comment/page_student_rec_comment?_id=' + id + "&stu_id=" + this.data.stu_id,
+    })
   },
 
   /*********************************************

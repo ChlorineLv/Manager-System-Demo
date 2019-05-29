@@ -27,10 +27,12 @@ exports.main = async(event, context) => {
         rec_book_version: event.inputBookVersion,
         rec_book_publisher: event.inputBookPublisher,
         rec_book_price: parseInt(event.inputBookPrice),
+        rec_introduction: event.inputIntroduction,
         // rec_remark: event.inputRemark,
         //状态：0不可见，1初始，10为通过，11为不通过
         rec_status: 1,
         rec_visible: true,
+        rec_like: 0,
       },
       success: res => {
         console.log("dbReleaseRec db.collection('tb_rec') res:", res);

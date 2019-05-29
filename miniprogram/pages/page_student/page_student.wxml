@@ -30,8 +30,8 @@
                 <view slot="tags">单号：{{item._id}}</view>
                 <view slot="tags">创建：{{item.his_update_date}}</view>
                 <view slot="footer" class="foot-btn">
-                  <van-button wx:if="{{!item.his_order_visbile}}" size="mini" disabled type="warning" plain>已删除</van-button>
-                  <van-button wx:if="{{item.his_order_timeout}}" size="mini" disabled type="warning" plain>已截止</van-button>
+                  <van-button wx:if="{{!item.his_order_visible}}" size="mini" disabled type="warning" plain>已删除</van-button>
+                  <van-button wx:if="{{item.his_order_timeout}}" size="mini" disabled type="danger" plain>已截止</van-button>
                   <van-button id="{{item._id}}" size="mini" bind:click="viewItemHis">详细</van-button>
                 </view>
               </van-card>
@@ -120,6 +120,9 @@
               <van-card desc="{{item.rec_college}} {{item.rec_grade}}级 - {{item.rec_major}} - {{item.rec_semester}}学期" title="《{{item.rec_book_name}}》" bind:click="viewItemRec">
                 <view slot="tags">ISBN：{{item.rec_book_isbn}}</view>
                 <view slot="tags">课程：{{item.rec_course}}</view>
+                <view slot="footer" class="foot-btn">
+                  <van-button id="{{item._id}}" size="mini" bind:click="viewItemRecComment">详细</van-button>
+                </view>
               </van-card>
             </view>
           </view>

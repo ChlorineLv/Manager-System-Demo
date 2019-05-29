@@ -1,39 +1,44 @@
 <!--miniprogram/pages/page_admin_rec_detail/page_admin_rec_detail.wxml-->
 <van-nav-bar title="参考书推荐审核详情" left-text="返回" right-text="注销" left-arrow bind:click-left="onClickLeft" bind:click-right="onClickRight" />
 <view id="showRec">
-  <van-cell-group title="分组1">
-    <view class="group-title">
-      <van-cell title="申请人详情" value="" />
-    </view>
-    <view class="container">
-      <van-field disabled name="rec_stu_id" label="申请人学号" placeholder="{{rec_detail.rec_stu_id}}" />
-      <!-- <van-field disabled name="rec_add" label="申请人宿舍号" placeholder="{{rec_detail.rec_add}}" /> -->
-      <!-- <van-field disabled name="rec_phone" label="联系方式" placeholder="{{rec_detail.rec_phone}}" /> -->
-      <van-field disabled name="rec_create_date" left-icon="" label="申请日期" placeholder="{{recUpdateDate}}" />
-      <!-- <van-field disabled name="_id" left-icon="" label="单号" placeholder="{{rec_detail._id}}" /> -->
-    </view>
-    <view class="group-title">
-      <van-cell title="参考书详情" value="" />
-    </view>
-    <view class="container">
-      <van-field disabled name="rec_college" left-icon="" label="学院名称" placeholder="{{rec_detail.rec_college}}" />
-      <van-field disabled name="rec_major" label="专业名称" placeholder="{{rec_detail.rec_major}}" />
-      <van-field disabled name="rec_grade" label="年级" placeholder="{{rec_detail.rec_grade}}" />
-      <van-field disabled name="rec_semester" label="学期" placeholder="{{rec_detail.rec_semester}}" />
-      <van-field disabled name="rec_course" label="课程名称" placeholder="{{rec_detail.rec_course}}" />
-      <van-field disabled name="rec_teacher" label="任课老师" placeholder="{{rec_detail.rec_teacher}}" />
-      <van-field disabled name="rec_book_name" label="书籍名称" placeholder="{{rec_detail.rec_book_name}}" />
-      <van-field disabled name="rec_book_isbn" label="书籍ISBN" placeholder="{{rec_detail.rec_book_isbn}}" />
-      <van-field disabled name="rec_book_writer" label="作者/编著者" placeholder="{{rec_detail.rec_book_writer}}" />
-      <van-field disabled name="rec_book_version" label="版次" placeholder="{{rec_detail.rec_book_version}}" />
-      <van-field disabled name="rec_book_publisher" label="出版社" placeholder="{{rec_detail.rec_book_publisher}}" />
-      <van-field disabled name="rec_book_price" label="单价" placeholder="{{rec_detail.rec_book_price}}" />
-    </view>
-    <view class="group-title">
-      <van-cell title="审核" value="" />
-    </view>
-    <view class="container">
-      <van-field disabled name="rec_check_date" left-icon="" label="审核日期" placeholder="{{recCheckDate}}" />
+  <view class="group-title">
+    <van-cell title="申请人详情" value="" />
+  </view>
+  <view class="container">
+    <van-cell-group title="分组1" class="wid-eight">
+      <van-field disabled name="rec_stu_id" label="申请人学号" value="{{rec_detail.rec_stu_id}}" />
+      <!-- <van-field disabled name="rec_add" label="申请人宿舍号" value="{{rec_detail.rec_add}}" /> -->
+      <!-- <van-field disabled name="rec_phone" label="联系方式" value="{{rec_detail.rec_phone}}" /> -->
+      <van-field disabled name="rec_create_date" left-icon="" label="申请日期" value="{{recUpdateDate}}" />
+      <!-- <van-field disabled name="_id" left-icon="" label="单号" value="{{rec_detail._id}}" /> -->
+    </van-cell-group>
+  </view>
+  <view class="group-title">
+    <van-cell title="参考书详情" value="" />
+  </view>
+  <view class="container">
+    <van-cell-group title="分组1" class="wid-eight">
+      <van-field disabled name="rec_college" left-icon="" label="学院名称" value="{{rec_detail.rec_college}}" />
+      <van-field disabled name="rec_major" label="专业名称" value="{{rec_detail.rec_major}}" />
+      <van-field disabled name="rec_grade" label="年级" value="{{rec_detail.rec_grade}}" />
+      <van-field disabled name="rec_semester" label="学期" value="{{rec_detail.rec_semester}}" />
+      <van-field disabled name="rec_course" label="课程名称" value="{{rec_detail.rec_course}}" />
+      <van-field disabled name="rec_teacher" label="任课老师" value="{{rec_detail.rec_teacher}}" />
+      <van-field disabled name="rec_book_name" label="书籍名称" value="{{rec_detail.rec_book_name}}" />
+      <van-field disabled name="rec_book_isbn" label="书籍ISBN" value="{{rec_detail.rec_book_isbn}}" />
+      <van-field disabled name="rec_book_writer" label="作者/编著者" value="{{rec_detail.rec_book_writer}}" />
+      <van-field disabled name="rec_book_version" label="版次" value="{{rec_detail.rec_book_version}}" />
+      <van-field disabled name="rec_book_publisher" label="出版社" value="{{rec_detail.rec_book_publisher}}" />
+      <van-field disabled name="rec_book_price" label="单价" value="{{rec_detail.rec_book_price}}" />
+      <van-field disabled name="order_introduction" readonly label="简介" value="{{rec_detail.rec_introduction}}" type="textarea" autosize="true" />
+    </van-cell-group>
+  </view>
+  <view class="group-title">
+    <van-cell title="审核" value="" />
+  </view>
+  <view class="container">
+    <van-cell-group title="分组1" class="wid-eight">
+      <van-field disabled name="rec_check_date" left-icon="" label="审核日期" value="{{recCheckDate}}" />
       <van-field name="rec_opinion" border="{{ false }}" label="审核留言" value="{{rec_detail.rec_opinion}}" bind:change="onChangeOpinion" />
       <van-row>
         <van-col span="6" style="display:block">
@@ -48,8 +53,9 @@
           </van-radio-group>
         </van-col>
       </van-row>
-    </view>
-  </van-cell-group>
+    </van-cell-group>
+  </view>
+
   <view class="button-under-container">
     <van-row>
       <van-col offset="6">

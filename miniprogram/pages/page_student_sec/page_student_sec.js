@@ -31,6 +31,7 @@ Page({
     inputBookISBN: "",
     inputBOokWriter: "",
     inputRemark: "",
+    inputIntroduction: "",
   },
 
   /**
@@ -226,6 +227,32 @@ Page({
     })
   },
 
+  scanISBN: function (e) {
+    wx.scanCode({
+      onlyFromCamer: true,
+      scanType: ['barCode'],
+      success: res => {
+        wx.cloud.callFunction({
+          name: "getISBN",
+          data: {
+            isbn: parseInt(res.result)
+          },
+          success: res => {
+            var info = JSON.parse(res.result);
+            console.log(info.data);
+            this.setData({
+              inputBookISBN: info.data.isbn,
+              inputBookWriter: info.data.author,
+              inputBookName: info.data.name,
+              inputBookPublisher: info.data.publisher,
+              inputIntroduction: info.data.introduction,
+            })
+          }
+        })
+      }
+    })
+  },
+
   /**
    * 确定发布
    */
@@ -259,6 +286,7 @@ Page({
           inputBookISBN: this.data.inputBookISBN,
           inputBookWriter: this.data.inputBookWriter,
           inputRemark: this.data.inputRemark,
+          inputIntroduction: this.data.inputIntroduction,
         },
         success(res) {
           console.log("callFunction dbReleaseSec result:", res.result)

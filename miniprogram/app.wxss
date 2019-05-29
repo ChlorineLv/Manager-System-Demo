@@ -25,7 +25,7 @@
 }
 
 .card-container {
-  padding-top: 1% !important;
+  padding-top: 2% !important;
   /* padding-bottom:1% !important; */
 }
 
@@ -59,6 +59,13 @@
 
 .remark-text {
   margin: 5%;
+  font-family: serif;
+  font-size: 10pt;
+  color: grey;
+}
+
+.comment-text {
+  margin: 10%;
   font-family: serif;
   font-size: 10pt;
   color: grey;
