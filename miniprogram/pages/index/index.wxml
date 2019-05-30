@@ -13,7 +13,10 @@
     <view class="btn-container">
       <van-row gutter='30'>
         <van-col>
-          <van-button open-type="getUserInfo" bind:click="onClickSign" type="primary" size="small">登 陆</van-button>
+          <van-button open-type="getUserInfo" bind:click="onClickSign" type="primary" size="small">登 录</van-button>
+        </van-col>
+        <van-col>
+          <van-button bind:click="onClickFaceSign" type="primary" size="small">刷脸登录</van-button>
         </van-col>
       </van-row>
     </view>

@@ -111,14 +111,51 @@ Page({
   detailJump: function() {
     // Toast("版本号：" + wx.getSystemInfoSync());
     console.log("请联系：ChlorineCL2@outlook.com");
-    // console.log(wx.getSystemInfoSync());
-    wx.cloud.callFunction({
-      name: "getISBN",
-      success: res => {
-        console.log(res);
+    // console.log(wx.getSystemInfoSync()); 
+  },
+
+  onClickFaceSign: function() {
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.camera']) {
+          wx.authorize({
+            scope: 'scope.camera',
+            success() {
+              wx.navigateTo({
+                url: '../index_detail/index_detail',
+              })
+            },
+            fail() {
+              wx.showModal({
+                title: '提示',
+                content: '若点击不授权，将无法使用此功能',
+                cancelText: '不授权',
+                cancelColor: '#999',
+                confirmText: '前往授权',
+                confirmColor: '#1AAD19',
+                success(res) {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success(res) {
+                        wx.navigateTo({
+                          url: '../index_detail/index_detail',
+                        })
+                        console.log(res.authSetting)
+                      }
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          wx.navigateTo({
+            url: '../index_detail/index_detail',
+          })
+        }
       }
     })
-   
   }
-
 })

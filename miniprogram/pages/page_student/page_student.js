@@ -10,6 +10,7 @@ Page({
     stu_id: 0,
     urlRec: "",
     urlSec: "",
+    urlFace:'',
     activeNamesBook: [],
     activeNamesBookRec: [],
     activeNamesBookSec: [],
@@ -50,6 +51,7 @@ Page({
       stu_id: parseInt(options.user_id),
       urlRec: "../page_student_rec/page_student_rec?_id=" + options.user_id,
       urlSec: "../page_student_sec/page_student_sec?_id=" + options.user_id,
+      urlFace:"../page_user_face/page_user_face?_id=" + options.user_id,
     });
     console.log("学生界面，stu_id:", this.data.stu_id);
     db.collection('tb_user').where({
@@ -559,4 +561,49 @@ Page({
       url: '../page_student_rec_detail/page_student_rec_detail?_id=' + id,
     })
   },
+
+  urlJump: function(event) {
+    wx.getSetting({
+      success:res=> {
+        if (!res.authSetting['scope.camera']) {
+          wx.authorize({
+            scope: 'scope.camera',
+            success() {
+              wx.navigateTo({
+                url: this.data.urlFace,
+              })
+            },
+            fail() {
+              wx.showModal({
+                title: '提示',
+                content: '若点击不授权，将无法使用此功能',
+                cancelText: '不授权',
+                cancelColor: '#999',
+                confirmText: '前往授权',
+                confirmColor: '#1AAD19',
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: res => {
+                        wx.navigateTo({
+                          url: this.data.urlFace,
+                        })
+                        console.log(res.authSetting)
+                      }
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          // wx.navigateTo({
+          //   url: this.data.urlFace,
+          // })
+        }
+      }
+    })
+  }
 })

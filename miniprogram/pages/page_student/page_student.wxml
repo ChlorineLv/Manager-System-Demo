@@ -158,7 +158,9 @@
         说明：推荐成功的书目，将在跨专业查询中展示。
       </view>
     </van-tab>
-
+    <van-tab title="个人设置">
+      <van-cell title="人脸识别登记" value="跳转" bind:click="urlJump" url="{{urlFace}}" />
+    </van-tab>
   </van-tabs>
   <van-toast id="van-toast" />
 </view>
