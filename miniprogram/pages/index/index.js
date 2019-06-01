@@ -7,7 +7,8 @@ Page({
    */
   data: {
     in_acc: '',
-    in_pwd: ''
+    in_pwd: '',
+    verDemo: "v1.03.190601",
   },
 
   /**
@@ -110,7 +111,7 @@ Page({
 
   detailJump: function() {
     // Toast("版本号：" + wx.getSystemInfoSync());
-    console.log("请联系：ChlorineCL2@outlook.com");
+    console.log("版本：" + this.data.verDemo + "；请联系：ChlorineCL2@outlook.com");
     // console.log(wx.getSystemInfoSync()); 
   },
 

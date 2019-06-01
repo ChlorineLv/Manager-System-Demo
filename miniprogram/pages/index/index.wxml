@@ -3,6 +3,7 @@
 <view id="indexView" class="container">
   <image src='cloud://test-scutchlorine.7465-test-scutchlorine/image/book-cartoon-130237-1319021.jpg'></image>
   <view bindlongpress='detailJump'>教材管理系统</view>
+  <view bindlongpress='detailJump'>{{verDemo}}</view>
   <view id="loginView" class="container">
     <view class="input-container">
       <van-cell-group>
