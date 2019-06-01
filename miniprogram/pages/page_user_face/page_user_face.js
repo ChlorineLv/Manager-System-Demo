@@ -1,4 +1,5 @@
 // miniprogram/pages/page_user_face/page_user_face.js
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 const db = wx.cloud.database();
 Page({
 
@@ -129,65 +130,75 @@ Page({
                   method: 'POST',
                   success: res => {
                     console.log("detect", res);
-                    this.setData({
-                      faceToken: res.data.faces[0].face_token
-                    })
+                    if (res.data.faces.length != 0) {
 
-                    // 存入user中
-                    wx.cloud.callFunction({
-                      name: "dbUserFace",
-                      data: {
-                        id: this.data.user_detail._id,
-                        faceToken: this.data.faceToken
-                      },
-                      success: res => {
-                        console.log("call", res);
-                        if (res.result.res.stats.updated == 1) {
-                          // 存入faceset中
-                          wx.request({
-                            url: 'https://api-cn.faceplusplus.com/facepp/v3/faceset/addface',
-                            data: {
-                              "api_key": "JIKtvluI6JAMSp04R28g8oviWudMefHX",
-                              "api_secret": "pH9-WNfy0qDmj1310LaEBGT8dSf71MBU",
-                              "faceset_token": "ca1ec46366958e081e6e5cca816bdb26",
-                              "face_tokens": this.data.faceToken
-                            },
-                            header: {
-                              'content-type': 'application/x-www-form-urlencoded'
-                            },
-                            method: 'POST',
-                            success: res => {
-                              console.log("faceset add token", res);
-                              // 查询现有情况
-                              wx.request({
-                                url: 'https://api-cn.faceplusplus.com/facepp/v3/faceset/getdetail',
-                                data: {
-                                  "api_key": "JIKtvluI6JAMSp04R28g8oviWudMefHX",
-                                  "api_secret": "pH9-WNfy0qDmj1310LaEBGT8dSf71MBU",
-                                  "faceset_token": "ca1ec46366958e081e6e5cca816bdb26",
-                                },
-                                header: {
-                                  'content-type': 'application/x-www-form-urlencoded'
-                                },
-                                method: 'POST',
-                                success: res => {
-                                  console.log("getdetail", res);
+                      this.setData({
+                        faceToken: res.data.faces[0].face_token
+                      })
 
-                                },
-                                fail: err => {
-                                  console.log(err)
-                                },
-                                complete: res => {
-                                  // console.log(res)
-                                },
-                              })
-                            }
-                          })
+                      // 存入user中
+                      wx.cloud.callFunction({
+                        name: "dbUserFace",
+                        data: {
+                          id: this.data.user_detail._id,
+                          faceToken: this.data.faceToken
+                        },
+                        success: res => {
+                          console.log("call", res);
+                          if (res.result.res.stats.updated == 1) {
+                            // 存入faceset中
+                            wx.request({
+                              url: 'https://api-cn.faceplusplus.com/facepp/v3/faceset/addface',
+                              data: {
+                                "api_key": "JIKtvluI6JAMSp04R28g8oviWudMefHX",
+                                "api_secret": "pH9-WNfy0qDmj1310LaEBGT8dSf71MBU",
+                                "faceset_token": "ca1ec46366958e081e6e5cca816bdb26",
+                                "face_tokens": this.data.faceToken
+                              },
+                              header: {
+                                'content-type': 'application/x-www-form-urlencoded'
+                              },
+                              method: 'POST',
+                              success: res => {
+                                console.log("faceset add token", res);
+                                Dialog.alert({
+                                  message: '已登记'
+                                }).then(() => {});
+
+                                // 查询现有情况
+                                wx.request({
+                                  url: 'https://api-cn.faceplusplus.com/facepp/v3/faceset/getdetail',
+                                  data: {
+                                    "api_key": "JIKtvluI6JAMSp04R28g8oviWudMefHX",
+                                    "api_secret": "pH9-WNfy0qDmj1310LaEBGT8dSf71MBU",
+                                    "faceset_token": "ca1ec46366958e081e6e5cca816bdb26",
+                                  },
+                                  header: {
+                                    'content-type': 'application/x-www-form-urlencoded'
+                                  },
+                                  method: 'POST',
+                                  success: res => {
+                                    console.log("getdetail", res);
+
+                                  },
+                                  fail: err => {
+                                    console.log(err)
+                                  },
+                                  complete: res => {
+                                    // console.log(res)
+                                  },
+                                })
+                              }
+                            })
+                          }
                         }
-                      }
-                    })
+                      })
 
-
+                    } else {
+                      Dialog.alert({
+                        message: '识别不到人脸'
+                      }).then(() => {});
+                    }
                   },
                   fail: err => {
                     console.log(err)

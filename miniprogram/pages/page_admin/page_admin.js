@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    urlFace: "",
     user_list: [],
     // Tab预订
     multiArray: [
@@ -116,6 +117,9 @@ Page({
    */
   onLoad: function(options) {
     console.log("教务员界面，user_id:", parseInt(options.user_id));
+    this.setData({
+      urlFace: "../page_user_face/page_user_face?_id=" + options.user_id,
+    })
   },
 
   /**
@@ -927,7 +931,55 @@ Page({
    *********************************************/
 
   /**
-   * Collapse二手教材
+   * 人脸识别跳转
+   */
+  urlJump: function(event) {
+    wx.getSetting({
+      success: res => {
+        if (!res.authSetting['scope.camera']) {
+          wx.authorize({
+            scope: 'scope.camera',
+            success() {
+              wx.navigateTo({
+                url: this.data.urlFace,
+              })
+            },
+            fail() {
+              wx.showModal({
+                title: '提示',
+                content: '若点击不授权，将无法使用此功能',
+                cancelText: '不授权',
+                cancelColor: '#999',
+                confirmText: '前往授权',
+                confirmColor: '#1AAD19',
+                success: res => {
+                  if (res.confirm) {
+                    wx.openSetting({
+                      success: res => {
+                        wx.navigateTo({
+                          url: this.data.urlFace,
+                        })
+                        console.log(res.authSetting)
+                      }
+                    })
+                  } else if (res.cancel) {
+                    console.log('用户点击取消')
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          // wx.navigateTo({
+          //   url: this.data.urlFace,
+          // })
+        }
+      }
+    })
+  },
+
+  /**
+   * Collapse
    */
   onChangeCollapseSetting: function(event) {
     this.setData({
@@ -1024,10 +1076,10 @@ Page({
         dbName: this.data.delete_tb,
         _id: event.currentTarget.id,
       }
-    }).then(res=>{
+    }).then(res => {
       Dialog.alert({
         title: '已恢复',
-        
+
       }).then(() => {
         this.filterDeleteSearch()
       });

@@ -2,10 +2,10 @@
 <van-nav-bar title="刷脸登录" left-text="返回" left-arrow bind:click-left="onClickLeft" />
 <view class="page-body">
   <view class="page-body-wrapper">
-    <camera device-position="front" flash="off" binderror="error" style="width: 40%; height: 300px; "></camera>
+    <camera device-position="front" flash="off" binderror="error" style="width: 40%; height: 200px; "></camera>
     <view class="btn-area">
       <van-cell-group class="wid-eight">
-        <van-field disabled readonly clearable label="学号" value="{{user_detail.user_id}}" />
+        <van-field disabled readonly clearable label="账号" value="{{user_detail.user_id}}" />
         <van-field disabled readonly clearable label="其他" value="{{user_detail.user_college}} {{user_detail.user_grade}} {{user_detail.user_major}}" />
       </van-cell-group>
       <view class="container btn-container face-btn">

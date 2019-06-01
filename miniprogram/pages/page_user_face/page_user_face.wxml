@@ -2,15 +2,20 @@
 <van-nav-bar title="刷脸登记" left-text="返回" left-arrow bind:click-left="onClickLeft" />
 <view class="page-body">
   <view class="page-body-wrapper">
-    <camera device-position="front" flash="off" binderror="error" style="width: 80%; height: 300px;"></camera>
-    <view class="btn-area">
-      <button type="primary" bindtap="takePhotoRegister">登记</button>
-    </view>
-    <view class="btn-area">
-      <van-cell-group>
-        <van-field disable clearable label="学号" type="digit" bind:change="onChangeStuId" value="{{inputStuId}}"/>
-      </van-cell-group>
-      <button type="primary" bindtap="takePhotoRecognize">识别</button>
+    <camera device-position="front" flash="off" binderror="error" style="width: 40%; height: 200px;"></camera>
+    <van-cell-group style="margin:10%">
+      <van-field disable readonly clearable label="用户" type="digit" bind:change="onChangeStuId" value="{{inputStuId}}" />
+    </van-cell-group>
+    <view class="container btn-container face-btn">
+      <van-row gutter='30'>
+        <van-col>
+          <van-button bind:click="takePhotoRegister" type="primary" size="small">登 记</van-button>
+        </van-col>
+        <van-col>
+          <van-button bind:click="takePhotoRecognize" type="primary" size="small">识 别</van-button>
+        </van-col>
+      </van-row>
     </view>
   </view>
+  <van-dialog id="van-dialog" />
 </view>
