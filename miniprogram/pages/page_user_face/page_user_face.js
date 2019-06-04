@@ -87,55 +87,55 @@ Page({
   },
 
   takePhotoRegister: function() {
-    wx.request({
-      url: 'https://api-cn.faceplusplus.com/facepp/v3/faceset/removeface',
-      data: {
-        "api_key": "JIKtvluI6JAMSp04R28g8oviWudMefHX",
-        "api_secret": "pH9-WNfy0qDmj1310LaEBGT8dSf71MBU",
-        "faceset_token": "ca1ec46366958e081e6e5cca816bdb26",
-        "face_tokens": this.data.user_detail.user_face
-      },
-      header: {
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'POST',
-      success: res => {
-        console.log("delete face", res);
-        this.ctx.takePhoto({
-          quality: 'high',
-          success: (res) => {
+    this.ctx.takePhoto({
+      quality: 'high',
+      success: (res) => {
+        this.setData({
+          src: res.tempImagePath
+        });
+
+        wx.getFileSystemManager().readFile({
+          filePath: this.data.src,
+          encoding: 'base64',
+          success: res => {
+            // console.log(res);
             this.setData({
-              src: res.tempImagePath
+              faceBase64: res.data
             });
 
-            wx.getFileSystemManager().readFile({
-              filePath: this.data.src,
-              encoding: 'base64',
+            wx.request({
+              url: 'https://api-cn.faceplusplus.com/facepp/v3/detect',
+              data: {
+                "api_key": "JIKtvluI6JAMSp04R28g8oviWudMefHX",
+                "api_secret": "pH9-WNfy0qDmj1310LaEBGT8dSf71MBU",
+                "image_base64": res.data
+              },
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              method: 'POST',
               success: res => {
-                // console.log(res);
-                this.setData({
-                  faceBase64: res.data
-                });
+                console.log("detect", res);
+                if (res.data.faces.length == 1) {
 
-                wx.request({
-                  url: 'https://api-cn.faceplusplus.com/facepp/v3/detect',
-                  data: {
-                    "api_key": "JIKtvluI6JAMSp04R28g8oviWudMefHX",
-                    "api_secret": "pH9-WNfy0qDmj1310LaEBGT8dSf71MBU",
-                    "image_base64": res.data
-                  },
-                  header: {
-                    'content-type': 'application/x-www-form-urlencoded'
-                  },
-                  method: 'POST',
-                  success: res => {
-                    console.log("detect", res);
-                    if (res.data.faces.length != 0) {
+                  this.setData({
+                    faceToken: res.data.faces[0].face_token
+                  });
 
-                      this.setData({
-                        faceToken: res.data.faces[0].face_token
-                      })
-
+                  wx.request({
+                    url: 'https://api-cn.faceplusplus.com/facepp/v3/faceset/removeface',
+                    data: {
+                      "api_key": "JIKtvluI6JAMSp04R28g8oviWudMefHX",
+                      "api_secret": "pH9-WNfy0qDmj1310LaEBGT8dSf71MBU",
+                      "faceset_token": "ca1ec46366958e081e6e5cca816bdb26",
+                      "face_tokens": this.data.user_detail.user_face
+                    },
+                    header: {
+                      'content-type': 'application/x-www-form-urlencoded'
+                    },
+                    method: 'POST',
+                    success: res => {
+                      console.log("delete face", res);
                       // 存入user中
                       wx.cloud.callFunction({
                         name: "dbUserFace",
@@ -193,32 +193,36 @@ Page({
                           }
                         }
                       })
-
-                    } else {
-                      Dialog.alert({
-                        message: '识别不到人脸'
-                      }).then(() => {});
-                    }
-                  },
-                  fail: err => {
-                    console.log(err)
-                  },
-                  complete: res => {
-                    // console.log(res)
-                  },
-                })
-              }
+                    },
+                    fail: err => {
+                      console.log(err)
+                    },
+                    complete: res => {
+                      // console.log(res)
+                    },
+                  })
+                } else if (res.data.faces.length > 1){
+                  Dialog.alert({
+                    message: '识别到超过一张脸，请重试。'
+                  }).then(() => { });
+                } else {
+                  Dialog.alert({
+                    message: '识别不到人脸，请重试。'
+                  }).then(() => { });
+                }
+              },
+              fail: err => {
+                console.log(err)
+              },
+              complete: res => {
+                // console.log(res)
+              },
             })
           }
         })
-      },
-      fail: err => {
-        console.log(err)
-      },
-      complete: res => {
-        // console.log(res)
-      },
+      }
     })
+
 
   },
 
@@ -255,16 +259,27 @@ Page({
               },
               method: 'POST',
               success: res => {
-                console.log("search", res.data.results);
-                db.collection('tb_user').where({
-                  user_face: res.data.results[0].face_token
-                }).get().then(res => {
-                  console.log("tb_user", res)
-                  this.setData({
-                    inputStuId: res.data[0].user_id
-                  })
-                })
-
+                console.log("search", res);
+                if (res.data.results != undefined) {
+                  if (res.data.results[0].confidence >= 75) {
+                    db.collection('tb_user').where({
+                      user_face: res.data.results[0].face_token
+                    }).get().then(res => {
+                      console.log("tb_user", res)
+                      this.setData({
+                        inputStuId: res.data[0].user_id
+                      })
+                    })
+                  } else {
+                    Dialog.alert({
+                      message: '识别误差过大'
+                    }).then(() => {});
+                  }
+                } else {
+                  Dialog.alert({
+                    message: '无法识别'
+                  }).then(() => {});
+                }
               },
               fail: err => {
                 console.log(err)

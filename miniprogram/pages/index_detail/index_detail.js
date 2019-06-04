@@ -1,4 +1,5 @@
 // miniprogram/pages/index_detail/index_detail.js
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 const db = wx.cloud.database();
 Page({
 
@@ -111,16 +112,28 @@ Page({
               },
               method: 'POST',
               success: res => {
-                console.log("search", res.data.results);
-                db.collection('tb_user').where({
-                  user_face: res.data.results[0].face_token
-                }).get().then(res => {
-                  console.log("tb_user", res)
-                  this.setData({
-                    user_detail: res.data[0],
-
-                  })
-                })
+                console.log("search", res);
+                if (res.data.results != undefined) {
+                  if (res.data.results[0].confidence >= 75) {
+                    db.collection('tb_user').where({
+                      user_face: res.data.results[0].face_token
+                    }).get().then(res => {
+                      console.log("tb_user", res)
+                      this.setData({
+                        user_detail: res.data[0],
+                      })
+                    })
+                  } else {
+                    Dialog.alert({
+                      message: '识别误差过大'
+                    }).then(() => { });
+                  }
+                } else {
+                  Dialog.alert({
+                    message: '无法识别'
+                  }).then(() => { });
+                }
+                
 
               },
               fail: err => {
