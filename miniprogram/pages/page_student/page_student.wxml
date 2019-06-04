@@ -131,7 +131,7 @@
     </van-tab>
 
     <van-tab title="参考书推荐">
-      <van-cell title="推荐申请" value="跳转" is-link url="{{urlRec}}" />
+      <van-cell title="推荐申请" value="跳转 >" is-link url="{{urlRec}}" />
       <van-collapse value="{{ activeNamesBookRec }}" bind:change="onChangeCollapseBookRec">
         <van-collapse-item title="个人推荐历史" name="1">
           <view id="showRecMgmt">

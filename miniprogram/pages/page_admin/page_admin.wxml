@@ -273,8 +273,8 @@
     </van-tab>
 
     <van-tab title="用户设置">
-      <van-cell title="人脸识别登记" value="跳转" bind:click="urlJump" url="{{urlFace}}" />
-      <van-cell title="新增用户" value="跳转" is-link url="../page_user_new/page_user_new" />
+      <van-cell title="人脸识别登记" value="跳转 >" bind:click="urlJump" url="{{urlFace}}" />
+      <van-cell title="新增用户" value="跳转 >" url="../page_user_new/page_user_new" />
       <van-collapse value="{{ activeNamesSetting }}" bind:change="onChangeCollapseSetting">
         <van-collapse-item title="用户管理" name="1">
           <view id="showUserList">
