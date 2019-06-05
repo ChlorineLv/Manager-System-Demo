@@ -1,4 +1,5 @@
 // miniprogram/pages/page_student_rec_comment/page_student_rec_comment.js
+import Dialog from "../../miniprogram_npm/vant-weapp/dialog/dialog";
 const db = wx.cloud.database();
 Page({
 
@@ -145,6 +146,17 @@ Page({
       }
     }).then(res=>{
       console.log(res);
+      Dialog.confirm({
+        title: "成功",
+        message: "已成功评论，是否返回上一页"
+      }).then(() => {
+        // on confirm
+        wx.navigateBack({
+          delta: 1
+        })
+      }).catch(() => {
+        // on cancel
+      });
     })
   }
 })
