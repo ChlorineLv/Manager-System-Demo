@@ -8,7 +8,7 @@ Page({
   data: {
     in_acc: '',
     in_pwd: '',
-    verDemo: "v2.04.190601",
+    verDemo: "v2.05.190601",
   },
 
   /**
